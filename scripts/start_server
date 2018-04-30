@@ -1,4 +1,4 @@
 #!/bin/bash
 cd /home/ec2-user/Version
-sudo python ../manage.py runserver 0:80 
+sudo python manage.py runserver 0:80 
 echo "server started!"
