@@ -4,7 +4,7 @@ files:
   - source: /
     destination: /home/ec2-user/Version
 hooks:
-  BeforeInstall:
+  ApplicationStart:
     - location: scripts/start_server
       timeout: 300
       runas: root
