@@ -1,2 +1,7 @@
 *.pyc
 credentials.py
+.idea/Comic-Vault.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
