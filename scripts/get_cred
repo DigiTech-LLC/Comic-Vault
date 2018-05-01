@@ -1,1 +1,1 @@
-sudo cp /home/ec2-user/Deploy/credentials.py ..
+sudo cp /home/ec2-user/Deploy/credentials.py /home/ec2-user/Version
