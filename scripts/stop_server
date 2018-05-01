@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "server stopped!"
+echo "Make sure to stop server"
