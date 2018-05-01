@@ -5,8 +5,12 @@ files:
     destination: /home/ec2-user/Version
 hooks:
   BeforeInstall:
-    - location: scripts/start_server
+    - location: scripts/get-cred
       timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/start_server
+      timeout: 60
       runas: root
   ApplicationStop:
     - location: scripts/stop_server
