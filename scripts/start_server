@@ -1,4 +1,4 @@
 #!/bin/bash
 cd /home/ec2-user/Version
-source start
+source ./start
 echo "server started!"
