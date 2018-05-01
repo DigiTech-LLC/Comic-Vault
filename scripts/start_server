@@ -1,4 +1,4 @@
 #!/bin/bash
 cd /home/ec2-user/Version
-#source /home/ec2-user/Deploy/start
+source /home/ec2-user/Deploy/start
 
