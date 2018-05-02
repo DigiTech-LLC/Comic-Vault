@@ -11,8 +11,12 @@ def index(request):
 
 
 def comicpage(request, id):
+    comic_entry_list = Comics.objects.all().filter(id__in=id)
+    comic_comment_list = ComicComment.object.all().filter(comic_id=id)
     context = {
         'comic_id': id,
+        'comic_entry_list': comic_entry_list
+        'comic_comment_list': comic_comment_list
     }
     return render(request, 'Vault/comic-page.html', context)
 
