@@ -10,5 +10,8 @@ urlpatterns = [
     path('comic/<int:id>/', views.comicpage, name='comicpage'),
 
     # [url]/timeline/user_profile_id
-    path('timeline/<int:id>/', views.timeline, name='timeline')
+    path('timeline/<int:id>/', views.timeline, name='timeline'),
+
+    # [url]/search/
+    path('search/', views.search, name='search')
 ]
