@@ -15,8 +15,6 @@ def comicpage(request, id):
     }
     return render(request, 'Vault/comic-page.html', context)
 
-    #return HttpResponse("IT WOROKRS %s." % id)
-
 
 def timeline(request, id):
     timeline_post_list = TimelinePost.objects.all().filter(user_profile_id=id)
@@ -28,6 +26,9 @@ def timeline(request, id):
     }
     return HttpResponse(template.render(context, request))
 
+
+def search(request):
+    return render(request, 'Vault/search.html')
 
 
 def profile(request, id):
