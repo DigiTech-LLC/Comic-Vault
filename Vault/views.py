@@ -6,4 +6,4 @@ def index(request):
 
 
 def comicpage(request, id):
-    return HttpResponse("pls work %s." % question_id)
+    return HttpResponse("pls work %s." % id)
