@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.template import loader
 
 from .models import TimelinePost, TimelineComment
@@ -9,7 +10,12 @@ def index(request):
 
 
 def comicpage(request, id):
-    return HttpResponse("pls work %s." % id)
+    context = {
+        'comic_id': id,
+    }
+    return render(request, 'Vault/comic-page.html', context)
+
+    #return HttpResponse("IT WOROKRS %s." % id)
 
 
 def timeline(request, id):
