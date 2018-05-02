@@ -11,4 +11,7 @@ urlpatterns = [
 
     # [url]/timeline/user_profile_id
     path('timeline/<int:id>/', views.timeline, name='timeline')
+    
+    # [url]/profile/user_profile_id
+    path('profile/<int:id>/', views.profile, name='profile')
 ]

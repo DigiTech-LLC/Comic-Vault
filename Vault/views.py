@@ -27,3 +27,11 @@ def timeline(request, id):
         'timeline_comment_list': timeline_comment_list
     }
     return HttpResponse(template.render(context, request))
+
+
+
+def profile(request, id):
+    context = {
+        'user_profile_id': id,
+    }
+    return render(request, 'Vault/profile.html', context)
