@@ -11,7 +11,7 @@
         <ul>
         <li>{{ post.user_profile_id.first_name }} {{ post.user_profile_id.last_name }}</li>
         <li>{{ post.content }}</li>
-        <li>Likes: {{ comment.likes }} Dislikes: {{ comment.dislikes }}</li>
+        <li>Likes: {{ post.likes }} Dislikes: {{ post.dislikes }}</li>
         <ul>
         {% if timeline_comment_list %}
             {% for comment in timeline_comment_list %}
