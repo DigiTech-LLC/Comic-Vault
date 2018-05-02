@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.template import loader
 
 
 def index(request):
@@ -6,4 +7,9 @@ def index(request):
 
 
 def comicpage(request, id):
-    return HttpResponse("IT WOROKRS %s." % id)
+    context = {
+        'comic_id': id,
+    }
+    return render(request, 'Vault/comic-page.html', context)
+
+    #return HttpResponse("IT WOROKRS %s." % id)
