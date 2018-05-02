@@ -35,23 +35,59 @@
 
     <div class="container">
 
-      <div class="row">
-        <div class"col-sm-4" style="background-color:red;">
-          {% for comic in comic_entry %}
-            <p class="titleText" >{{ comic.series }}</p>
-            <p class="">Vol: {{ comic.volume }}</p>
-            <p class="">Issue: {{ comic.issue }}</p>
+      <div class="row info">
+        <div class"col-sm-4" style="background-color:cyan;">
+          {% if comic_entry %}
+            {% for comic in comic_entry %}
+              <div class="titleText" >{{ comic.series }}</div>
+              <div>Vol: {{ comic.volume }}</div>
+              <div>Issue: {{ comic.issue }}</div>
+              <div>Writer: {{ comic.writer }}</div>
+              <div>illustrator: {{ comic.illustrator }}</div>
+              <div>colorist: {{ comic.colorist }}</div>
+              <div>publisher: {{ comic.publisher }}</div>
+              <div>cover_art:</div> <img src="{{ comic.cover_art }}" alt="comic cover here">
+              <div>spoiler_free_synopsis: {{ comic.spoiler_free_synopsis }}</div>
+              <div>full_synopsis: {{ comic.full_synopsis }}</div>
+              <div>characters: {{ comic.characters }}</div>
+              <div>average_rating: {{ comic.average_rating }}</div>
 
-          {% endfor %}
+            {% endfor %}
+          {% else %}
+              <p>No comic exists for id</p>
+          {% endif %}
         </div>
-        <div class"col-sm-8">
-          <p>AAAAAAAA IT"S NOT GETTING INTO COLUMNS</p>
+        <div class"col-sm-8"  style="background-color:red;">
+
+          <div>IT"S NOT GETTING INTO COLUMNS</div>
 
         </div>
       </div>
+
+    </br>
+    </br>
+
+      <div class="row">
+        <div class"col-sm-8" style="background-color:cyan;">
+          <ul>
+            {% if comic_comment_list %}
+              {% for comic_comment in comic_comment_list %}
+                <div><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
+                   {{ comic_comment.user_profile_id }} at {{ comic_comment.timestamp }}</div>
+                <div>{{ comic_comment.content }}</div>
+
+              {% endfor %}
+            {% else %}
+                <div>No comments exists for id</div>
+            {% endif %}
+          </ul>
+
+        </div>
+        <div class"col-sm-4"  style="background-color:red;">
+          <div>aaa</div>
+        </div>
+      </div>
+
     </div>
-
-
   </body>
-
 </html>
