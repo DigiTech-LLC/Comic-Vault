@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 
-from .models import TimelinePost, TimelineComment
+from .models import TimelinePost, TimelineComment, Comic, ComicComment
+
 
 
 def index(request):
@@ -10,8 +11,12 @@ def index(request):
 
 
 def comicpage(request, id):
+    comic_entry = Comic.objects.all().filter(id=id)
+    comic_comment_list = ComicComment.objects.all().filter(comic_id=id)
     context = {
         'comic_id': id,
+        'comic_entry': comic_entry,
+        'comic_comment_list': comic_comment_list
     }
     return render(request, 'Vault/comic-page.html', context)
 
