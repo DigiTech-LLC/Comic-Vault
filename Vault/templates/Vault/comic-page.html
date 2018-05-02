@@ -33,14 +33,19 @@
     </nav>
 
 
-    <div class="container ">
+    <div class="container">
 
-      <div class="row top-buffer">
-        <div class"col-md-8 ">
-          <div class="titleText">{{ comic_id }}</div>
+      <div class="row">
+        <div class"col-sm-4" style="background-color:red;">
+          {% for comic in comic_entry %}
+            <p class="titleText" >{{ comic.series }}</p>
+            <p class="">Vol: {{ comic.volume }}</p>
+            <p class="">Issue: {{ comic.issue }}</p>
+
+          {% endfor %}
         </div>
-        <div class"col-md-4">
-          <div>AAAAAAAA</div>
+        <div class"col-sm-8">
+          <p>AAAAAAAA IT"S NOT GETTING INTO COLUMNS</p>
 
         </div>
       </div>
