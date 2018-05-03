@@ -26,8 +26,9 @@ def comicpage(request, id):
 
 
 @login_required
-def timeline(request, id):
-    timeline_post_list = TimelinePost.objects.all().filter(user_profile_id=id)
+def timeline(request):
+    user = request.user
+    timeline_post_list = TimelinePost.objects.all().filter(user_profile_id=user.userprofile.id)
     timeline_comment_list = TimelineComment.objects.all()
     template = loader.get_template('Vault/timeline.html')
     context = {
