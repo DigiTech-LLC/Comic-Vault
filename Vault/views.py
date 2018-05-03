@@ -45,11 +45,12 @@ def search(request):
 
 @login_required
 def profile(request, id):
+    user_profile = UserProfile.objects.get(user_id=id)
+    template = loader.get_template('Vault/profile.html')
     context = {
         'user_profile_id': id,
     }
-    return render(request, 'Vault/profile.html', context)
-
+    return HttpResponse(template.render(context, request))
 
 def signup(request):
     if request.method == 'POST':
@@ -68,3 +69,9 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'Vault/signup.html', {'form': form})
+
+
+def createProfile(request, id):
+    form = CreateProfileForm(request.POST)
+
+    
