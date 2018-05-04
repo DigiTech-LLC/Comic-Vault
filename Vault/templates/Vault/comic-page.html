@@ -35,69 +35,86 @@
 
 
     <div class="container content">
+      {% if comic_entry %}
+        <div class="row">
 
-      <div class="row">
-
-        <div class="col-sm-4 order-sm-8 grey-media">
-          aaa
-          <!--div>lol i forgot an =</div-->
-
-
-        </div>
-
-        <div class="col-sm-8 order-sm-1" style="background-color:cyan;">
-          {% if comic_entry %}
-            <div class="titleText" >{{ comic_entry.series }}</div>
-            <div>Vol: {{ comic_entry.volume }}</div>
-            <div>Issue: {{ comic_entry.issue }}</div>
-            <div>Writer: {{ comic_entry.writer }}</div>
-            <div>illustrator: {{ comic_entry.illustrator }}</div>
-            <div>colorist: {{ comic_entry.colorist }}</div>
-            <div>publisher: {{ comic_entry.publisher }}</div>
-            <div>cover_art:</div> <img src="{{ comic_entry.cover_art }}" alt="comic cover here">
-            <div>spoiler_free_synopsis: {{ comic_entry.spoiler_free_synopsis }}</div>
-            <div>full_synopsis: {{ comic_entry.full_synopsis }}</div>
-            <div>characters: {{ comic_entry.characters }}</div>
+          <!-- picture/short info -->
+          <div class="col-sm-4 order-sm-8 justify-content-center grey-media ">
             </br>
-            <div>average_rating: {{ comic_entry.average_rating }}</div>
+            <img class="rounded mx-auto d-block" src="{{ comic_entry.cover_art }}" alt="No Image Available">
+          </br>
 
-            {% if user_rating %}
-              <div>{{ user.userprofile }}'s rating': {{ user_rating.rating }}</div>
-            {% else %}
-              <div>No rating :(</div>
-            {% endif %}
+            <!-- ratings -->
+            <div class="text-center">
+              <div>
+                Overall Rating:
+                {% if comic_entry.average_rating != 0 %}
+                  {{ comic_entry.average_rating }}
+                {% else %}
+                  -
+                {% endif %}
+                / 5
+              </div>
 
-          {% else %}
-              <p>No comic exists for id</p>
-          {% endif %}
+              <!-- TODO dropdown vv -->
+              <div>
+                Your rating:
+                {% if user_rating %}
+                  {{ user_rating.rating }}
+                {% else %}
+                  -
+                {% endif %}
+                / 5
+              </div>
+            </div>
 
+          </div>
+
+          <!-- long info and comments -->
+          <div class="col-sm-8 order-sm-1" style="background-color:cyan;">
+
+            <!-- info -->
+            <div class="row comic-info">
+              <div class="col-sm-12">
+                <div class="titleText" >{{ comic_entry.series }}</div>
+                <div>Vol: {{ comic_entry.volume }}</div>
+                <div>Issue: {{ comic_entry.issue }}</div>
+                <div>Writer: {{ comic_entry.writer }}</div>
+                <div>illustrator: {{ comic_entry.illustrator }}</div>
+                <div>colorist: {{ comic_entry.colorist }}</div>
+                <div>publisher: {{ comic_entry.publisher }}</div>
+                <div>cover_art:</div>
+                <div>spoiler_free_synopsis: {{ comic_entry.spoiler_free_synopsis }}</div>
+                <div>full_synopsis: {{ comic_entry.full_synopsis }}</div>
+                <div>characters: {{ comic_entry.characters }}</div>
+                </br>
+              </div>
+            </div>
+            </br>
+            </br>
+
+            <!--comments -->
+            <div class="row">
+              <div class="col-sm-12 grey-media">
+                <ul>
+                  {% if comic_comment_list %}
+                    {% for comic_comment in comic_comment_list %}
+                      <div><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
+                         {{ comic_comment.user_profile_id }} at {{ comic_comment.timestamp }}</div>
+                      <div>{{ comic_comment.content }}</div>
+                    {% endfor %}
+                  {% else %}
+                      <div>No comments exists for id</div>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+
+          </div>
         </div>
-
-      </div>
-
-      </br>
-      </br>
-
-      <div class="row">
-        <div class="col-sm-8" style="background-color:cyan;">
-          <ul>
-            {% if comic_comment_list %}
-              {% for comic_comment in comic_comment_list %}
-                <div><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
-                   {{ comic_comment.user_profile_id }} at {{ comic_comment.timestamp }}</div>
-                <div>{{ comic_comment.content }}</div>
-
-              {% endfor %}
-            {% else %}
-                <div>No comments exists for id</div>
-            {% endif %}
-          </ul>
-
-        </div>
-        <div class="col-sm-4"  style="background-color:red;">
-        </div>
-      </div>
-
+      {% else %}
+          <p>No comic exists for id</p>
+      {% endif %}
     </div>
 
 

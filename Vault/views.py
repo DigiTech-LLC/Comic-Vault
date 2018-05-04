@@ -16,9 +16,9 @@ def index(request):
 @login_required
 def comicpage(request, id):
     user = request.user
-    comic_entry = Comic.objects.get(id=id)
+    comic_entry = Comic.objects.filter(id=id).first()
     comic_comment_list = ComicComment.objects.all().filter(comic_id=id)
-    user_rating = Rating.objects.get(user_profile_id=user.userprofile.id, comic_id=id)
+    user_rating = Rating.objects.filter(user_profile_id=user.userprofile.id, comic_id=id).first()
     context = {
         'comic_id': id,
         'comic_entry': comic_entry,
