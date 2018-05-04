@@ -40,12 +40,12 @@ def timeline(request):
 
 @login_required
 def search(request):
-    comic_list = Comic.objects.all()
+	comic_list = Comic.objects.all()
 	template = loader.get_template('Vault/search.html')
 	context = {
-	    'comic_list': comic_list
+		'comic_list': comic_list
 	}
-    return HttpResponse(template.render(context, request))
+	return HttpResponse(template.render(context, request))
 
 
 @login_required
