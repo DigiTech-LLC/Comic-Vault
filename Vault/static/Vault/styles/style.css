@@ -5,3 +5,8 @@
 .title-text {
   font-size: 50px;
 }
+
+.grey-media {
+  border-left: 3px solid #2E2E2E;
+  background-color: #EEE
+}
