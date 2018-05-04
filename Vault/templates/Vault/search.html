@@ -12,6 +12,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 		<title>Comic Vault - Search</title>
+		<base href="http://comicvault.net/">
 	</head>
 	<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -40,7 +41,7 @@
 			<br />
 
 			<div class = "row">
-				<h3>Quick Search by Title:</h3>
+				<h3>Quick Search by Series:</h3>
 
 				<ul class = "nav nav-tabs">
 					<li class = "nav=item">
@@ -133,9 +134,6 @@
 			<form>
 				<div class = "row">
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Title">
-					</div>
-					<div class = "col-xs-6 col-md-3">
 						<input type="text" class="form-control" placeholder="Series">
 					</div>
 					<div class = "col-xs-6 col-md-3">
@@ -181,10 +179,12 @@
 		{% if comic_list %}
 			<ul class = "list-unstyled">
 			{% for comic in comic_list %}
-				<li class = "media" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
+				<li class = "media my-2" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
 					<img class = "ml-3 mr-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
 					<div class="media-body">
-						<h5 class = "mt-0 mb-1">{{comic.series}}</h5>
+						<h5 class = "mt-0 mb-1">
+							<a href={% url comicpage %}>{{comic.series}}</a>
+						</h5>
 						<dl class = "row">
 							<dt class = "col-xs 6 col-sm-3 col-md-1">Volume</dt>
 							<dd class = "col-xs 6 col-sm-1 col-md-1">{{comic.volume}}</dd>
