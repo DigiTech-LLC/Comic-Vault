@@ -72,5 +72,3 @@ def signup(request):
     return render(request, 'Vault/signup.html', {'form': form})
 
 
-def createProfile(request, id):
-    form = CreateProfileForm(request.POST)
