@@ -12,7 +12,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 		<title>Comic Vault - Search</title>
-		<base href="http://comicvault.net/">
 	</head>
 	<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -179,7 +178,7 @@
 		{% if comic_list %}
 			<ul class = "list-unstyled">
 			{% for comic in comic_list %}
-				<li class = "media my-2" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
+				<li class = "media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
 					<img class = "ml-3 mr-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
 					<div class="media-body">
 						<h5 class = "mt-0 mb-1">
