@@ -68,7 +68,7 @@ class Rating(models.Model):
     rating = models.IntegerField()
 
     def __str__(self):
-        return self.rating
+        return "%s's rating for %s" % (self.user_profile_id, self.comic_id)
 
 
 class TimelinePost(models.Model):
