@@ -5,7 +5,7 @@ from django.template import loader
 from django.contrib.auth import login, authenticate
 
 
-from .models import TimelinePost, TimelineComment, Comic, ComicComment
+from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile
 from .forms import SignUpForm
 
 
@@ -45,10 +45,11 @@ def search(request):
 
 @login_required
 def profile(request, id):
-    user_profile = UserProfile.objects.get(user_id=id)
+    user = request.user
+    user_profile = UserProfile.objects.get(id=user.userprofile.id)
     template = loader.get_template('Vault/profile.html')
     context = {
-        'user_profile_id': id,
+        'user_profile': user_profile,
     }
     return HttpResponse(template.render(context, request))
 
@@ -73,5 +74,3 @@ def signup(request):
 
 def createProfile(request, id):
     form = CreateProfileForm(request.POST)
-
-    
