@@ -5,7 +5,7 @@ from django.template import loader
 from django.contrib.auth import login, authenticate
 
 
-from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile
+from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating
 from .forms import SignUpForm
 
 
@@ -15,12 +15,15 @@ def index(request):
 
 @login_required
 def comicpage(request, id):
+    user = request.user
     comic_entry = Comic.objects.all().filter(id=id)
     comic_comment_list = ComicComment.objects.all().filter(comic_id=id)
+    user_rating = Rating.objects.all().filter(user_profile_id=user.userprofile.id, comic_id=id)
     context = {
         'comic_id': id,
         'comic_entry': comic_entry,
-        'comic_comment_list': comic_comment_list
+        'comic_comment_list': comic_comment_list,
+        'user_rating': user_rating
     }
     return render(request, 'Vault/comic-page.html', context)
 
@@ -75,5 +78,3 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'Vault/signup.html', {'form': form})
-
-

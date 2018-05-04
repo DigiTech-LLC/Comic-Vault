@@ -48,7 +48,10 @@
               <div>spoiler_free_synopsis: {{ comic.spoiler_free_synopsis }}</div>
               <div>full_synopsis: {{ comic.full_synopsis }}</div>
               <div>characters: {{ comic.characters }}</div>
+              </br>
               <div>average_rating: {{ comic.average_rating }}</div>
+              <div>{{ user.userprofile }}'s rating': {{ user_rating.rating }}</div>
+
 
             {% endfor %}
           {% else %}
