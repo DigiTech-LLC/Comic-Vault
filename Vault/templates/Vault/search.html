@@ -172,7 +172,7 @@
 
 				<div class = "row">
 					<div class = "col">
-						<button type = "submit" class = "btn btn-primary">Go!</button>
+						<button type = "submit" class = "btn btn-dark">Go!</button>
 					</div>
 				</div>
 			</form>
@@ -183,47 +183,49 @@
 		</div>
 
 		<div class = "container">
+		{% if comic_list %}
 			<ul class = "list-unstyled">
-				<li class = "media" style="border-left: 3px solid #4285F4; background-color: #EEE">
-					<img class = "align-self-center ml-3 mr-3" src="https://vignette.wikia.nocookie.net/x-men/images/1/1d/Uncanny_X-Men_1.jpg/revision/latest?cb=20080818060037" alt="Cover Art" height="270" width="180">
+			{% for comic in comic_list %}
+				<li class = "media" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
+					<img class = "ml-3 mr-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
 					<div class="media-body">
-						<h5 class = "mt-0 mb-1">X-Men</h5>
+						<h5 class = "mt-0 mb-1">{{comic.series}}</h5>
 						<dl class = "row">
-							<dt class = "col-xs 6 col-sm-3 col-md-1">Series</dt>
-							<dd class = "col-xs 6 col-sm-1 col-md-1">1</dd>
-
 							<dt class = "col-xs 6 col-sm-3 col-md-1">Volume</dt>
-							<dd class = "col-xs 6 col-sm-1 col-md-1">1</dd>
+							<dd class = "col-xs 6 col-sm-1 col-md-1">{{comic.volume}}</dd>
 
 							<dt class = "col-xs 6 col-sm-3 col-md-1">Issue</dt>
-							<dd class = "col-xs 6 col-sm-1 col-md-1">1</dd>
+							<dd class = "col-xs 6 col-sm-1 col-md-1">{{comic.issue}}</dd>
 						</dl>
 						<dl class = "row">
 							<dt class = "col-xs 6 col-sm-3 col-md-2">Publisher</dt>
-							<dd class = "col-xs 6 col-sm-3 col-md-2">Marvel</dd>
+							<dd class = "col-xs 6 col-sm-3 col-md-2">{{comic.publisher}}</dd>
 						</dl>
 						<dl class = "row">
-							<dt class = "col-xs 6 col-sm-3 col-md-2">Writer(s)</dt>
-							<dd class = "col-xs 6 col-sm-3 col-md-2">Stan Lee</dd>
+							<dt class = "col-xs 6 col-sm-3 col-md-2">Writer</dt>
+							<dd class = "col-xs 6 col-sm-3 col-md-2">{{comic.writer}}</dd>
 
-							<dt class = "col-xs 6 col-sm-3 col-md-2">Illustrator(s)</dt>
-							<dd class = "col-xs 6 col-sm-3 col-md-2">Jack Kirby, Paul Reinmen</dd>
+							<dt class = "col-xs 6 col-sm-3 col-md-2">Illustrator</dt>
+							<dd class = "col-xs 6 col-sm-3 col-md-2">{{comic.illustrator}}</dd>
 
-							<dt class = "col-xs 6 col-sm-3 col-md-2">Colorist(s)</dt>
-							<dd class = "col-xs 6 col-sm-3 col-md-2">Uncredited</dd>
+							<dt class = "col-xs 6 col-sm-3 col-md-2">Colorist</dt>
+							<dd class = "col-xs 6 col-sm-3 col-md-2">{{comic.colorist}}</dd>
 						</dl>
 						<dl class = "row">
 							<dt class = "col-md-2">Plot Synopsis</dt>
-							<dd class = "col-md-10">At Xavier's School for Gifted Youngsters in Westchester County, New York, Professor Charles Xavier summons his students telepathically. When the Beast, Angel, Iceman, and Cyclops arrive, he puts them through a series of exercises to hone their mutant talents. Xavier then introduces them to a new student, Marvel Girl, to whom he explains the purpose of his school: his students do receive an education, but they are also the first line of defense against evil mutants.</dd>
+							<dd class = "col-md-10">{{comic.spoiler_free_synopsis}}</dd>
 						</dl>
 					</div>
 				</li>
+			{% endfor %}
 			</ul>
+		{% else %}
+			<div class = "row">
+				<div class = "col">
+					<h5>No results.</h5>
+				</div>
+			</div>
+		{% endif %}
 		</div>
-
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-
 	</body>
 </html>
