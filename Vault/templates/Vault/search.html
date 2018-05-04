@@ -172,7 +172,7 @@
 
 				<div class = "row">
 					<div class = "col">
-						<button type = "submit" class = "btn btn-primary">Go!</button>
+						<button type = "submit" class = "btn btn-dark">Go!</button>
 					</div>
 				</div>
 			</form>
@@ -186,8 +186,8 @@
 		{% if comic_list %}
 			<ul class = "list-unstyled">
 			{% for comic in comic_list %}
-				<li class = "media" style="border-left: 3px solid #4285F4; background-color: #EEE">
-					<img class = "align-self-center ml-3 mr-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
+				<li class = "media" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
+					<img class = "ml-3 mr-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
 					<div class="media-body">
 						<h5 class = "mt-0 mb-1">{{comic.series}}</h5>
 						<dl class = "row">
