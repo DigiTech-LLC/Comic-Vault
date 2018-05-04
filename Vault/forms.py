@@ -12,6 +12,3 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
-class CreateProfileForm(forms.Form):
-    bio = forms.CharField(max_length=300, required=False)
-    fav_Char = forms.CharField()
