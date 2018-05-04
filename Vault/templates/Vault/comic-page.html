@@ -4,12 +4,15 @@
   <head>
     <title>Comic Vault</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
+    <link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/style.css' %}">
+
+  </head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -31,45 +34,52 @@
     </nav>
 
 
-    <div class="container">
+    <div class="container content">
 
-      <div class="row info">
-        <div class"col-sm-4" style="background-color:cyan;">
+      <div class="row">
+
+        <div class="col-sm-4 order-sm-8 grey-media">
+          aaa
+          <!--div>lol i forgot an =</div-->
+
+
+        </div>
+
+        <div class="col-sm-8 order-sm-1" style="background-color:cyan;">
           {% if comic_entry %}
-            {% for comic in comic_entry %}
-              <div class="titleText" >{{ comic.series }}</div>
-              <div>Vol: {{ comic.volume }}</div>
-              <div>Issue: {{ comic.issue }}</div>
-              <div>Writer: {{ comic.writer }}</div>
-              <div>illustrator: {{ comic.illustrator }}</div>
-              <div>colorist: {{ comic.colorist }}</div>
-              <div>publisher: {{ comic.publisher }}</div>
-              <div>cover_art:</div> <img src="{{ comic.cover_art }}" alt="comic cover here">
-              <div>spoiler_free_synopsis: {{ comic.spoiler_free_synopsis }}</div>
-              <div>full_synopsis: {{ comic.full_synopsis }}</div>
-              <div>characters: {{ comic.characters }}</div>
-              </br>
-              <div>average_rating: {{ comic.average_rating }}</div>
+            <div class="titleText" >{{ comic_entry.series }}</div>
+            <div>Vol: {{ comic_entry.volume }}</div>
+            <div>Issue: {{ comic_entry.issue }}</div>
+            <div>Writer: {{ comic_entry.writer }}</div>
+            <div>illustrator: {{ comic_entry.illustrator }}</div>
+            <div>colorist: {{ comic_entry.colorist }}</div>
+            <div>publisher: {{ comic_entry.publisher }}</div>
+            <div>cover_art:</div> <img src="{{ comic_entry.cover_art }}" alt="comic cover here">
+            <div>spoiler_free_synopsis: {{ comic_entry.spoiler_free_synopsis }}</div>
+            <div>full_synopsis: {{ comic_entry.full_synopsis }}</div>
+            <div>characters: {{ comic_entry.characters }}</div>
+            </br>
+            <div>average_rating: {{ comic_entry.average_rating }}</div>
+
+            {% if user_rating %}
               <div>{{ user.userprofile }}'s rating': {{ user_rating.rating }}</div>
+            {% else %}
+              <div>No rating :(</div>
+            {% endif %}
 
-
-            {% endfor %}
           {% else %}
               <p>No comic exists for id</p>
           {% endif %}
-        </div>
-        <div class"col-sm-8"  style="background-color:red;">
-
-          <div>IT"S NOT GETTING INTO COLUMNS</div>
 
         </div>
+
       </div>
 
-    </br>
-    </br>
+      </br>
+      </br>
 
       <div class="row">
-        <div class"col-sm-8" style="background-color:cyan;">
+        <div class="col-sm-8" style="background-color:cyan;">
           <ul>
             {% if comic_comment_list %}
               {% for comic_comment in comic_comment_list %}
@@ -84,11 +94,13 @@
           </ul>
 
         </div>
-        <div class"col-sm-4"  style="background-color:red;">
-          <div>aaa</div>
+        <div class="col-sm-4"  style="background-color:red;">
         </div>
       </div>
 
     </div>
+
+
+
   </body>
 </html>

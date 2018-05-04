@@ -1,4 +1,7 @@
-.top-buffer { margin-top:20px; }
-.titleText {
+.top-buffer {
+  margin-top:20px;
+}
+
+.title-text {
   font-size: 50px;
 }
