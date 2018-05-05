@@ -43,12 +43,12 @@ def timeline(request):
 
 @login_required
 def search(request):
-	comic_list = Comic.objects.all()
-	template = loader.get_template('Vault/search.html')
-	context = {
-		'comic_list': comic_list
-	}
-	return HttpResponse(template.render(context, request))
+    comic_list = Comic.objects.all()
+    template = loader.get_template('Vault/search.html')
+    context = {
+        'comic_list': comic_list
+    }
+    return HttpResponse(template.render(context, request))
 
 
 @login_required
@@ -60,6 +60,7 @@ def profile(request, id):
         'user_profile': user_profile,
     }
     return HttpResponse(template.render(context, request))
+
 
 def signup(request):
     if request.method == 'POST':
