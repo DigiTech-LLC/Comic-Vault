@@ -6,8 +6,10 @@
     <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
+
 
 
     <link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/style.css' %}">
@@ -33,19 +35,32 @@
         </ul>
     </nav>
 
+    <!--TODO move title to top always -->
 
     <div class="container content">
       {% if comic_entry %}
+
+        <!-- title -->
+        <div class="row">
+
+          <div class="col-sm-12 border-bottom">
+            <span class="display-4">{{ comic_entry.series }}</span>
+            <span class="lead text-secondary">Vol: {{ comic_entry.volume }}, Issue: {{ comic_entry.issue }}</span>
+          </div>
+        </div>
+
+
         <div class="row">
 
           <!-- picture/short info -->
-          <div class="col-sm-4 order-sm-8 justify-content-center grey-media ">
+          <div class="col-sm-4 order-sm-8 justify-content-center border-left bg-light">
             </br>
             <img class="rounded mx-auto d-block" src="{{ comic_entry.cover_art }}" alt="No Image Available">
-          </br>
+
 
             <!-- ratings -->
-            <div class="text-center">
+            <div class="text-center border-bottom lead">
+              </br>
               <div>
                 Overall Rating:
                 {% if comic_entry.average_rating != 0 %}
@@ -66,26 +81,36 @@
                 {% endif %}
                 / 5
               </div>
+              </br>
+            </div>
+            </br>
+            <!-- Publishing info -->
+            <div>
+              <div class="row">
+
+              </div>
+                <div>Writer: {{ comic_entry.writer }}</div>
+                <div>illustrator: {{ comic_entry.illustrator }}</div>
+                <div>colorist: {{ comic_entry.colorist }}</div>
+                <div>publisher: {{ comic_entry.publisher }}</div>
             </div>
 
           </div>
 
           <!-- long info and comments -->
-          <div class="col-sm-8 order-sm-1" style="background-color:cyan;">
-
+          <div class="col-sm-8 order-sm-1">
+            </br>
             <!-- info -->
             <div class="row comic-info">
               <div class="col-sm-12">
-                <div class="titleText" >{{ comic_entry.series }}</div>
-                <div>Vol: {{ comic_entry.volume }}</div>
-                <div>Issue: {{ comic_entry.issue }}</div>
-                <div>Writer: {{ comic_entry.writer }}</div>
-                <div>illustrator: {{ comic_entry.illustrator }}</div>
-                <div>colorist: {{ comic_entry.colorist }}</div>
-                <div>publisher: {{ comic_entry.publisher }}</div>
-                <div>cover_art:</div>
-                <div>spoiler_free_synopsis: {{ comic_entry.spoiler_free_synopsis }}</div>
-                <div>full_synopsis: {{ comic_entry.full_synopsis }}</div>
+
+                <div class="border-bottom"><strong>Synopsis:</strong></div>
+                <div>{{ comic_entry.spoiler_free_synopsis }}</div>
+                </br>
+                <a class="border-bottom btn btn-light" data-toggle="collapse" href="#spoiler" aria-expanded="false" aria-controls="#spoiler">Full Plot (Spoilers)</a>
+                <div class="collapse border-top" id="spoiler">
+                  {{ comic_entry.full_synopsis }}
+                </div>
                 <div>characters: {{ comic_entry.characters }}</div>
                 </br>
               </div>
