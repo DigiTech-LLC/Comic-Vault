@@ -26,26 +26,29 @@
         {% endif %}
         </ul>
     </nav>
+
 {% if timeline_post_list %}
     {% for post in timeline_post_list %}
-        <ul>
-        <li>{{ post.user_profile_id.first_name }} {{ post.user_profile_id.last_name }}</li>
-        <li>{{ post.content }}</li>
-        <li>Likes: {{ post.likes }} Dislikes: {{ post.dislikes }}</li>
-        <ul>
-        {% if timeline_comment_list %}
-            {% for comment in timeline_comment_list %}
-                {% if comment.timeline_post_id == post%}
-                    <li>{{ comment.user_profile_id.first_name }} {{ comment.user_profile_id.last_name }}</li>
-                    <li>{{ comment.content }}</li>
-                {% endif %}
-            {% endfor %}
-        {% else %}
-            <li>No comments</li>
+        {% if post.user_profile_id == user.userprofile or post.user_profile_id in following_list %}
+            <ul>
+            <li>{{ post.user_profile_id.first_name }} {{ post.user_profile_id.last_name }}</li>
+            <li>{{ post.content }}</li>
+            <li>Likes: {{ post.likes }} Dislikes: {{ post.dislikes }}</li>
+            <ul>
+            {% if timeline_comment_list %}
+                {% for comment in timeline_comment_list %}
+                    {% if comment.timeline_post_id == post%}
+                        <li>{{ comment.user_profile_id.first_name }} {{ comment.user_profile_id.last_name }}</li>
+                        <li>{{ comment.content }}</li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <li>No comments</li>
+            {% endif %}
+            </ul>
+            </ul>
+            <br>
         {% endif %}
-        </ul>
-        </ul>
-        <br>
     {% endfor %}
 {% else %}
     <p>No comments are available.</p>

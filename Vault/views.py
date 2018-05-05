@@ -32,10 +32,15 @@ def comicpage(request, id):
 @login_required
 def timeline(request):
     user = request.user
-    timeline_post_list = TimelinePost.objects.all().filter(Q(user_profile_id=user.userprofile.id))
+    following = Follow.objects.filter(id_1__user=user)
+    follow_id_2_list = []
+    for follow_entity in following:
+        follow_id_2_list.append(follow_entity.id_2)
+    timeline_post_list = TimelinePost.objects.all()
     timeline_comment_list = TimelineComment.objects.all()
     template = loader.get_template('Vault/timeline.html')
     context = {
+        'following_list' : follow_id_2_list,
         'timeline_post_list': timeline_post_list,
         'timeline_comment_list': timeline_comment_list
     }
