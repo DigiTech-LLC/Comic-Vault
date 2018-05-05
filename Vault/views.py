@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
+from django.db.models import Q
 
 
-from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating
+from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow
 from .forms import SignUpForm
 
 
@@ -31,7 +32,7 @@ def comicpage(request, id):
 @login_required
 def timeline(request):
     user = request.user
-    timeline_post_list = TimelinePost.objects.all().filter(user_profile_id=user.userprofile.id)
+    timeline_post_list = TimelinePost.objects.all().filter(Q(user_profile_id=user.userprofile.id))
     timeline_comment_list = TimelineComment.objects.all()
     template = loader.get_template('Vault/timeline.html')
     context = {
