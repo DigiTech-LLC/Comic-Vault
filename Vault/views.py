@@ -36,7 +36,7 @@ def timeline(request):
     follow_id_2_list = []
     for follow_entity in following:
         follow_id_2_list.append(follow_entity.id_2)
-    timeline_post_list = TimelinePost.objects.all()
+    timeline_post_list = TimelinePost.objects.all().order_by('-timestamp')
     timeline_comment_list = TimelineComment.objects.all()
     template = loader.get_template('Vault/timeline.html')
     context = {
