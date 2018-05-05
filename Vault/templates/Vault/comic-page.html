@@ -107,12 +107,18 @@
                 <div class="border-bottom"><strong>Synopsis:</strong></div>
                 <div>{{ comic_entry.spoiler_free_synopsis }}</div>
                 </br>
+
                 <a class="border-bottom btn btn-light" data-toggle="collapse" href="#spoiler" aria-expanded="false" aria-controls="#spoiler">Full Plot (Spoilers)</a>
                 <div class="collapse border-top" id="spoiler">
                   {{ comic_entry.full_synopsis }}
                 </div>
-                <div>characters: {{ comic_entry.characters }}</div>
                 </br>
+                </br>
+
+                <div class="border-bottom"><strong>Characters:</strong></div>
+                <div>{{ comic_entry.characters }}</div>
+                </br>
+
               </div>
             </div>
             </br>
