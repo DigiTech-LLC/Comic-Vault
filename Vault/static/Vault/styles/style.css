@@ -1,4 +1,16 @@
-.top-buffer { margin-top:20px; }
-.titleText {
+.top-buffer {
+  margin-top:20px;
+}
+
+.title-text {
   font-size: 50px;
+}
+
+.sub-title-text {
+  font-size: 20px;
+}
+
+div .grey-media {
+  border-left: 3px solid #2E2E2E;
+  background-color: #868e96;
 }
