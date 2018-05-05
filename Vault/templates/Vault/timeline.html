@@ -4,54 +4,75 @@
     <title>Comic Vault</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Comic Vault</a>
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
-          <li class="nav-item active"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
-          <li class="nav-item"><a href="{% url 'search' %}" class="nav-link">Search</a></li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
+    <a class="navbar-brand" href="#">Comic Vault</a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+        <li class="nav-item active"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
+        <li class="nav-item"><a href="{% url 'search' %}" class="nav-link">Search</a></li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
-            <li class="nav-item"><a href="{% url 'profile' user.userprofile.id %}" class="nav-link"><span class="glyphicon glyphicon-user"></span> {{ user.userprofile.first_name }} </a></li>
-            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            <li class="nav-item"><a href="{% url 'profile' user.userprofile.id %}" class="nav-link"><span
+                    class="glyphicon glyphicon-user"></span> {{ user.userprofile.first_name }} </a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link"><span
+                    class="glyphicon glyphicon-log-in"></span> Logout</a></li>
         {% else %}
-            <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li class="nav-item"><a href="{% url 'login' %}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link"><span
+                    class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li class="nav-item"><a href="{% url 'login' %}" class="nav-link"><span
+                    class="glyphicon glyphicon-log-in"></span> Login</a></li>
         {% endif %}
-        </ul>
-    </nav>
+    </ul>
+</nav>
 
-{% if timeline_post_list %}
-    {% for post in timeline_post_list %}
-        {% if post.user_profile_id == user.userprofile or post.user_profile_id in following_list %}
-            <ul>
-            <li>{{ post.user_profile_id.first_name }} {{ post.user_profile_id.last_name }}</li>
-            <li>{{ post.content }}</li>
-            <li>Likes: {{ post.likes }} Dislikes: {{ post.dislikes }}</li>
-            <ul>
-            {% if timeline_comment_list %}
-                {% for comment in timeline_comment_list %}
-                    {% if comment.timeline_post_id == post%}
-                        <li>{{ comment.user_profile_id.first_name }} {{ comment.user_profile_id.last_name }}</li>
-                        <li>{{ comment.content }}</li>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                <li>No comments</li>
-            {% endif %}
+<div class="container w-80">
+    {% if timeline_post_list %}
+        {% for post in timeline_post_list %}
+            <ul class="list-unstyled justify-content-center">
+                {% if post.user_profile_id == user.userprofile or post.user_profile_id in following_list %}
+                    <li class="media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
+                        <img class="mr-3 ml-3" src="{{ post.user_profile_id.profile_picture }}" alt="Profile Picture"
+                             height="64px" width="64px">
+                        <div class="media-body">
+                            <h5 class="mt-0"><a href={% url 'profile' post.user_profile_id.id %}>{{ post.user_profile_id.first_name }} {{ post.user_profile_id.last_name }}</a></h5>
+                            <p>{{ post.content }}</p>
+                            <p style="color:#6d6d6c;">Likes: {{ post.likes }} Dislikes: {{ post.dislikes }}</p>
+                            <p style="color:#6d6d6c;"> {{ post.timestamp }} </p>
+                            <ul class="list-unstyled">
+                                {% if timeline_comment_list %}
+                                    {% for comment in timeline_comment_list %}
+                                        {% if comment.timeline_post_id == post %}
+                                            <li class="media my-4 mr-4" style="border-left: 3px solid #2E2E2E; background-color: #dcdcdc">
+                                                <a class="pr-3 ml-3" href="#">
+                                                    <img src="{{ comment.user_profile_id.profile_picture }}"
+                                                         alt="Profile Picture" height="64px" width="64px">
+                                                </a>
+                                                <div class="media-body">
+                                                    <h5 class="mt-0"><a
+                                                            href={% url 'profile' comment.user_profile_id.id %}>{{ comment.user_profile_id.first_name }} {{ comment.user_profile_id.last_name }}</a>
+                                                    </h5>
+                                                    <p>{{ comment.content }}</p>
+                                                </div>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
             </ul>
-            </ul>
-            <br>
-        {% endif %}
-    {% endfor %}
-{% else %}
-    <p>No comments are available.</p>
-{% endif %}
+        {% endfor %}
+    {% else %}
+        <p class="container w-80 justify-content-center" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
+            No comments are available.</p>
+    {% endif %}
+</div>
 </body>
 </html>
