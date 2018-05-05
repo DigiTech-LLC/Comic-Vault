@@ -102,8 +102,8 @@ class GeneralNews(models.Model):
 
 class NewsfeedItem(models.Model):
     timestamp = models.DateTimeField()
-    comic_id = models.ForeignKey(Comic, on_delete=models.CASCADE, related_name='comic_id')
-    general_news_id = models.ForeignKey(Comic, on_delete=models.CASCADE, related_name='general_news_id')
+    comic_id = models.ForeignKey(Comic, on_delete=models.CASCADE, related_name='comic_id', blank=True)
+    general_news_id = models.ForeignKey(Comic, on_delete=models.CASCADE, related_name='general_news_id', blank=True)
 
     def __str__(self):
         return self.timestamp
