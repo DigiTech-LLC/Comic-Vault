@@ -106,7 +106,7 @@ class NewsfeedItem(models.Model):
     general_news_id = models.ForeignKey(GeneralNews, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return self.timestamp
+        return str(self.id)
 
 
 class NewsfeedComment(models.Model):
