@@ -34,10 +34,15 @@
 <div class="container w-80">
     <div class="form-group media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
         <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}" alt="Profile Picture" height="64px" width="64px">
-        <div class="column container-fluid">
+        <!--<div class="column container-fluid">
             <textarea type="text" rows="4" class="form-control mt-3 mr-3 my-3" id="post_input" placeholder="Share something on ComicVault"></textarea>
             <button type="submit" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;">Post</button>
-        </div>
+        </div>-->
+        <form method="post">
+            {% csrf_token %}
+            {{ postform }}
+            <input type="submit" value="Submit" name="Post"/>
+        </form>
     </div>
     {% if timeline_post_list %}
         {% for post in timeline_post_list %}
@@ -73,10 +78,16 @@
                                 {% endif %}
                                 <div class="form-group media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
                                     <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}" alt="Profile Picture" height="64px" width="64px">
-                                    <div class="column container-fluid">
+                                    <!--<div class="column container-fluid">
                                         <textarea type="text" rows="2" class="form-control mt-3 mr-3 my-3" id="comment_input" placeholder="Comment on this post"></textarea>
                                         <button type="submit" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;">Post</button>
-                                    </div>
+                                    </div>-->
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {{ commentform }}
+                                        <input type="hidden" value="{{ post.id }}" name="timeline_post_id">
+                                        <input type="submit" value="Submit" name="Comment"/>
+                                    </form>
                                 </div>
                             </ul>
                         </div>
