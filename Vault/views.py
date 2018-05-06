@@ -5,7 +5,8 @@ from django.template import loader
 from django.contrib.auth import login, authenticate
 
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow
-from .forms import SignUpForm
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm
+import datetime
 
 
 def index(request):
@@ -29,6 +30,32 @@ def comicpage(request, id):
 
 @login_required
 def timeline(request):
+    if request.method == 'POST':
+        postform = TimelinePostForm
+        commentform = TimelineCommentForm
+        if 'Post' in request.POST:
+            postform = TimelinePostForm(request.POST)
+            if postform.is_valid():
+                post = postform.save(commit=False)
+                post.content = postform.cleaned_data.get('content')
+                post.timestamp = datetime.datetime.now()
+                post.likes = 0
+                post.dislikes = 0
+                post.user_profile_id = request.user.userprofile
+                post.save()
+        elif 'Comment' in request.POST:
+            commentform = TimelineCommentForm(request.POST)
+            if commentform.is_valid():
+                post = commentform.save(commit=False)
+                post.content = commentform.cleaned_data.get('content')
+                post.timestamp = datetime.datetime.now()
+                post.timeline_post_id = TimelinePost.objects.get(id=request.POST['timeline_post_id'])
+                post.user_profile_id = request.user.userprofile
+                post.save()
+    else:
+        postform = TimelinePostForm()
+        commentform = TimelineCommentForm()
+
     user = request.user
     following = Follow.objects.filter(id_1__user=user)
     follow_id_2_list = []
@@ -36,13 +63,15 @@ def timeline(request):
         follow_id_2_list.append(follow_entity.id_2)
     timeline_post_list = TimelinePost.objects.all().order_by('-timestamp')
     timeline_comment_list = TimelineComment.objects.all()
-    template = loader.get_template('Vault/timeline.html')
+    #template = loader.get_template('Vault/timeline.html')
     context = {
-        'following_list' : follow_id_2_list,
+        'following_list': follow_id_2_list,
         'timeline_post_list': timeline_post_list,
-        'timeline_comment_list': timeline_comment_list
+        'timeline_comment_list': timeline_comment_list,
+        'postform': postform,
+        'commentform': commentform
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'Vault/timeline.html', context)
 
 
 @login_required
