@@ -4,8 +4,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
 
-
-from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating
+from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow
 from .forms import SignUpForm
 
 
@@ -31,10 +30,15 @@ def comicpage(request, id):
 @login_required
 def timeline(request):
     user = request.user
-    timeline_post_list = TimelinePost.objects.all().filter(user_profile_id=user.userprofile.id)
+    following = Follow.objects.filter(id_1__user=user)
+    follow_id_2_list = []
+    for follow_entity in following:
+        follow_id_2_list.append(follow_entity.id_2)
+    timeline_post_list = TimelinePost.objects.all().order_by('-timestamp')
     timeline_comment_list = TimelineComment.objects.all()
     template = loader.get_template('Vault/timeline.html')
     context = {
+        'following_list' : follow_id_2_list,
         'timeline_post_list': timeline_post_list,
         'timeline_comment_list': timeline_comment_list
     }
