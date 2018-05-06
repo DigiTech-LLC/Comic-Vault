@@ -15,7 +15,7 @@ class SignUpForm(UserCreationForm):
 
 
 class TimelinePostForm(forms.ModelForm):
-    content = forms.Textarea()
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Share something on ComicVault', 'rows': '4'}), label='')
 
     class Meta:
         model = TimelinePost
@@ -23,7 +23,7 @@ class TimelinePostForm(forms.ModelForm):
 
 
 class TimelineCommentForm(forms.ModelForm):
-    content = forms.Textarea()
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Comment on this post', 'rows': '2'}), label='')
 
     class Meta:
         model = TimelineComment

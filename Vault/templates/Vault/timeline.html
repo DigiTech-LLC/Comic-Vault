@@ -30,7 +30,7 @@
         {% endif %}
     </ul>
 </nav>
-
+{% load bootstrap %}
 <div class="container w-80">
     <div class="form-group media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
         <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}" alt="Profile Picture" height="64px" width="64px">
@@ -38,10 +38,12 @@
             <textarea type="text" rows="4" class="form-control mt-3 mr-3 my-3" id="post_input" placeholder="Share something on ComicVault"></textarea>
             <button type="submit" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;">Post</button>
         </div>-->
-        <form method="post">
+        <form method="post" class="column container-fluid">
             {% csrf_token %}
-            {{ postform }}
-            <input type="submit" value="Submit" name="Post"/>
+            <div class="mr-3">
+                {{ postform | bootstrap }}
+            </div>
+            <input type="submit" value="Submit" name="Post" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
         </form>
     </div>
     {% if timeline_post_list %}
@@ -76,17 +78,19 @@
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
-                                <div class="form-group media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
+                                <div class="form-group my-3 mr-3 media" style="border-left: 3px solid #2E2E2E; background-color: #dcdcdc">
                                     <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}" alt="Profile Picture" height="64px" width="64px">
                                     <!--<div class="column container-fluid">
                                         <textarea type="text" rows="2" class="form-control mt-3 mr-3 my-3" id="comment_input" placeholder="Comment on this post"></textarea>
                                         <button type="submit" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;">Post</button>
                                     </div>-->
-                                    <form method="post">
+                                    <form method="post" class="column container-fluid">
                                         {% csrf_token %}
-                                        {{ commentform }}
+                                        <div class="mr-3">
+                                            {{ commentform | bootstrap }}
+                                        </div>
                                         <input type="hidden" value="{{ post.id }}" name="timeline_post_id">
-                                        <input type="submit" value="Submit" name="Comment"/>
+                                        <input type="submit" value="Submit" name="Comment" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
                                     </form>
                                 </div>
                             </ul>

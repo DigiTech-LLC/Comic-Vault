@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrapform',
     'Vault.apps.VaultConfig',
     'django.contrib.admin',
     'django.contrib.auth',
