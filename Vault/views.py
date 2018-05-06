@@ -21,7 +21,6 @@ def comicpage(request, id):
     comic_comment_list = ComicComment.objects.all().filter(comic_id=id)
     comic_rating_average = Rating.objects.filter(comic_id=id).aggregate(Avg('rating'))
     user_rating = Rating.objects.filter(user_profile_id=user.userprofile.id, comic_id=id).first()
-    print(comic_rating_average)
     context = {
         'comic_id': id,
         'comic_entry': comic_entry,

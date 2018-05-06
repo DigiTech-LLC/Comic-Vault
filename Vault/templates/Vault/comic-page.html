@@ -61,8 +61,8 @@
               </br>
               <div>
                 Overall Rating:
-                {% if comic_entry.average_rating != 0 %}
-                  {{ comic_entry.average_rating }}
+                {% if comic_rating_average != 0 %}
+                  {{ comic_rating_average.rating__avg }}
                 {% else %}
                   -
                 {% endif %}
