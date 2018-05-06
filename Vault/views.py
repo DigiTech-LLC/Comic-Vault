@@ -57,8 +57,7 @@ def search(request):
 
 @login_required
 def profile(request, id):
-    user = request.user
-    user_profile = UserProfile.objects.get(id=user.userprofile.id)
+    user_profile = UserProfile.objects.get(id=id)
     template = loader.get_template('Vault/profile.html')
     context = {
         'user_profile': user_profile,
