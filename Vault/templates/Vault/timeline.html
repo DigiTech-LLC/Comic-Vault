@@ -35,7 +35,7 @@
     <div class="form-group media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
         <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}" alt="Profile Picture" height="64px" width="64px">
         <div class="column container-fluid">
-            <textarea type="text" rows="4" class="form-control mt-3 mr-3 my-3" id="exampleFormControlInput1" placeholder="Share something on ComicVault"></textarea>
+            <textarea type="text" rows="4" class="form-control mt-3 mr-3 my-3" id="post_input" placeholder="Share something on ComicVault"></textarea>
             <button type="submit" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;">Post</button>
         </div>
     </div>
@@ -65,11 +65,19 @@
                                                             href={% url 'profile' comment.user_profile_id.id %}>{{ comment.user_profile_id.first_name }} {{ comment.user_profile_id.last_name }}</a>
                                                     </h5>
                                                     <p>{{ comment.content }}</p>
+                                                    <p style="color:#6d6d6c;"> {{ comment.timestamp }} </p>
                                                 </div>
                                             </li>
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
+                                <div class="form-group media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
+                                    <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}" alt="Profile Picture" height="64px" width="64px">
+                                    <div class="column container-fluid">
+                                        <textarea type="text" rows="2" class="form-control mt-3 mr-3 my-3" id="comment_input" placeholder="Comment on this post"></textarea>
+                                        <button type="submit" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;">Post</button>
+                                    </div>
+                                </div>
                             </ul>
                         </div>
                     </li>
