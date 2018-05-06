@@ -18,7 +18,7 @@
 
     img {
     		width: 100%;
-				border: 3px solid #666666;
+				border: 3px solid black;
 				margin: 10px;
 				padding: 15px;
 		}
@@ -39,9 +39,8 @@
 		}
 
 		.info{
-			border-left: 2px solid #666666;
+			border-left: 3px solid black;
 			background-color: #f2e6ff;
-			box-shadow: 0 8px 6px -6px black;
 			margin-top: 10px;
 		}
 
@@ -84,7 +83,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4 sidepanel">
-				<img class="img-responsive" src="http://lymediseaseuk.com/wp-content/uploads/2015/10/blank-profile-picture-973460_640-300x300.png" class="img-rounded" alt="Profile Picture">
+				<img class="img-responsive" src="{{ user_profile.profile_picture }}" class="img-rounded" alt="Profile Picture">
 			</div>
 
 			<div class="col-sm-6 text-center info">
@@ -102,7 +101,7 @@
 			 				<h6>Favorite Character:</h6>
 			 				<p>{{ user_profile.favorite_character }}</p>
 			 			</div>
-			 			<div class="col-sm-6">
+			 			<div class="col-sm-6" style="border-left: 3px solid black;">
 			 				<h6>Comic Genre Preference:</h6>
 			 					<p>{{ user_profile.comic_type }}</p>
 			 			</div>
@@ -112,25 +111,30 @@
 
 			<div>
 				<div class="btn-group-vertical" style="padding: 10px;">
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#following">Following <span class="badge">16</span></button>
+					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#following">Following <span class="badge">{{ following_count }}</span></button>
 					<div id="following" class="collapse">
 							<div class="list-group">
-								<a href="#" class="list-group-item">Jane Doe</a>
-								<a href="#" class="list-group-item">Robert Bobby</a>
-								<a href="#" class="list-group-item">Jimmy John</a>
-								<a href="#" class="list-group-item">Mike Michaels</a>
+								{% if followers %}
+									{% for follower in followers %}
+ 										<a href={% url 'profile' follower.id_1_id %} class="list-group-item">{{ follower.id_1.first_name }} {{ follower.id_1.last_name }}</a>
+									{% endfor %}
+								{% endif %}
 							</div>
-						</div>
-						<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#followers">Followers <span class="badge">36</span></button>
+					</div>
+					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#followers">Followers <span class="badge">{{ follower_count }}</span></button>
 					<div id="followers" class="collapse">
 							<div class="list-group">
-								<a href="#" class="list-group-item">Jane Doe</a>
-								<a href="#" class="list-group-item">Robert Bobby</a>
-								<a href="#" class="list-group-item">Jimmy John</a>
-								<a href="#" class="list-group-item">Mike Michaels</a>
+								{% if following %}
+									{% for follow in following %}
+										<a href={% url 'profile' follow.id_2_id %} class="list-group-item">{{ follow.id_2.first_name }} {{ follow.id_2.last_name }}</a>
+									{% endfor %}
+								{% endif %}
 							</div>
 						</div>
 					</div>
+	<!--			<div class="follow_button">   -->
+	<!--				<button type="button" class="btn btn-success">Follow</button> -->
+	<!--			</div>   -->
 			</div>
 
 		</div>

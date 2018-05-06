@@ -86,10 +86,21 @@ def search(request):
 
 @login_required
 def profile(request, id):
+    user = request.user
     user_profile = UserProfile.objects.get(id=id)
+    logged_in_user = UserProfile.objects.get(id=user.userprofile.id)
+    following = Follow.objects.filter(id_1_id=id)
+    followers = Follow.objects.filter(id_2_id=id)
+    following_count = Follow.objects.filter(id_1_id=id).count()
+    follower_count = Follow.objects.filter(id_2_id=id).count()
     template = loader.get_template('Vault/profile.html')
     context = {
         'user_profile': user_profile,
+        'following': following,
+        'followers': followers,
+        'following_count': following_count,
+        'follower_count': follower_count,
+        'logged_in_user': logged_in_user,
     }
     return HttpResponse(template.render(context, request))
 
