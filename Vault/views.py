@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
-
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow
 from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm
 import datetime
@@ -43,6 +42,7 @@ def timeline(request):
                 post.dislikes = 0
                 post.user_profile_id = request.user.userprofile
                 post.save()
+                postform = TimelinePostForm
         elif 'Comment' in request.POST:
             commentform = TimelineCommentForm(request.POST)
             if commentform.is_valid():
@@ -52,6 +52,7 @@ def timeline(request):
                 post.timeline_post_id = TimelinePost.objects.get(id=request.POST['timeline_post_id'])
                 post.user_profile_id = request.user.userprofile
                 post.save()
+                commentform = TimelineCommentForm
     else:
         postform = TimelinePostForm()
         commentform = TimelineCommentForm()
