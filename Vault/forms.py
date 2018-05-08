@@ -29,3 +29,10 @@ class TimelineCommentForm(forms.ModelForm):
         model = TimelineComment
         fields = ('content', )
         widgets = {'timeline_post_id': forms.HiddenInput()}
+
+
+class TimelineVoteForm(forms.ModelForm):
+    class Meta:
+        model = TimelinePost
+        fields = {'id', }
+        widgets = {'id': forms.HiddenInput, }
