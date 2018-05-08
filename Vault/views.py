@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, ProfileForm
 import datetime
 
 
@@ -101,6 +101,17 @@ def search(request):
 
 @login_required
 def profile(request, id):
+    if request.method == 'POST':
+        profileform = ProfileForm(request.POST)
+        if profileform.is_valid():
+            post = profileform.save(commit=False)
+            post.bio = profileform.cleaned_data.get('bio')
+            post = request.user.userprofile
+            post.save()
+            profileform = ProfileForm
+    else:
+        profileform = ProfileForm()
+
     user = request.user
     user_profile = UserProfile.objects.get(id=id)
     logged_in_user = UserProfile.objects.get(id=user.userprofile.id)
@@ -116,8 +127,9 @@ def profile(request, id):
         'following_count': following_count,
         'follower_count': follower_count,
         'logged_in_user': logged_in_user,
+        'profileform': profileform,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'Vault/profile.html', context)
 
 
 def signup(request):

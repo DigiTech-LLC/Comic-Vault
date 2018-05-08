@@ -10,6 +10,14 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
+		<script>
+			function change() {
+				var elem = document.getElementById("followButton");
+				if (elem.value=="Follow") elem.value = "Following";
+				else elem.value = "Follow";
+			}
+		</script>
+
     <style>
 
 		.row{
@@ -40,7 +48,7 @@
 
 		.info{
 			border-left: 3px solid black;
-			background-color: #f2e6ff;
+			background-color: #EEE;
 			margin-top: 10px;
 		}
 
@@ -50,9 +58,14 @@
 		}
 
 		.btn-info {
-    	   background: #483D8B;
-    	   border-color: #483D8B;
+    	  background: #483D8B;
+    	  border-color: #483D8B;
 		}
+
+		#followButton{
+				background: #13BD1F;
+		}
+
   	#following, #followers{
         text-decoration: none;
         overflow-y: scroll;
@@ -79,7 +92,6 @@
         {% endif %}
         </ul>
     </nav>
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4 sidepanel">
@@ -93,6 +105,11 @@
 				</div>
 				<div class="bio">
 					<h6>Bio:</h6>
+					<form method="post">
+						{% csrf_token %}
+						{{ profileform.bio }}
+						<button type="submit">Submit</button>
+					</form>
 					<p>{{ user_profile.bio }}</p>
 				</div>
 				<div class="preferences">
@@ -132,11 +149,18 @@
 							</div>
 						</div>
 					</div>
-	<!--			<div class="follow_button">   -->
-	<!--				<button type="button" class="btn btn-success">Follow</button> -->
-	<!--			</div>   -->
-			</div>
 
+				<div class="follow_button" style="margin: 10px">
+					{% if user_profile.id != logged_in_user.id %}
+						<input type="button" value="Follow" id="followButton"></input>
+					{% endif %}
+					{% for follower in followers %}
+						{% if follower.id_1_id == logged_in_user.id %}
+							<script>change();</script>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
