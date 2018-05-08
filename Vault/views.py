@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, SearchForm
 import datetime
 
 
@@ -91,8 +91,21 @@ def timeline(request):
 
 @login_required
 def search(request):
-    comic_list = Comic.objects.all()
-    template = loader.get_template('Vault/search.html')
+	comic_list = Comic.objects.all()
+	if request.method == 'GET':
+		form = SearchForm(request.GET)
+		if form.is_valid():
+			comic_list.filter(series__icontains=request.series)
+			comic_list.filter(volume__icontains=request.volume)
+			comic_list.filter(issue__icontains=request.issue)
+			comic_list.filter(publisher__icontains=request.publisher)
+			comic_list.filter(writer__icontains=request.writer)
+			comic_list.filter(illustrator__icontains=request.illustrator)
+			comic_list.filter(colorist__icontains=request.colorist)
+	else:
+		form = SearchForm()
+	
+	template = loader.get_template('Vault/search.html')
     context = {
         'comic_list': comic_list
     }
