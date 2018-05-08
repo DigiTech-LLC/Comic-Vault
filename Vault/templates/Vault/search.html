@@ -130,16 +130,18 @@
 				<h3>Advanced Search</h3>
 			</div>
 
-			<form>
+			<!-- Original form w/ bootstrap -->
+			
+			<!-- <form action="" method="get">
 				<div class = "row">
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Series">
+						<input id="series" type="text" class="form-control" placeholder="Series">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Volume">
+						<input id="volume" type="text" class="form-control" placeholder="Volume">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Issue">
+						<input id="issue" type="text" class="form-control" placeholder="Issue">
 					</div>
 				</div>
 
@@ -147,16 +149,16 @@
 
 				<div class = "row">
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Publisher">
+						<input id="publisher" type="text" class="form-control" placeholder="Publisher">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Writer">
+						<input id="writer" type="text" class="form-control" placeholder="Writer">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Illustrator">
+						<input id="illustrator" type="text" class="form-control" placeholder="Illustrator">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Colorist">
+						<input id="colorist" type="text" class="form-control" placeholder="Colorist">
 					</div>
 				</div>
 
@@ -167,6 +169,14 @@
 						<button type = "submit" class = "btn btn-dark">Go!</button>
 					</div>
 				</div>
+			</form> -->
+			
+			<!-- Basic Django-generated form -->
+			
+			<form action="" method="get">
+				{{ form }}
+				<input type="submit" value="Submit" />
+			
 			</form>
 
 			<br />
