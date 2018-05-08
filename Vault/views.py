@@ -105,7 +105,7 @@ def search(request):
 	else:
 		form = SearchForm()
 	context = {
-		'comic_list': comic_list
+		'comic_list': comic_list,
 		'form': form
 	}
 	return render(request, 'Vault/search.html', context)
