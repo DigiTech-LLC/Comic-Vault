@@ -105,11 +105,11 @@ def search(request):
 	else:
 		form = SearchForm()
 	
-	template = loader.get_template('Vault/search.html')
     context = {
         'comic_list': comic_list
+		'form': form
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'Vault/search.html', context)
 
 
 @login_required
