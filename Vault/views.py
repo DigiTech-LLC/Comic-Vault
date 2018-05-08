@@ -104,12 +104,11 @@ def search(request):
 			comic_list.filter(colorist__icontains=request.colorist)
 	else:
 		form = SearchForm()
-	
-    context = {
-        'comic_list': comic_list
+	context = {
+		'comic_list': comic_list
 		'form': form
-    }
-    return render(request, 'Vault/search.html', context)
+	}
+	return render(request, 'Vault/search.html', context)
 
 
 @login_required
