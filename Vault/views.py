@@ -95,13 +95,13 @@ def search(request):
 	if request.method == 'GET':
 		form = SearchForm(request.GET)
 		if form.is_valid():
-			comic_list.filter(series__icontains=request.series)
-			comic_list.filter(volume__icontains=request.volume)
-			comic_list.filter(issue__icontains=request.issue)
-			comic_list.filter(publisher__icontains=request.publisher)
-			comic_list.filter(writer__icontains=request.writer)
-			comic_list.filter(illustrator__icontains=request.illustrator)
-			comic_list.filter(colorist__icontains=request.colorist)
+			comic_list = comic_list.filter(series__icontains=request.series)
+			comic_list = comic_list.filter(volume__icontains=request.volume)
+			comic_list = comic_list.filter(issue__icontains=request.issue)
+			comic_list = comic_list.filter(publisher__icontains=request.publisher)
+			comic_list = comic_list.filter(writer__icontains=request.writer)
+			comic_list = comic_list.filter(illustrator__icontains=request.illustrator)
+			comic_list = comic_list.filter(colorist__icontains=request.colorist)
 	else:
 		form = SearchForm()
 	context = {
