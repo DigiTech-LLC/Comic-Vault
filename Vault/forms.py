@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import TimelinePost, TimelineComment
+from .models import TimelinePost, TimelineComment, Comic
 
 
 class SignUpForm(UserCreationForm):
@@ -36,3 +36,9 @@ class TimelineVoteForm(forms.ModelForm):
         model = TimelinePost
         fields = {'id', }
         widgets = {'id': forms.HiddenInput, }
+
+class SearchForm(forms.ModelForm):
+	class Meta:
+		model = Comic
+		fields = {'series', 'volume', 'issue', 'publisher', 'writer', 'illustrator', 'colorist'}
+	
