@@ -55,8 +55,20 @@
                         <ul class="list-unstyled">
                             <li><img class="mr-3 ml-3 mt-3" src="{{ post.user_profile_id.profile_picture }}" alt="Profile Picture"
                                      height="64px" width="64px"></li>
-                            <li style="text-align: center"><button style="border: none; background-color: #EEE">&#8593;</button></li>
-                            <li style="text-align: center"><button style="border: none; background-color: #EEE">&#8595;</button></li>
+                            <li style="text-align: center"><form method="post">
+                                <button name="Like" style="border: none; background-color: #EEE">
+                                    {% csrf_token %}
+                                    {{ voteform }}
+                                    <input type="hidden" value="{{ post.id }}" name="id">
+                                    &#8593;
+                                </button></form></li>
+                            <li style="text-align: center"><form method="post">
+                                <button name="Dislike" style="border: none; background-color: #EEE">
+                                    {% csrf_token %}
+                                    {{ voteform }}
+                                    <input type="hidden" value="{{ post.id }}" name="id">
+                                    &#8595;
+                                </button></form></li>
                         </ul>
                         <div class="media-body">
                             <h5 class="mt-3"><a href={% url 'profile' post.user_profile_id.id %}>{{ post.user_profile_id.first_name }} {{ post.user_profile_id.last_name }}</a></h5>

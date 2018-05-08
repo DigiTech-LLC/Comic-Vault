@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm
 import datetime
 
 
@@ -32,6 +32,7 @@ def timeline(request):
     if request.method == 'POST':
         postform = TimelinePostForm
         commentform = TimelineCommentForm
+        voteform = TimelineVoteForm()
         if 'Post' in request.POST:
             postform = TimelinePostForm(request.POST)
             if postform.is_valid():
@@ -53,9 +54,22 @@ def timeline(request):
                 post.user_profile_id = request.user.userprofile
                 post.save()
                 commentform = TimelineCommentForm
+        elif 'Like' in request.POST:
+            voteform = TimelineVoteForm(request.POST)
+            if voteform.is_valid():
+                post = TimelinePost.objects.get(id=request.POST['id'])
+                post.likes = post.likes + 1
+                post.save()
+        elif 'Dislike' in request.POST:
+            voteform = TimelineVoteForm(request.POST)
+            if voteform.is_valid():
+                post = TimelinePost.objects.get(id=request.POST['id'])
+                post.dislikes = post.dislikes + 1
+                post.save()
     else:
         postform = TimelinePostForm()
         commentform = TimelineCommentForm()
+        voteform = TimelineVoteForm()
 
     user = request.user
     following = Follow.objects.filter(id_1__user=user)
@@ -69,7 +83,8 @@ def timeline(request):
         'timeline_post_list': timeline_post_list,
         'timeline_comment_list': timeline_comment_list,
         'postform': postform,
-        'commentform': commentform
+        'commentform': commentform,
+        'voteform': voteform
     }
     return render(request, 'Vault/timeline.html', context)
 
