@@ -11,23 +11,25 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
 
 
 class TimelinePostForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Share something on ComicVault', 'rows': '4'}), label='')
+    content = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': 'Share something on ComicVault', 'rows': '4'}), label='')
 
     class Meta:
         model = TimelinePost
-        fields = ('content', )
+        fields = ('content',)
 
 
 class TimelineCommentForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Comment on this post', 'rows': '2'}), label='')
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Comment on this post', 'rows': '2'}),
+                              label='')
 
     class Meta:
         model = TimelineComment
-        fields = ('content', )
+        fields = ('content',)
         widgets = {'timeline_post_id': forms.HiddenInput()}
 
 
@@ -37,34 +39,34 @@ class TimelineVoteForm(forms.ModelForm):
         fields = {'id', }
         widgets = {'id': forms.HiddenInput, }
 
+
 class SearchForm(forms.ModelForm):
+    series = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Series'}),
+        required=False)
+    volume = forms.IntegerField(
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Volume'}),
+        required=False)
+    issue = forms.IntegerField(
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Issue'}),
+        required=False)
+    publisher = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Publisher'}),
+        required=False)
+    writer = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Writer'}),
+        required=False)
+    illustrator = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Illustrator'}),
+        required=False)
+    colorist = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Colorist'}),
+        required=False)
 
-	series = forms.CharField(
-		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Series'}),
-		required=False)
-	volume = forms.IntegerField(
-		widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Volume'}),
-		required=False)
-	issue = forms.IntegerField(
-		widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Issue'}),
-		required=False)
-	publisher = forms.CharField(
-		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Publisher'}),
-		required=False)
-	writer = forms.CharField(
-		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Writer'}),
-		required=False)
-	illustrator = forms.CharField(
-		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Illustrator'}),
-		required=False)
-	colorist = forms.CharField(
-		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Colorist'}),
-		required=False)
+    class Meta:
+        model = Comic
+        fields = {'series', 'volume', 'issue', 'publisher', 'writer', 'illustrator', 'colorist'}
 
-
-	class Meta:
-		model = Comic
-		fields = {'series', 'volume', 'issue', 'publisher', 'writer', 'illustrator', 'colorist'}
 
 class BioForm(forms.ModelForm):
     bio = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter your bio...', 'rows': '4'}), label='')
@@ -75,7 +77,9 @@ class BioForm(forms.ModelForm):
 
 
 class FavCharForm(forms.ModelForm):
-    favorite_character = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter your favorite comic book character...', 'rows': '2'}), label='')
+    favorite_character = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': 'Enter your favorite comic book character...', 'rows': '2'}),
+        label='')
 
     class Meta:
         model = UserProfile
@@ -83,7 +87,8 @@ class FavCharForm(forms.ModelForm):
 
 
 class ComicTypeForm(forms.ModelForm):
-    comic_type = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter your comic type preference...', 'rows': '2'}), label='')
+    comic_type = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': 'Enter your comic type preference...', 'rows': '2'}), label='')
 
     class Meta:
         model = UserProfile
@@ -91,7 +96,8 @@ class ComicTypeForm(forms.ModelForm):
 
 
 class ComicPersonaForm(forms.ModelForm):
-    comic_persona = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter your comic persona...', 'rows': '1'}), label='')
+    comic_persona = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': 'Enter your comic persona...', 'rows': '1'}), label='')
 
     class Meta:
         model = UserProfile
@@ -99,7 +105,8 @@ class ComicPersonaForm(forms.ModelForm):
 
 
 class ProfilePictureForm(forms.ModelForm):
-    profile_picture = forms.URLField(widget=forms.Textarea(attrs={'placeholder': 'Upload Profile Picture', 'rows': '4'}), label='')
+    profile_picture = forms.URLField(
+        widget=forms.Textarea(attrs={'placeholder': 'Upload Profile Picture', 'rows': '4'}), label='')
 
     class Meta:
         model = UserProfile
@@ -111,11 +118,12 @@ class ComicCommentForm(forms.ModelForm):
 
     class Meta:
         model = ComicComment
-        fields = ('content', )
+        fields = ('content',)
+
 
 class ComicRatingForm(forms.Form):
-    CHOICES = (('Choice 1', '1'),('Choice 2', '2'), ('Choice 3', '3'), ('Choice 4', '4'), ('Choice', '5'),)
-    #select = forms.CharField(widget=forms.Select(choices=CHOICES))
+    CHOICES = (('value', '1'), ('value', '2'),)
+    # select = forms.CharField(widget=forms.Select(choices=CHOICES))
     select = forms.ChoiceField(choices=CHOICES)
 
     class Meta:
@@ -123,3 +131,4 @@ class ComicRatingForm(forms.Form):
         fields = ('rating', 'id',)
         widgets = {'id': forms.HiddenInput, }
 
+print(ComicRatingForm().as_p())
