@@ -49,7 +49,7 @@
 
         <div class="row">
           <!-- picture/short info -->
-          <div class="col-sm-4 order-sm-8 justify-content-center border-left bg-light">
+          <div class="col-sm-4 order-sm-8 justify-content-center bg-light">
             </br>
             <img class="rounded mx-auto d-block" src="{{ comic_entry.cover_art }}" alt="No Image Available">
 
@@ -88,6 +88,7 @@
                 <div>illustrator: {{ comic_entry.illustrator }}</div>
                 <div>colorist: {{ comic_entry.colorist }}</div>
                 <div>publisher: {{ comic_entry.publisher }}</div>
+                </br>
             </div>
 
           </div>
@@ -118,20 +119,26 @@
             </div>
             </br>
             </br>
-
           </div>
         </div>
       </div>
+      </br>
 
       <div class="container">
         <!--comments -->
         <div class="row">
-          <div class="col-sm-12 grey-media">
+          <div class="col-sm-12 border-bottom">
+            <strong>Comments</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 bg-light" style="border-left: 3px solid #2E2E2E">
             <ul>
               {% if comic_comment_list %}
                 {% for comic_comment in comic_comment_list %}
-                  <div><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
-                     {{ comic_comment.user_profile_id }} at {{ comic_comment.timestamp }}</div>
+                  </br>
+                  <div class="mr-3"><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
+                     {{ comic_comment.user_profile_id}} at {{ comic_comment.timestamp }}</div>
                   <div>{{ comic_comment.content }}</div>
                 {% endfor %}
               {% else %}
