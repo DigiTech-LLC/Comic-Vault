@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow,NewsfeedItem,GeneralNews,NewsfeedComment
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm
+from .forms import ComicCommentForm, SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm
 
 import datetime
 
@@ -13,7 +13,7 @@ from django.db.models import Avg
 def index(request):
     carousel_items = NewsfeedItem.objects.all()
     carousel_news  = GeneralNews.objects.all()
-    carousel_comic = Comic.objects.all() 
+    carousel_comic = Comic.objects.all()
     template       = loader.get_template('Vault/home.html')
     context        = {
         'carousel_items': carousel_items,
@@ -25,16 +25,34 @@ def index(request):
 
 @login_required
 def comicpage(request, id):
+    if request.method == 'POST':
+        comiccommentform = ComicCommentForm
+        if 'ComicComment' in request.POST:
+            comiccommentform = ComicCommentForm(request.POST)
+            if comiccommentform.is_valid():
+                post = comiccommentform.save(commit=False)
+                post.content = comiccommentform.cleaned_data.get('content')
+                post.timestamp = datetime.datetime.now()
+                post.user_profile_id = request.user.userprofile
+                post.comic_id = Comic.objects.filter(id=id).first()
+                post.save()
+                comiccommentform = ComicCommentForm()
+    else:
+        comiccommentform = ComicCommentForm()
+
+
     user = request.user
     comic_entry = Comic.objects.filter(id=id).first()
-    comic_comment_list = ComicComment.objects.all().filter(comic_id=id)
+    comic_comment_list = ComicComment.objects.all().filter(comic_id=id).order_by("-timestamp")
     comic_rating_average = Rating.objects.filter(comic_id=id).aggregate(Avg('rating'))
     user_rating = Rating.objects.filter(user_profile_id=user.userprofile.id, comic_id=id).first()
+
     context = {
         'comic_id': id,
         'comic_entry': comic_entry,
         'comic_comment_list': comic_comment_list,
         'comic_rating_average': comic_rating_average,
+        'comiccommentform': comiccommentform,
         'user_rating': user_rating
     }
     return render(request, 'Vault/comic-page.html', context)
