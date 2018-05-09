@@ -12,7 +12,7 @@ import datetime
 def index(request):
     carousel_items = NewsfeedItem.objects.all()
     carousel_news  = GeneralNews.objects.all()
-    carousel_comic = Comic.objects.all() 
+    carousel_comic = Comic.objects.all()
     template       = loader.get_template('Vault/home.html')
     context        = {
         'carousel_items': carousel_items,
