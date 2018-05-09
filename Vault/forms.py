@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import TimelinePost, TimelineComment, UserProfile, Comic
+from .models import TimelinePost, TimelineComment, UserProfile, Comic, ComicComment, Rating
 
 
 class SignUpForm(UserCreationForm):
@@ -38,7 +38,7 @@ class TimelineVoteForm(forms.ModelForm):
         widgets = {'id': forms.HiddenInput, }
 
 class SearchForm(forms.ModelForm):
-	
+
 	series = forms.CharField(
 		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Series'}),
 		required=False)
@@ -60,8 +60,8 @@ class SearchForm(forms.ModelForm):
 	colorist = forms.CharField(
 		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Colorist'}),
 		required=False)
-	
-	
+
+
 	class Meta:
 		model = Comic
 		fields = {'series', 'volume', 'issue', 'publisher', 'writer', 'illustrator', 'colorist'}
@@ -104,3 +104,22 @@ class ProfilePictureForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('profile_picture',)
+
+
+class ComicCommentForm(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Your comment here', 'rows': '4'}), label='')
+
+    class Meta:
+        model = ComicComment
+        fields = ('content', )
+
+class ComicRatingForm(forms.Form):
+    CHOICES = (('value', '1'),('value', '2'),)
+    #select = forms.CharField(widget=forms.Select(choices=CHOICES))
+    select = forms.ChoiceField(choices=CHOICES)
+
+    class Meta:
+        model = Rating
+        fields = ('rating', )
+
+print(ComicRatingForm().as_p())

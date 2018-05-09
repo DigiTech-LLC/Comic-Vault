@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,11 +7,9 @@
     <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/style.css' %}">
 
@@ -49,22 +48,19 @@
           </div>
         </div>
 
-
         <div class="row">
-
           <!-- picture/short info -->
-          <div class="col-sm-4 order-sm-8 justify-content-center border-left bg-light">
+          <div class="col-sm-4 order-sm-8 justify-content-center bg-light">
             </br>
             <img class="rounded mx-auto d-block" src="{{ comic_entry.cover_art }}" alt="No Image Available">
-
 
             <!-- ratings -->
             <div class="text-center border-bottom lead">
               </br>
               <div>
                 Overall Rating:
-                {% if comic_entry.average_rating != 0 %}
-                  {{ comic_entry.average_rating }}
+                {% if comic_rating_average != 0 %}
+                  {{ comic_rating_average.rating__avg }}
                 {% else %}
                   -
                 {% endif %}
@@ -77,7 +73,13 @@
                 {% if user_rating %}
                   {{ user_rating.rating }}
                 {% else %}
-                  -
+                  <form method="post">
+                      {% csrf_token %}
+                      <div class="mr-3">
+                          {{ comicratingform | bootstrap }}
+                      </div>
+                        <input type="submit" value="Submit" name="ComicRating" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
+                  </form>
                 {% endif %}
                 / 5
               </div>
@@ -93,6 +95,7 @@
                 <div>illustrator: {{ comic_entry.illustrator }}</div>
                 <div>colorist: {{ comic_entry.colorist }}</div>
                 <div>publisher: {{ comic_entry.publisher }}</div>
+                </br>
             </div>
 
           </div>
@@ -123,31 +126,53 @@
             </div>
             </br>
             </br>
+          </div>
+        </div>
+      </div>
+      </br>
 
-            <!--comments -->
-            <div class="row">
-              <div class="col-sm-12 grey-media">
-                <ul>
-                  {% if comic_comment_list %}
-                    {% for comic_comment in comic_comment_list %}
-                      <div><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
-                         {{ comic_comment.user_profile_id }} at {{ comic_comment.timestamp }}</div>
-                      <div>{{ comic_comment.content }}</div>
-                    {% endfor %}
-                  {% else %}
-                      <div>No comments exists for id</div>
-                  {% endif %}
-                </ul>
-              </div>
-            </div>
+      <div class="container">
+        <!--comments -->
+        <div class="row">
+          <div class="col-sm-12 border-bottom">
+            <strong>Comments</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 bg-light" style="border-left: 3px solid #2E2E2E">
+            <ul>
+              {% if comic_comment_list %}
+                {% for comic_comment in comic_comment_list %}
+                  </br>
+                  <div class="mr-3"><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
+                     {{ comic_comment.user_profile_id}} at {{ comic_comment.timestamp }}</div>
+                  <div>{{ comic_comment.content }}</div>
+                {% endfor %}
+              {% else %}
+                  <div>No comments exists for id</div>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="comment">
+
+            <form method="post" class="col-sm-12">
+                {% csrf_token %}
+                <div class="mr-3">
+                    {{ comiccommentform | bootstrap }}
+                </div>
+                  <input type="submit" value="Submit" name="ComicComment" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
+            </form>
 
           </div>
         </div>
-      {% else %}
-          <p>No comic exists for id</p>
-      {% endif %}
-    </div>
-
+      </div>
+    {% else %}
+        <p>No comic exists for id :(</p>
+    {% endif %}
 
 
   </body>
