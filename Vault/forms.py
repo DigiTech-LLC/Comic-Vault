@@ -114,12 +114,12 @@ class ComicCommentForm(forms.ModelForm):
         fields = ('content', )
 
 class ComicRatingForm(forms.Form):
-    CHOICES = (('value', '1'),('value', '2'),)
+    CHOICES = (('Choice 1', '1'),('Choice 2', '2'), ('Choice 3', '3'), ('Choice 4', '4'), ('Choice', '5'),)
     #select = forms.CharField(widget=forms.Select(choices=CHOICES))
     select = forms.ChoiceField(choices=CHOICES)
 
     class Meta:
         model = Rating
         fields = ('rating', )
+        widgets = {'id': forms.HiddenInput, }
 
-print(ComicRatingForm().as_p())
