@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow, NewsfeedItem, GeneralNews, NewsfeedComment
 from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, ComicRatingForm, ComicCommentForm
@@ -156,9 +157,14 @@ def search(request):
 				comic_list = comic_list.filter(colorist__icontains=form.cleaned_data['colorist'])
 	else:
 		form = SearchForm()
+	comic_list = comic_list.order_by('series')
+	paginator = Paginator(comic_list, 10)
+	page = request.GET.get('page')
+	comics = paginator.get_page(page)
 	context = {
 		'comic_list': comic_list,
-		'form': form
+		'form': form,
+		'comics': comics
 	}
 	return render(request, 'Vault/search.html', context)
 
