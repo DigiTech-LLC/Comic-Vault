@@ -39,7 +39,7 @@
             {% for field in form %}
                     {{ field | bootstrap }}
                     {% for error in field.errors %}
-                        <p>style="color: red">{{ error | bootstrap }}</p>
+                        <p style="color: red">{{ error }}</p>
                     {% endfor %}
             {% endfor %}
             <input type="submit" value="Submit" name="Submit" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
