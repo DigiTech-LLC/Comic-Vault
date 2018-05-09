@@ -10,6 +10,14 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
+		<script>
+			function change() {
+				var elem = document.getElementById("followButton");
+				if (elem.value=="Follow") elem.value = "Following";
+				else elem.value = "Follow";
+			}
+		</script>
+
     <style>
 
 		.row{
@@ -40,7 +48,7 @@
 
 		.info{
 			border-left: 3px solid black;
-			background-color: #f2e6ff;
+			background-color: #EEE;
 			margin-top: 10px;
 		}
 
@@ -50,9 +58,14 @@
 		}
 
 		.btn-info {
-    	   background: #483D8B;
-    	   border-color: #483D8B;
+    	  background: #483D8B;
+    	  border-color: #483D8B;
 		}
+
+		#followButton{
+				background: #13BD1F;
+		}
+
   	#following, #followers{
         text-decoration: none;
         overflow-y: scroll;
@@ -79,31 +92,76 @@
         {% endif %}
         </ul>
     </nav>
-
+	{% load bootstrap %}
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4 sidepanel">
-				<img class="img-responsive" src="{{ user_profile.profile_picture }}" class="img-rounded" alt="Profile Picture">
+				{% if user_profile.profile_picture == "" %}
+					<form method="post">
+							{% csrf_token %}
+									{{ pictureform | bootstrap }}
+							<input type="submit" value="Submit" name="ProfilePic" class="btn btn-primary mb-3"/>
+					</form>
+				{% endif %}
+				{% if user_profile.profile_picture != "" %}
+					<img class="img-responsive" src="{{ user_profile.profile_picture }}" class="img-rounded" alt="Profile Picture">
+				{% endif %}
 			</div>
 
 			<div class="col-sm-6 text-center info">
   			<h1>{{ user_profile.first_name }} {{ user_profile.last_name }}</h1>
 				<div class="persona" style="font-style: italic; color: #191970;">
-					<p>{{ user_profile.comic_persona }}</p>
+					{% if user_profile.comic_persona == "" %}
+						<form method="post">
+	            	{% csrf_token %}
+	                	{{ comicpersonaform | bootstrap }}
+	            	<input type="submit" value="Submit" name="ComicPersona" class="btn btn-primary mb-3"/>
+	        	</form>
+					{% endif %}
+					{% if user_profile.comic_persona != "" %}
+						<p>{{ user_profile.comic_persona }}</p>
+					{% endif %}
 				</div>
 				<div class="bio">
 					<h6>Bio:</h6>
-					<p>{{ user_profile.bio }}</p>
+					{% if user_profile.bio == "" %}
+						<form method="post">
+	            	{% csrf_token %}
+	                	{{ bioform | bootstrap }}
+	            	<input type="submit" value="Submit" name="Bio" class="btn btn-primary mb-3"/>
+	        	</form>
+					{% endif %}
+					{% if user_profile.bio != "" %}
+						<p>{{ user_profile.bio }}</p>
+					{% endif %}
 				</div>
 				<div class="preferences">
 					<div class="row">
 						<div class="col-sm-6">
 			 				<h6>Favorite Character:</h6>
-			 				<p>{{ user_profile.favorite_character }}</p>
+							{% if user_profile.favorite_character == "" %}
+								<form method="post">
+			            	{% csrf_token %}
+			                	{{ favcharform | bootstrap }}
+			            	<input type="submit" value="Submit" name="FavChar" class="btn btn-primary mb-3"/>
+			        	</form>
+							{% endif %}
+							{% if user_profile.favorite_character != "" %}
+			 					<p>{{ user_profile.favorite_character }}</p>
+							{% endif %}
 			 			</div>
 			 			<div class="col-sm-6" style="border-left: 3px solid black;">
 			 				<h6>Comic Genre Preference:</h6>
+							{% if user_profile.comic_type == "" %}
+								<form method="post">
+			            	{% csrf_token %}
+			                	{{ comictypeform | bootstrap }}
+			            	<input type="submit" value="Submit" name="ComicType" class="btn btn-primary mb-3"/>
+			        	</form>
+							{% endif %}
+							{% if user_profile.comic_type != "" %}
 			 					<p>{{ user_profile.comic_type }}</p>
+							{% endif %}
 			 			</div>
 			 		</div>
 			 	</div>
@@ -132,11 +190,18 @@
 							</div>
 						</div>
 					</div>
-	<!--			<div class="follow_button">   -->
-	<!--				<button type="button" class="btn btn-success">Follow</button> -->
-	<!--			</div>   -->
-			</div>
 
+				<div class="follow_button" style="margin: 10px">
+					{% if user_profile.id != logged_in_user.id %}
+						<input type="button" value="Follow" id="followButton"></input>
+					{% endif %}
+					{% for follower in followers %}
+						{% if follower.id_1_id == logged_in_user.id %}
+							<script>change();</script>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
