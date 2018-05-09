@@ -38,7 +38,16 @@ class TimelineVoteForm(forms.ModelForm):
         widgets = {'id': forms.HiddenInput, }
 
 class SearchForm(forms.ModelForm):
+	
+	series = forms.CharField(required=False)
+	volume = forms.IntegerField(required=False)
+	issue = forms.IntegerField(required=False)
+	publisher = forms.CharField(required=False)
+	writer = forms.CharField(required=False)
+	illustrator = forms.CharField(required=False)
+	colorist = forms.CharField(required=False)
+	
+	
 	class Meta:
 		model = Comic
 		fields = {'series', 'volume', 'issue', 'publisher', 'writer', 'illustrator', 'colorist'}
-	
