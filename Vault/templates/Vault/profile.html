@@ -210,7 +210,7 @@
 
 			<div>
 				<div class="btn-group-vertical" style="padding: 10px;">
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#following">Following <span class="badge">{{ following_count }}</span></button>
+					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#following">Followers <span class="badge">{{ follower_count }}</span></button>
 					<div id="following" class="collapse">
 							<div class="list-group">
 								{% if followers %}
@@ -220,7 +220,7 @@
 								{% endif %}
 							</div>
 					</div>
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#followers">Followers <span class="badge">{{ follower_count }}</span></button>
+					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#followers">Following <span class="badge">{{ following_count }}</span></button>
 					<div id="followers" class="collapse">
 							<div class="list-group">
 								{% if following %}
