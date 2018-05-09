@@ -3,13 +3,23 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
-from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow
+from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow,NewsfeedItem,GeneralNews,NewsfeedComment
 from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm
+
 import datetime
 
 
 def index(request):
-    return render(request, 'Vault/home.html')
+    carousel_items = NewsfeedItem.objects.all()
+    carousel_news  = GeneralNews.objects.all()
+    carousel_comic = Comic.objects.all() 
+    template       = loader.get_template('Vault/home.html')
+    context        = {
+        'carousel_items': carousel_items,
+        'carousel_news' : carousel_news,
+        'carousel_comic': carousel_comic
+    }
+    return HttpResponse(template.render(context, request))
 
 
 @login_required
