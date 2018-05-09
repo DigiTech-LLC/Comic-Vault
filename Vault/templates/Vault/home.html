@@ -5,101 +5,107 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-     <script language = "javascript">
-         ScrollRate = 100;
+    <script language="javascript">
+        ScrollRate = 100;
 
-         function initScroll(){
-             DivEl = document.getElementById('NewsDiv');
-             ReachedMaxScroll = false;
+        function initScroll() {
+            DivEl = document.getElementById('NewsDiv');
+            ReachedMaxScroll = false;
 
-             DivEl.scrollTop = 0;
-             PreviousScrollTop = 0;
+            DivEl.scrollTop = 0;
+            PreviousScrollTop = 0;
 
-             ScrollInterval = setInterval('divScroll()', ScrollRate);
-         }
+            ScrollInterval = setInterval('divScroll()', ScrollRate);
+        }
 
-         function divScroll(){
-             if(!ReachedMaxScroll){
-                 DivEl.scrollTop = PreviousScrollTop;
-                 PreviousScrollTop++;
+        function divScroll() {
+            if (!ReachedMaxScroll) {
+                DivEl.scrollTop = PreviousScrollTop;
+                PreviousScrollTop++;
 
-                 ReachedMaxScroll = DivEl.scrollTop >= (DivEl.scrollHeight - DivEl.offsetHeight)
-             } else{
-                 ReachedMaxScroll = (DivEl.scrollTop == 0)?false:true;
+                ReachedMaxScroll = DivEl.scrollTop >= (DivEl.scrollHeight - DivEl.offsetHeight)
+            } else {
+                ReachedMaxScroll = (DivEl.scrollTop == 0) ? false : true;
 
                 DivEl.scrollTop = PreviousScrollTop;
                 PreviousScrollTop--;
-             }
-         }
+            }
+        }
 
-         function divPause(){
-             clearInterval(ScrollInterval);
-         }
+        function divPause() {
+            clearInterval(ScrollInterval);
+        }
 
-         function divResume(){
-             PreviousScrollTop = DivEl.scrollTop;
-             ScrollInterval    = setInterval('divScroll()', ScrollRate);
-         }
-     </script>
+        function divResume() {
+            PreviousScrollTop = DivEl.scrollTop;
+            ScrollInterval = setInterval('divScroll()', ScrollRate);
+        }
+    </script>
 
 
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Comic Vault</a>
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
-          <li class="nav-item"><a href="{% url 'search' %}" class="nav-link">Search</a></li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
+    <a class="navbar-brand" href="#">Comic Vault</a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
+        <li class="nav-item"><a href="{% url 'search' %}" class="nav-link">Search</a></li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
-            <li class="nav-item"><a href="{% url 'profile' user.userprofile.id %}" class="nav-link"><span class="glyphicon glyphicon-user"></span> {{ user.userprofile.first_name }} </a></li>
-            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            <li class="nav-item"><a href="{% url 'profile' user.userprofile.id %}" class="nav-link"><span
+                    class="glyphicon glyphicon-user"></span> {{ user.userprofile.first_name }} </a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link"><span
+                    class="glyphicon glyphicon-log-in"></span> Logout</a></li>
         {% else %}
-            <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li class="nav-item"><a href="{% url 'login' %}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link"><span
+                    class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li class="nav-item"><a href="{% url 'login' %}" class="nav-link"><span
+                    class="glyphicon glyphicon-log-in"></span> Login</a></li>
         {% endif %}
-        </ul>
-    </nav>
+    </ul>
+</nav>
 
 <body onLoad="initScroll()">
-    <h1 align=center style="color:#003366;">
-        News-Feed
-    </h1>
 
-    <div id="NewsDiv" style="overflow:auto;width:800px;height:300px;background-color:#F0F8FF;position: absolute;
+<div id="NewsDiv" class="container w-80" style="overflow:auto;background-color: #EEE;position: absolute;
     margin: auto;
-    top: 100px;
+    top: 56px;
     right: 0;
     bottom: 0;
     left: 0;
     border-radius: 3px;
-    border-left: thick solid #ff0000;
-    border-right:thick solid #ff0000;"
-    onMouseOver="divPause()" onMouseOut="divResume()">
+    border-left: solid #2E2E2E;
+    border-right: solid #2E2E2E;"
+     onMouseOver="divPause()" onMouseOut="divResume()">
 
-        {% if carousel_news %} {% for generalnews in carousel_news %}
-        <div id="home_carousel">
-            <h3>
-                {{generalnews.title}}
-            </h3>
+    {% if carousel_news %}
+        <h1 align=center style="color:#003366;">
+            News-Feed
+        </h1>
+        {% for generalnews in carousel_news %}
+            <div id="home_carousel">
+                <h3>
+                    {{ generalnews.title }}
+                </h3>
 
-            <p>
-                {{generalnews.content}}
-                ----------------------------------------------------------------------------------------------------------------
-            </p>
-        </div>
+                <p>
+                    {{ generalnews.content }}
+                    <br>
+                    --------------------------------------------------------------------------------------------------------------------------------------------------------
+                </p>
+            </div>
 
         {% endfor %} {% endif %}
 
-        {% if carousel_comic %} {% for comic in carousel_comic %}
-            <img class = "ml-3 mr-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
-        {% endfor %} {% endif %}
-    </div>
+    {% if carousel_comic %} {% for comic in carousel_comic %}
+        <img class="ml-3 mr-3" src={{ comic.cover_art }} alt="Cover Art" height="270" width="180">
+    {% endfor %} {% endif %}
+</div>
 </body>
 
 </html>
