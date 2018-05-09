@@ -4,55 +4,52 @@
 	<title>{{ user_profile.first_name }} {{ user_profile.last_name }} Profile</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+		<script>
+			function change() {
+				var elem = document.getElementById("followButton");
+				if (elem.value=="Follow") elem.value = "Following";
+				else elem.value = "Follow";
+			}
+		</script>
+
     <style>
 
-    	body{
-    	 	background-color: #D3D3D3;
-    	}
+		.row{
+			height: 100%;
+		}
 
-		.row.content {height: 100%;}
-
-    	img {
+    img {
     		width: 100%;
-    		padding: 15px;
-    		border-style: solid;
-    		border-color: #483D8B;
+				border: 3px solid black;
+				margin: 10px;
+				padding: 15px;
 		}
 
 		h1, h6{
 			padding-top: 40px;
-			font-family: "Comic Sans MS", cursive, sans-serif;
 			font-weight: bold;
 			color: 	#191970;
-		}
-
-		h1{
-			font-size: 30px;
 		}
 
 		h6{
 			font-size: 25px;
 		}
 
-		.persona{
-			font-style: italic;
-			font-family: "Comic Sans MS", cursive, sans-serif;
-			color: 	#191970;
-		}
-
-		p, ul{
-			font-family: "Comic Sans MS", cursive, sans-serif;
+		p{
 			color: 	#191970;
 			font-size: 20px;
 		}
 
-		.btn-group-vertical{
-			padding: 10px;
+		.info{
+			border-left: 3px solid black;
+			background-color: #EEE;
+			margin-top: 10px;
 		}
 
 		.badge{
@@ -61,16 +58,19 @@
 		}
 
 		.btn-info {
-    	   background: #483D8B;
-    	   border-color: #483D8B;
+    	  background: #483D8B;
+    	  border-color: #483D8B;
 		}
 
+		#followButton{
+				background: #13BD1F;
+		}
 
-    	#following, #followers{
-            text-decoration: none;
-            overflow-y: scroll;
-			max-height: 100px;
-        }
+  	#following, #followers{
+        text-decoration: none;
+        overflow-y: scroll;
+				max-height: 100px;
+    }
     </style>
 </head>
 <body>
@@ -92,58 +92,115 @@
         {% endif %}
         </ul>
     </nav>
-
+	{% load bootstrap %}
 	<div class="container-fluid">
-		<div class="row content">
+		<div class="row">
 			<div class="col-sm-4 sidepanel">
-				<img class="img-responsive" src="http://lymediseaseuk.com/wp-content/uploads/2015/10/blank-profile-picture-973460_640-300x300.png" class="img-rounded" alt="Profile Picture">
-
-				<div class="btn-group-vertical">
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#following">Following <span class="badge">16</span></button>
-			 		<div id="following" class="collapse">
-    					<div class="list-group">
-    						<a href="#" class="list-group-item">Jane Doe</a>
-    						<a href="#" class="list-group-item">Robert Bobby</a>
-    						<a href="#" class="list-group-item">Jimmy John</a>
-    						<a href="#" class="list-group-item">Mike Michaels</a>
-    					</div>
-  					</div>
-  					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#followers">Followers <span class="badge">36</span></button>
-			 		<div id="followers" class="collapse">
-    					<div class="list-group">
-    						<a href="#" class="list-group-item">Jane Doe</a>
-    						<a href="#" class="list-group-item">Robert Bobby</a>
-    						<a href="#" class="list-group-item">Jimmy John</a>
-    						<a href="#" class="list-group-item">Mike Michaels</a>
-    					</div>
-  					</div>
-  				</div>
+				{% if user_profile.profile_picture == "" %}
+					<form method="post">
+							{% csrf_token %}
+									{{ pictureform | bootstrap }}
+							<input type="submit" value="Submit" name="ProfilePic" class="btn btn-primary mb-3"/>
+					</form>
+				{% endif %}
+				{% if user_profile.profile_picture != "" %}
+					<img class="img-responsive" src="{{ user_profile.profile_picture }}" class="img-rounded" alt="Profile Picture">
+				{% endif %}
 			</div>
-			<div class="col-sm-8 text-center">
-	<!--			{% if user_profile %}   -->
-  			<h1>{{ user_profile.first_name }} {{ user_profile.last_name }}</h1>
-<!--				{% endif %}    -->
-				<div class="persona">
-					<p>{{ user_profile.comic_persona }}</p>
-				</div>
-				<h6>Bio:</h6>
-				<p>{{ user_profile.bio }}</p>
 
+			<div class="col-sm-6 text-center info">
+  			<h1>{{ user_profile.first_name }} {{ user_profile.last_name }}</h1>
+				<div class="persona" style="font-style: italic; color: #191970;">
+					{% if user_profile.comic_persona == "" %}
+						<form method="post">
+	            	{% csrf_token %}
+	                	{{ comicpersonaform | bootstrap }}
+	            	<input type="submit" value="Submit" name="ComicPersona" class="btn btn-primary mb-3"/>
+	        	</form>
+					{% endif %}
+					{% if user_profile.comic_persona != "" %}
+						<p>{{ user_profile.comic_persona }}</p>
+					{% endif %}
+				</div>
+				<div class="bio">
+					<h6>Bio:</h6>
+					{% if user_profile.bio == "" %}
+						<form method="post">
+	            	{% csrf_token %}
+	                	{{ bioform | bootstrap }}
+	            	<input type="submit" value="Submit" name="Bio" class="btn btn-primary mb-3"/>
+	        	</form>
+					{% endif %}
+					{% if user_profile.bio != "" %}
+						<p>{{ user_profile.bio }}</p>
+					{% endif %}
+				</div>
 				<div class="preferences">
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-6">
 			 				<h6>Favorite Character:</h6>
-			 				<p>{{ user_profile.favorite_character }}</p>
+							{% if user_profile.favorite_character == "" %}
+								<form method="post">
+			            	{% csrf_token %}
+			                	{{ favcharform | bootstrap }}
+			            	<input type="submit" value="Submit" name="FavChar" class="btn btn-primary mb-3"/>
+			        	</form>
+							{% endif %}
+							{% if user_profile.favorite_character != "" %}
+			 					<p>{{ user_profile.favorite_character }}</p>
+							{% endif %}
 			 			</div>
-			 			<div class="col-sm-4">
+			 			<div class="col-sm-6" style="border-left: 3px solid black;">
 			 				<h6>Comic Genre Preference:</h6>
-		<!--	 				<ul>   -->
+							{% if user_profile.comic_type == "" %}
+								<form method="post">
+			            	{% csrf_token %}
+			                	{{ comictypeform | bootstrap }}
+			            	<input type="submit" value="Submit" name="ComicType" class="btn btn-primary mb-3"/>
+			        	</form>
+							{% endif %}
+							{% if user_profile.comic_type != "" %}
 			 					<p>{{ user_profile.comic_type }}</p>
-			 	<!--				<li>Science Fiction</li>    -->
-		<!--	 				</ul>   -->
+							{% endif %}
 			 			</div>
 			 		</div>
 			 	</div>
+			</div>
+
+			<div>
+				<div class="btn-group-vertical" style="padding: 10px;">
+					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#following">Following <span class="badge">{{ following_count }}</span></button>
+					<div id="following" class="collapse">
+							<div class="list-group">
+								{% if followers %}
+									{% for follower in followers %}
+ 										<a href={% url 'profile' follower.id_1_id %} class="list-group-item">{{ follower.id_1.first_name }} {{ follower.id_1.last_name }}</a>
+									{% endfor %}
+								{% endif %}
+							</div>
+					</div>
+					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#followers">Followers <span class="badge">{{ follower_count }}</span></button>
+					<div id="followers" class="collapse">
+							<div class="list-group">
+								{% if following %}
+									{% for follow in following %}
+										<a href={% url 'profile' follow.id_2_id %} class="list-group-item">{{ follow.id_2.first_name }} {{ follow.id_2.last_name }}</a>
+									{% endfor %}
+								{% endif %}
+							</div>
+						</div>
+					</div>
+
+				<div class="follow_button" style="margin: 10px">
+					{% if user_profile.id != logged_in_user.id %}
+						<input type="button" value="Follow" id="followButton"></input>
+					{% endif %}
+					{% for follower in followers %}
+						{% if follower.id_1_id == logged_in_user.id %}
+							<script>change();</script>
+						{% endif %}
+					{% endfor %}
+				</div>
 			</div>
 		</div>
 	</div>
