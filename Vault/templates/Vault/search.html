@@ -39,7 +39,9 @@
 
 			<br />
 
-			<div class = "row">
+			<!-- Old Navbar-->
+			
+			<!-- <div class = "row">
 				<h3>Quick Search by Series:</h3>
 
 				<ul class = "nav nav-tabs">
@@ -124,7 +126,7 @@
 				</ul>
 			</div>
 
-			<br />
+			<br /> -->
 
 			<div class = "row">
 				<h3>Advanced Search</h3>
@@ -284,9 +286,9 @@
 		</div>
 
 		<div class = "container">
-		{% if comic_list %}
+		{% if comics %}
 			<ul class = "list-unstyled">
-			{% for comic in comic_list %}
+			{% for comic in comics %}
 				<li class = "media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
 					<img class = "m-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
 					<div class="media-body">
@@ -322,6 +324,24 @@
 				</li>
 			{% endfor %}
 			</ul>
+			
+			<div class="pagination">
+				<span class="step-links">
+					{% if comics.has_previous %}
+						<a href="?page=1">&laquo; first</a>
+						<a href="?page={{ comics.previous_page_number }}">previous</a>
+					{% endif %}
+
+					<span class="current">
+						Page {{ comics.number }} of {{ comics.paginator.num_pages }}.
+					</span>
+
+					{% if comics.has_next %}
+						<a href="?page={{ comics.next_page_number }}">next</a>
+						<a href="?page={{ comics.paginator.num_pages }}">last &raquo;</a>
+					{% endif %}
+				</span>
+			</div>
 		{% else %}
 			<div class = "row">
 				<div class = "col">
