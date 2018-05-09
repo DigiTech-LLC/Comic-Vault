@@ -3,9 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
-from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow,NewsfeedItem,GeneralNews,NewsfeedComment
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm
-
+from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow, NewsfeedItem, GeneralNews, NewsfeedComment
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm
 import datetime
 
 
@@ -101,12 +100,31 @@ def timeline(request):
 
 @login_required
 def search(request):
-    comic_list = Comic.objects.all()
-    template = loader.get_template('Vault/search.html')
-    context = {
-        'comic_list': comic_list
-    }
-    return HttpResponse(template.render(context, request))
+	comic_list = Comic.objects.all()
+	if request.method == 'GET':
+		form = SearchForm(request.GET)
+		if form.is_valid():
+			if form.cleaned_data['series']:
+				comic_list = comic_list.filter(series__icontains=form.cleaned_data['series'])
+			if form.cleaned_data['volume']:
+				comic_list = comic_list.filter(volume = form.cleaned_data['volume'])
+			if form.cleaned_data['issue']:
+				comic_list = comic_list.filter(issue = form.cleaned_data['issue'])
+			if form.cleaned_data['publisher']:
+				comic_list = comic_list.filter(publisher__icontains=form.cleaned_data['publisher'])
+			if form.cleaned_data['writer']:
+				comic_list = comic_list.filter(writer__icontains=form.cleaned_data['writer'])
+			if form.cleaned_data['illustrator']:
+				comic_list = comic_list.filter(illustrator__icontains=form.cleaned_data['illustrator'])
+			if form.cleaned_data['colorist']:
+				comic_list = comic_list.filter(colorist__icontains=form.cleaned_data['colorist'])
+	else:
+		form = SearchForm()
+	context = {
+		'comic_list': comic_list,
+		'form': form
+	}
+	return render(request, 'Vault/search.html', context)
 
 
 @login_required

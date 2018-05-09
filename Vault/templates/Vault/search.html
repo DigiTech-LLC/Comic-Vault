@@ -130,16 +130,18 @@
 				<h3>Advanced Search</h3>
 			</div>
 
-			<form>
+			<!-- Original form w/ bootstrap -->
+			
+			<!-- <form action="" method="get">
 				<div class = "row">
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Series">
+						<input id="series" type="text" class="form-control" placeholder="Series">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Volume">
+						<input id="volume" type="text" class="form-control" placeholder="Volume">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Issue">
+						<input id="issue" type="text" class="form-control" placeholder="Issue">
 					</div>
 				</div>
 
@@ -147,16 +149,16 @@
 
 				<div class = "row">
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Publisher">
+						<input id="publisher" type="text" class="form-control" placeholder="Publisher">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Writer">
+						<input id="writer" type="text" class="form-control" placeholder="Writer">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Illustrator">
+						<input id="illustrator" type="text" class="form-control" placeholder="Illustrator">
 					</div>
 					<div class = "col-xs-6 col-md-3">
-						<input type="text" class="form-control" placeholder="Colorist">
+						<input id="colorist" type="text" class="form-control" placeholder="Colorist">
 					</div>
 				</div>
 
@@ -167,8 +169,115 @@
 						<button type = "submit" class = "btn btn-dark">Go!</button>
 					</div>
 				</div>
-			</form>
+			</form> -->
+			
+			<!-- Basic Django-generated form -->
+			
+			<!-- <form action="" method="get">
+				{{ form.as_p }}
+				<input type="submit" value="Submit" />
+			</form> -->
+			
+			<!-- Reordered basic form -->
+			
+			<!-- <form action="" method="get">
+				{{ form.non_field_errors }}
+				<div class = "row">
+					<div class = "col-xs-6 col-md-3">
+						{{form.series.errors}}
+						{{form.series.label_tag}}
+						{{form.series}}
+					</div>
+					<div class = "col-xs-6 col-md-3">
+						{{form.volume.errors}}
+						{{form.volume.label_tag}}
+						{{form.volume}}
+					</div>
+					<div class = "col-xs-6 col-md-3">
+						{{form.issue.errors}}
+						{{form.issue.label_tag}}
+						{{form.issue}}
+					</div>
+				</div>
+				<div class = "row">
+					<div class = "col-xs-6 col-md-3">
+						{{form.publisher.errors}}
+						{{form.publisher.label_tag}}
+						{{form.publisher}}
+					</div>
+					<div class = "col-xs-6 col-md-3">
+						{{form.writer.errors}}
+						{{form.writer.label_tag}}
+						{{form.writer}}
+					</div>
+					<div class = "col-xs-6 col-md-3">
+						{{form.illustrator.errors}}
+						{{form.illustrator.label_tag}}
+						{{form.illustrator}}
+					</div>
+					<div class = "col-xs-6 col-md-3">
+						{{form.colorist.errors}}
+						{{form.colorist.label_tag}}
+						{{form.colorist}}
+					</div>
+				</div>
+				<div class = "row">
+					<input type="submit" value="Submit" />
+				</div>
+			</form> -->
+			
+			<!-- Bootstrap-formatted Django form-->
+			
+			<form action="" method="get">
+				{% for error in form.non_field_errors %}
+				<div class="form-group has-errors text-danger small">
+					{{error}}
+				</div>
+				{% endfor %}
+				
+				<div class = "row form-group">
+					<div class = "col-xs-6 col-md-3 form-group">
+						{{form.series.errors}}
+						{{form.series}}
+					</div>
+					<div class = "col-xs-6 col-md-3 form-group">
+						{{form.volume.errors}}
+						{{form.volume}}
+					</div>
+					<div class = "col-xs-6 col-md-3 form-group">
+						{{form.issue.errors}}
+						{{form.issue}}
+					</div>
+				</div>
+				
+				<div class = "row">
+					<div class = "col-xs-6 col-md-3 form-group">
+						{{form.publisher.errors}}
+						{{form.publisher}}
+					</div>
+					<div class = "col-xs-6 col-md-3 form-group">
+						{{form.writer.errors}}
+						{{form.writer}}
+					</div>
+					<div class = "col-xs-6 col-md-3 form-group">
+						{{form.illustrator.errors}}
+						{{form.illustrator}}
+					</div>
+					<div class = "col-xs-6 col-md-3 form-group">
+						{{form.colorist.errors}}
+						{{form.colorist}}
+					</div>
+				</div>
 
+				<br />
+
+				<div class = "row">
+					<div class = "col">
+						<button type = "submit" class = "btn btn-dark">Go!</button>
+					</div>
+				</div>
+			</form> 
+			
 			<br />
 			<hr>
 
@@ -179,9 +288,9 @@
 			<ul class = "list-unstyled">
 			{% for comic in comic_list %}
 				<li class = "media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
-					<img class = "ml-3 mr-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
+					<img class = "m-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
 					<div class="media-body">
-						<h5 class = "mt-0 mb-1">
+						<h5 class = "mt-3 mb-1">
 							<a href={% url 'comicpage' comic.id%}>{{comic.series}}</a>
 						</h5>
 						<dl class = "row">
