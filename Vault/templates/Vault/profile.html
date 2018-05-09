@@ -16,6 +16,9 @@
 				if (elem.value=="Follow") elem.value = "Following";
 				else elem.value = "Follow";
 			}
+			function reloadFun() {
+    		location.reload();
+			}
 		</script>
 
     <style>
@@ -96,22 +99,32 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4 sidepanel">
-				{% if user_profile.profile_picture == "" %}
+				{% if user_profile.profile_picture == "" and user_profile.id == logged_in_user.id %}
 					<form method="post">
 							{% csrf_token %}
 									{{ pictureform | bootstrap }}
-							<input type="submit" value="Submit" name="ProfilePic" class="btn btn-primary mb-3"/>
+							<input type="submit" value="Upload" name="ProfilePic" class="btn btn-primary mb-3"/>
 					</form>
+				{% endif %}
+				{% if user_profile.profile_picture == "" and user_profile.id != logged_in_user.id %}
+					<img class="img-responsive" src="http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" class="img-rounded" alt="Profile Picture">
 				{% endif %}
 				{% if user_profile.profile_picture != "" %}
 					<img class="img-responsive" src="{{ user_profile.profile_picture }}" class="img-rounded" alt="Profile Picture">
+				{% endif %}
+				{% if user_profile.profile_picture != "" and user_profile.id == logged_in_user.id %}
+					<form method="post">
+							{% csrf_token %}
+									{{ pictureform | bootstrap }}
+							<input type="submit" value="Edit Profile Picture" name="ProfilePic" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+					</form>
 				{% endif %}
 			</div>
 
 			<div class="col-sm-6 text-center info">
   			<h1>{{ user_profile.first_name }} {{ user_profile.last_name }}</h1>
 				<div class="persona" style="font-style: italic; color: #191970;">
-					{% if user_profile.comic_persona == "" %}
+					{% if user_profile.comic_persona == "" and user_profile.id == logged_in_user.id %}
 						<form method="post">
 	            	{% csrf_token %}
 	                	{{ comicpersonaform | bootstrap }}
@@ -121,10 +134,17 @@
 					{% if user_profile.comic_persona != "" %}
 						<p>{{ user_profile.comic_persona }}</p>
 					{% endif %}
+					{% if user_profile.comic_persona != "" and user_profile.id == logged_in_user.id %}
+						<form method="post">
+	            	{% csrf_token %}
+	                	{{ comicpersonaform | bootstrap }}
+	            	<input type="submit" value="Edit Comic Persona" name="ComicPersona" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+	        	</form>
+					{% endif %}
 				</div>
 				<div class="bio">
 					<h6>Bio:</h6>
-					{% if user_profile.bio == "" %}
+					{% if user_profile.bio == "" and user_profile.id == logged_in_user.id %}
 						<form method="post">
 	            	{% csrf_token %}
 	                	{{ bioform | bootstrap }}
@@ -134,12 +154,19 @@
 					{% if user_profile.bio != "" %}
 						<p>{{ user_profile.bio }}</p>
 					{% endif %}
+					{% if user_profile.bio != "" and user_profile.id == logged_in_user.id %}
+						<form method="post">
+	            	{% csrf_token %}
+	                	{{ bioform | bootstrap }}
+	            	<input type="submit" value="Edit Bio" name="Bio" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+	        	</form>
+					{% endif %}
 				</div>
 				<div class="preferences">
 					<div class="row">
 						<div class="col-sm-6">
 			 				<h6>Favorite Character:</h6>
-							{% if user_profile.favorite_character == "" %}
+							{% if user_profile.favorite_character == "" and user_profile.id == logged_in_user.id %}
 								<form method="post">
 			            	{% csrf_token %}
 			                	{{ favcharform | bootstrap }}
@@ -149,10 +176,17 @@
 							{% if user_profile.favorite_character != "" %}
 			 					<p>{{ user_profile.favorite_character }}</p>
 							{% endif %}
+							{% if user_profile.favorite_character != "" and user_profile.id == logged_in_user.id %}
+								<form method="post">
+			            	{% csrf_token %}
+			                	{{ favcharform | bootstrap }}
+			            	<input type="submit" value="Edit Favorite Character" name="FavChar" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+			        	</form>
+							{% endif %}
 			 			</div>
 			 			<div class="col-sm-6" style="border-left: 3px solid black;">
 			 				<h6>Comic Genre Preference:</h6>
-							{% if user_profile.comic_type == "" %}
+							{% if user_profile.comic_type == "" and user_profile.id == logged_in_user.id %}
 								<form method="post">
 			            	{% csrf_token %}
 			                	{{ comictypeform | bootstrap }}
@@ -161,6 +195,13 @@
 							{% endif %}
 							{% if user_profile.comic_type != "" %}
 			 					<p>{{ user_profile.comic_type }}</p>
+							{% endif %}
+							{% if user_profile.comic_type != "" and user_profile.id == logged_in_user.id %}
+								<form method="post">
+			            	{% csrf_token %}
+			                	{{ comictypeform | bootstrap }}
+			            	<input type="submit" value="Edit Comic Type Preference" name="ComicType" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+			        	</form>
 							{% endif %}
 			 			</div>
 			 		</div>
