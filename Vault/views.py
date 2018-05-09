@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, ProfileForm
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm
 import datetime
 
 
@@ -102,15 +102,58 @@ def search(request):
 @login_required
 def profile(request, id):
     if request.method == 'POST':
-        profileform = ProfileForm(request.POST)
-        if profileform.is_valid():
-            post = profileform.save(commit=False)
-            post.bio = profileform.cleaned_data.get('bio')
-            post = request.user.userprofile
-            post.save()
-            profileform = ProfileForm
+        bioform = BioForm
+        favcharform = FavCharForm
+        comictypeform = ComicTypeForm
+        comicpersonaform = ComicPersonaForm
+        pictureform = ProfilePictureForm
+
+        if 'Bio' in request.POST:
+            bioform = BioForm(request.POST)
+            if bioform.is_valid():
+                post = bioform.save(commit=False)
+                post = request.user.userprofile
+                post.bio = bioform.cleaned_data.get('bio')
+                post.save()
+                bioform = BioForm
+        elif 'FavChar' in request.POST:
+            favcharform = FavCharForm(request.POST)
+            if favcharform.is_valid():
+                post = favcharform.save(commit=False)
+                post = request.user.userprofile
+                post.favorite_character = favcharform.cleaned_data.get('favorite_character')
+                post.save()
+                favcharform = FavCharForm
+        elif 'ComicType' in request.POST:
+            comictypeform = ComicTypeForm(request.POST)
+            if comictypeform.is_valid():
+                post = comictypeform.save(commit=False)
+                post = request.user.userprofile
+                post.comic_type = comictypeform.cleaned_data.get('comic_type')
+                post.save()
+                comictypeform = ComicTypeForm
+        elif 'ComicPersona' in request.POST:
+            comicpersonaform = ComicPersonaForm(request.POST)
+            if comicpersonaform.is_valid():
+                post = comicpersonaform.save(commit=False)
+                post = request.user.userprofile
+                post.comic_persona = comicpersonaform.cleaned_data.get('comic_persona')
+                post.save()
+                comicpersonaform = ComicPersonaForm
+        elif 'ProfilePic' in request.POST:
+            pictureform = ProfilePictureForm(request.POST)
+            if pictureform.is_valid():
+                post = pictureform.save(commit=False)
+                post = request.user.userprofile
+                post.profile_picture = pictureform.cleaned_data.get('profile_picture')
+                post.save()
+                pictureform = ProfilePictureForm
     else:
-        profileform = ProfileForm()
+        bioform = BioForm()
+        favcharform = FavCharForm()
+        comictypeform = ComicTypeForm()
+        comicpersonaform = ComicPersonaForm()
+        pictureform = ProfilePictureForm()
 
     user = request.user
     user_profile = UserProfile.objects.get(id=id)
@@ -119,7 +162,6 @@ def profile(request, id):
     followers = Follow.objects.filter(id_2_id=id)
     following_count = Follow.objects.filter(id_1_id=id).count()
     follower_count = Follow.objects.filter(id_2_id=id).count()
-    template = loader.get_template('Vault/profile.html')
     context = {
         'user_profile': user_profile,
         'following': following,
@@ -127,7 +169,11 @@ def profile(request, id):
         'following_count': following_count,
         'follower_count': follower_count,
         'logged_in_user': logged_in_user,
-        'profileform': profileform,
+        'bioform': bioform,
+        'favcharform': favcharform,
+        'comictypeform': comictypeform,
+        'comicpersonaform': comicpersonaform,
+        'pictureform': pictureform,
     }
     return render(request, 'Vault/profile.html', context)
 

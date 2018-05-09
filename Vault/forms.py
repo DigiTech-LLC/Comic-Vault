@@ -38,9 +38,41 @@ class TimelineVoteForm(forms.ModelForm):
         widgets = {'id': forms.HiddenInput, }
 
 
-class ProfileForm(forms.ModelForm):
+class BioForm(forms.ModelForm):
     bio = forms.CharField(max_length=300, required=False)
 
     class Meta:
         model = UserProfile
         fields = ('bio',)
+
+
+class FavCharForm(forms.ModelForm):
+    favorite_character = forms.CharField(max_length=300, required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = ('favorite_character',)
+
+
+class ComicTypeForm(forms.ModelForm):
+    comic_type = forms.CharField(max_length=300, required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = ('comic_type',)
+
+
+class ComicPersonaForm(forms.ModelForm):
+    comic_persona = forms.CharField(max_length=30, required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = ('comic_persona',)
+
+
+class ProfilePictureForm(forms.ModelForm):
+    profile_picture = forms.URLField(required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = ('profile_picture',)
