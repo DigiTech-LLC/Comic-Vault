@@ -31,7 +31,7 @@
         {% endif %}
         </ul>
     </nav>
-
+	
 		<div class = "container">
 			<div class = "row">
 				<h1>Find a Comic</h1>
@@ -39,197 +39,6 @@
 
 			<br />
 
-			<!-- Old Navbar-->
-			
-			<!-- <div class = "row">
-				<h3>Quick Search by Series:</h3>
-
-				<ul class = "nav nav-tabs">
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">A</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">B</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">C</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">D</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">E</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">F</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">G</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">H</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">I</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">J</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">K</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">L</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">M</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">N</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">O</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">P</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">Q</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">R</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">S</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">T</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">U</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">V</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">W</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">X</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">Y</a>
-					</li>
-					<li class = "nav=item">
-						<a class = "nav-link" href = "#">Z</a>
-					</li>
-				</ul>
-			</div>
-
-			<br /> -->
-
-			<div class = "row">
-				<h3>Advanced Search</h3>
-			</div>
-
-			<!-- Original form w/ bootstrap -->
-			
-			<!-- <form action="" method="get">
-				<div class = "row">
-					<div class = "col-xs-6 col-md-3">
-						<input id="series" type="text" class="form-control" placeholder="Series">
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						<input id="volume" type="text" class="form-control" placeholder="Volume">
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						<input id="issue" type="text" class="form-control" placeholder="Issue">
-					</div>
-				</div>
-
-				<br />
-
-				<div class = "row">
-					<div class = "col-xs-6 col-md-3">
-						<input id="publisher" type="text" class="form-control" placeholder="Publisher">
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						<input id="writer" type="text" class="form-control" placeholder="Writer">
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						<input id="illustrator" type="text" class="form-control" placeholder="Illustrator">
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						<input id="colorist" type="text" class="form-control" placeholder="Colorist">
-					</div>
-				</div>
-
-				<br />
-
-				<div class = "row">
-					<div class = "col">
-						<button type = "submit" class = "btn btn-dark">Go!</button>
-					</div>
-				</div>
-			</form> -->
-			
-			<!-- Basic Django-generated form -->
-			
-			<!-- <form action="" method="get">
-				{{ form.as_p }}
-				<input type="submit" value="Submit" />
-			</form> -->
-			
-			<!-- Reordered basic form -->
-			
-			<!-- <form action="" method="get">
-				{{ form.non_field_errors }}
-				<div class = "row">
-					<div class = "col-xs-6 col-md-3">
-						{{form.series.errors}}
-						{{form.series.label_tag}}
-						{{form.series}}
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						{{form.volume.errors}}
-						{{form.volume.label_tag}}
-						{{form.volume}}
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						{{form.issue.errors}}
-						{{form.issue.label_tag}}
-						{{form.issue}}
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "col-xs-6 col-md-3">
-						{{form.publisher.errors}}
-						{{form.publisher.label_tag}}
-						{{form.publisher}}
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						{{form.writer.errors}}
-						{{form.writer.label_tag}}
-						{{form.writer}}
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						{{form.illustrator.errors}}
-						{{form.illustrator.label_tag}}
-						{{form.illustrator}}
-					</div>
-					<div class = "col-xs-6 col-md-3">
-						{{form.colorist.errors}}
-						{{form.colorist.label_tag}}
-						{{form.colorist}}
-					</div>
-				</div>
-				<div class = "row">
-					<input type="submit" value="Submit" />
-				</div>
-			</form> -->
-			
-			<!-- Bootstrap-formatted Django form-->
-			
 			<form action="" method="get">
 				{% for error in form.non_field_errors %}
 				<div class="form-group has-errors text-danger small">
@@ -287,6 +96,44 @@
 
 		<div class = "container">
 		{% if comics %}
+		
+			{% if comics.has_other_pages %}
+				<nav>
+					<ul class="pagination justify-content-end">
+							{% if comics.has_previous %}
+								<li class="page-item">
+									<a class="page-link" href="?page={{ comics.previous_page_number }}">&laquo;</a>
+								</li>
+							{% else %}
+								<li class="page-item disabled">
+									<span class="page-link">&laquo;</span>
+								</li>
+							{% endif %}
+							
+							{% for i in comics.paginator.page_range %}
+								{% if comics.number == i%}
+									<li class="page-item active">
+										<span class="page-link">{{ i }}</span>
+									</li>
+								{% else %}
+									<li class="page-item">
+										<a class="page-link" href="?page={{ i }}">{{ i }}</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+							{% if comics.has_next %}
+								<li class="page-item">
+									<a class="page-link" href="?page={{ comics.next_page_number }}">&raquo;</a>
+								</li>
+							{% else %}
+								<li class="page-item disabled">
+									<span class="page-link">&raquo;</span>
+								</li>
+							{% endif %}
+					</ul>
+				</nav>
+			{% endif %}
+			
 			<ul class = "list-unstyled">
 			{% for comic in comics %}
 				<li class = "media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
@@ -325,23 +172,6 @@
 			{% endfor %}
 			</ul>
 			
-			<div class="pagination">
-				<span class="step-links">
-					{% if comics.has_previous %}
-						<a href="?page=1">&laquo; first</a>
-						<a href="?page={{ comics.previous_page_number }}">previous</a>
-					{% endif %}
-
-					<span class="current">
-						Page {{ comics.number }} of {{ comics.paginator.num_pages }}.
-					</span>
-
-					{% if comics.has_next %}
-						<a href="?page={{ comics.next_page_number }}">next</a>
-						<a href="?page={{ comics.paginator.num_pages }}">last &raquo;</a>
-					{% endif %}
-				</span>
-			</div>
 		{% else %}
 			<div class = "row">
 				<div class = "col">
