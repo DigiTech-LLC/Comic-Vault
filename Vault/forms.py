@@ -39,13 +39,27 @@ class TimelineVoteForm(forms.ModelForm):
 
 class SearchForm(forms.ModelForm):
 	
-	series = forms.CharField(required=False)
-	volume = forms.IntegerField(required=False)
-	issue = forms.IntegerField(required=False)
-	publisher = forms.CharField(required=False)
-	writer = forms.CharField(required=False)
-	illustrator = forms.CharField(required=False)
-	colorist = forms.CharField(required=False)
+	series = forms.CharField(
+		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Series'}),
+		required=False)
+	volume = forms.IntegerField(
+		widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Volume'}),
+		required=False)
+	issue = forms.IntegerField(
+		widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Issue'}),
+		required=False)
+	publisher = forms.CharField(
+		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Publisher'}),
+		required=False)
+	writer = forms.CharField(
+		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Writer'}),
+		required=False)
+	illustrator = forms.CharField(
+		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Illustrator'}),
+		required=False)
+	colorist = forms.CharField(
+		widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Colorist'}),
+		required=False)
 	
 	
 	class Meta:
