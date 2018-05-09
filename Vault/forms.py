@@ -128,7 +128,7 @@ class ComicRatingForm(forms.Form):
 
     class Meta:
         model = Rating
-        fields = ('rating',)
-
+        fields = ('rating', 'id',)
+        widgets = {'id': forms.HiddenInput, }
 
 print(ComicRatingForm().as_p())
