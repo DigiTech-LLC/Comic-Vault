@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow,NewsfeedItem,GeneralNews,NewsfeedComment
-from .forms import ComicCommentForm, SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm
+from .forms import ComicRatingForm, ComicCommentForm, SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm
 
 import datetime
 
@@ -27,6 +27,7 @@ def index(request):
 def comicpage(request, id):
     if request.method == 'POST':
         comiccommentform = ComicCommentForm
+        comicratingform = ComicRatingForm
         if 'ComicComment' in request.POST:
             comiccommentform = ComicCommentForm(request.POST)
             if comiccommentform.is_valid():
@@ -36,9 +37,21 @@ def comicpage(request, id):
                 post.user_profile_id = request.user.userprofile
                 post.comic_id = Comic.objects.filter(id=id).first()
                 post.save()
-                comiccommentform = ComicCommentForm()
+                comiccommentform = ComicCommentForm
+        elif 'ComicRating' in request.POST:
+            comicratingform = ComicRatingForm(request.POST)
+            if comicratingform.is_valid():
+                #print(request.POST['id']);
+                post = Rating.objects.get(id=request.POST['id'])
+                #post = Rating.objects.get(id)
+                post.rating = comicratingform.cleaned_data['value']
+                post.user_profile_id = request.user.userprofile
+                #post.comic_id = Comic.objects.filter(id=id).first()
+                post.save()
+                comicratingform = ComicRatingForm
     else:
-        comiccommentform = ComicCommentForm()
+        comiccommentform = ComicCommentForm
+        comicratingform = ComicRatingForm
 
 
     user = request.user
@@ -53,6 +66,7 @@ def comicpage(request, id):
         'comic_comment_list': comic_comment_list,
         'comic_rating_average': comic_rating_average,
         'comiccommentform': comiccommentform,
+        'comicratingform': comicratingform,
         'user_rating': user_rating
     }
     return render(request, 'Vault/comic-page.html', context)

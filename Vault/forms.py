@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import TimelinePost, TimelineComment, UserProfile, ComicComment
+from .models import TimelinePost, TimelineComment, UserProfile, ComicComment, Rating
 
 
 class SignUpForm(UserCreationForm):
@@ -84,3 +84,14 @@ class ComicCommentForm(forms.ModelForm):
     class Meta:
         model = ComicComment
         fields = ('content', )
+
+class ComicRatingForm(forms.Form):
+    CHOICES = (('value', '1'),('value', '2'),)
+    #select = forms.CharField(widget=forms.Select(choices=CHOICES))
+    select = forms.ChoiceField(choices=CHOICES)
+
+    class Meta:
+        model = Rating
+        fields = ('rating', )
+
+print(ComicRatingForm().as_p())
