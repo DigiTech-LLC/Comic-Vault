@@ -5,20 +5,23 @@ from django.template import loader
 from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow, NewsfeedItem, GeneralNews, NewsfeedComment
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, ComicRatingForm, ComicCommentForm
+from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow, NewsfeedItem, \
+    GeneralNews, NewsfeedComment
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, \
+    ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, ComicRatingForm, ComicCommentForm
 import datetime
 
 from django.db.models import Avg
 
+
 def index(request):
     carousel_items = NewsfeedItem.objects.all()
-    carousel_news  = GeneralNews.objects.all()
+    carousel_news = GeneralNews.objects.all()
     carousel_comic = Comic.objects.all()
-    template       = loader.get_template('Vault/home.html')
-    context        = {
+    template = loader.get_template('Vault/home.html')
+    context = {
         'carousel_items': carousel_items,
-        'carousel_news' : carousel_news,
+        'carousel_news': carousel_news,
         'carousel_comic': carousel_comic
     }
     return HttpResponse(template.render(context, request))
@@ -42,18 +45,17 @@ def comicpage(request, id):
         elif 'ComicRating' in request.POST:
             comicratingform = ComicRatingForm(request.POST)
             if comicratingform.is_valid():
-                #print(request.POST['id']);
+                # print(request.POST['id']);
                 post = Rating.objects.get(id=request.POST['id'])
-                #post = Rating.objects.get(id)
+                # post = Rating.objects.get(id)
                 post.rating = comicratingform.cleaned_data['value']
                 post.user_profile_id = request.user.userprofile
-                #post.comic_id = Comic.objects.filter(id=id).first()
+                # post.comic_id = Comic.objects.filter(id=id).first()
                 post.save()
                 comicratingform = ComicRatingForm
     else:
         comiccommentform = ComicCommentForm
         comicratingform = ComicRatingForm
-
 
     user = request.user
     comic_entry = Comic.objects.filter(id=id).first()
@@ -167,7 +169,6 @@ def search(request):
 		'comics': comics
 	}
 	return render(request, 'Vault/search.html', context)
-
 
 @login_required
 def profile(request, id):
