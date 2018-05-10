@@ -5,7 +5,7 @@ from django.template import loader
 from django.contrib.auth import login, authenticate
 
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow, NewsfeedItem, GeneralNews, NewsfeedComment
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, ComicRatingForm, ComicCommentForm
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, ComicRatingForm, ComicCommentForm, FollowForm
 import datetime
 
 from django.db.models import Avg
@@ -171,6 +171,7 @@ def profile(request, id):
         comictypeform = ComicTypeForm
         comicpersonaform = ComicPersonaForm
         pictureform = ProfilePictureForm
+        followform = FollowForm()
 
         if 'Bio' in request.POST:
             bioform = BioForm(request.POST)
@@ -212,12 +213,30 @@ def profile(request, id):
                 post.profile_picture = pictureform.cleaned_data.get('profile_picture')
                 post.save()
                 pictureform = ProfilePictureForm
+        elif 'DefaultPic' in request.POST:
+            defaultform = ProfilePictureForm(request.POST)
+            if defaultform.is_valid():
+                post = UserProfile.objects.get(id=id)
+                post.profile_picture = pictureform.cleaned_data.get('profile_picture')
+                post.profile_picture = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png'
+                post.save()
+        elif 'Follow' in request.POST:
+            followform = FollowForm(request.POST)
+            if followform.is_valid():
+                follow = Follow(id_1_id = request.user.userprofile.id, id_2_id = id)
+                follow.save()
+        elif 'Unfollow' in request.POST:
+            unfollowform = FollowForm(request.POST)
+            if unfollowform.is_valid():
+                Follow.objects.filter(id_1_id = request.user.userprofile.id).filter(id_2_id = id).delete()
+
     else:
         bioform = BioForm()
         favcharform = FavCharForm()
         comictypeform = ComicTypeForm()
         comicpersonaform = ComicPersonaForm()
         pictureform = ProfilePictureForm()
+        followform = FollowForm()
 
     user = request.user
     user_profile = UserProfile.objects.get(id=id)
@@ -226,6 +245,10 @@ def profile(request, id):
     followers = Follow.objects.filter(id_2_id=id)
     following_count = Follow.objects.filter(id_1_id=id).count()
     follower_count = Follow.objects.filter(id_2_id=id).count()
+    checkFollow = Follow.objects.filter(id_1_id=user.userprofile.id).filter(id_2_id=id).count()
+    if user_profile.profile_picture == "":
+        user_profile.profile_picture = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png'
+        user_profile.save()
     context = {
         'user_profile': user_profile,
         'following': following,
@@ -238,6 +261,9 @@ def profile(request, id):
         'comictypeform': comictypeform,
         'comicpersonaform': comicpersonaform,
         'pictureform': pictureform,
+        'followform': followform,
+        'checkFollow': checkFollow,
+
     }
     return render(request, 'Vault/profile.html', context)
 
