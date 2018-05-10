@@ -213,13 +213,6 @@ def profile(request, id):
                 post.profile_picture = pictureform.cleaned_data.get('profile_picture')
                 post.save()
                 pictureform = ProfilePictureForm
-        elif 'DefaultPic' in request.POST:
-            defaultform = ProfilePictureForm(request.POST)
-            if defaultform.is_valid():
-                post = UserProfile.objects.get(id=id)
-                post.profile_picture = pictureform.cleaned_data.get('profile_picture')
-                post.profile_picture = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png'
-                post.save()
         elif 'Follow' in request.POST:
             followform = FollowForm(request.POST)
             if followform.is_valid():
