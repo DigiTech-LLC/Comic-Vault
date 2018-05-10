@@ -96,9 +96,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4 sidepanel">
-				{% if user_profile.profile_picture != "" %}
 					<img class="img-responsive" src="{{ user_profile.profile_picture }}" class="img-rounded" alt="Profile Picture">
-				{% endif %}
 				{% if user_profile.profile_picture != "" and user_profile.id == logged_in_user.id %}
 				<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#EditPic">Edit Profile Picture</button>
 					<div id="EditPic" class="collapse">
