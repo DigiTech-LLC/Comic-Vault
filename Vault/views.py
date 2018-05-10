@@ -6,18 +6,20 @@ from django.contrib.auth import login, authenticate
 
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow, NewsfeedItem, GeneralNews, NewsfeedComment
 from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, ComicRatingForm, ComicCommentForm, FollowForm
+
 import datetime
 
 from django.db.models import Avg
 
+
 def index(request):
     carousel_items = NewsfeedItem.objects.all()
-    carousel_news  = GeneralNews.objects.all()
+    carousel_news = GeneralNews.objects.all()
     carousel_comic = Comic.objects.all()
-    template       = loader.get_template('Vault/home.html')
-    context        = {
+    template = loader.get_template('Vault/home.html')
+    context = {
         'carousel_items': carousel_items,
-        'carousel_news' : carousel_news,
+        'carousel_news': carousel_news,
         'carousel_comic': carousel_comic
     }
     return HttpResponse(template.render(context, request))
@@ -41,18 +43,17 @@ def comicpage(request, id):
         elif 'ComicRating' in request.POST:
             comicratingform = ComicRatingForm(request.POST)
             if comicratingform.is_valid():
-                #print(request.POST['id']);
+                # print(request.POST['id']);
                 post = Rating.objects.get(id=request.POST['id'])
-                #post = Rating.objects.get(id)
+                # post = Rating.objects.get(id)
                 post.rating = comicratingform.cleaned_data['value']
                 post.user_profile_id = request.user.userprofile
-                #post.comic_id = Comic.objects.filter(id=id).first()
+                # post.comic_id = Comic.objects.filter(id=id).first()
                 post.save()
                 comicratingform = ComicRatingForm
     else:
         comiccommentform = ComicCommentForm
         comicratingform = ComicRatingForm
-
 
     user = request.user
     comic_entry = Comic.objects.filter(id=id).first()
@@ -136,31 +137,31 @@ def timeline(request):
 
 @login_required
 def search(request):
-	comic_list = Comic.objects.all()
-	if request.method == 'GET':
-		form = SearchForm(request.GET)
-		if form.is_valid():
-			if form.cleaned_data['series']:
-				comic_list = comic_list.filter(series__icontains=form.cleaned_data['series'])
-			if form.cleaned_data['volume']:
-				comic_list = comic_list.filter(volume = form.cleaned_data['volume'])
-			if form.cleaned_data['issue']:
-				comic_list = comic_list.filter(issue = form.cleaned_data['issue'])
-			if form.cleaned_data['publisher']:
-				comic_list = comic_list.filter(publisher__icontains=form.cleaned_data['publisher'])
-			if form.cleaned_data['writer']:
-				comic_list = comic_list.filter(writer__icontains=form.cleaned_data['writer'])
-			if form.cleaned_data['illustrator']:
-				comic_list = comic_list.filter(illustrator__icontains=form.cleaned_data['illustrator'])
-			if form.cleaned_data['colorist']:
-				comic_list = comic_list.filter(colorist__icontains=form.cleaned_data['colorist'])
-	else:
-		form = SearchForm()
-	context = {
-		'comic_list': comic_list,
-		'form': form
-	}
-	return render(request, 'Vault/search.html', context)
+    comic_list = Comic.objects.all()
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            if form.cleaned_data['series']:
+                comic_list = comic_list.filter(series__icontains=form.cleaned_data['series'])
+            if form.cleaned_data['volume']:
+                comic_list = comic_list.filter(volume=form.cleaned_data['volume'])
+            if form.cleaned_data['issue']:
+                comic_list = comic_list.filter(issue=form.cleaned_data['issue'])
+            if form.cleaned_data['publisher']:
+                comic_list = comic_list.filter(publisher__icontains=form.cleaned_data['publisher'])
+            if form.cleaned_data['writer']:
+                comic_list = comic_list.filter(writer__icontains=form.cleaned_data['writer'])
+            if form.cleaned_data['illustrator']:
+                comic_list = comic_list.filter(illustrator__icontains=form.cleaned_data['illustrator'])
+            if form.cleaned_data['colorist']:
+                comic_list = comic_list.filter(colorist__icontains=form.cleaned_data['colorist'])
+    else:
+        form = SearchForm()
+    context = {
+        'comic_list': comic_list,
+        'form': form
+    }
+    return render(request, 'Vault/search.html', context)
 
 
 @login_required

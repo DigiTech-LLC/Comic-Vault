@@ -78,7 +78,8 @@
                       <div class="mr-3">
                           {{ comicratingform | bootstrap }}
                       </div>
-                        <input type="submit" value="Submit" name="ComicRating" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
+		      <input type="hidden" value="{{ post.id }}" name="id">
+		      <input type="submit" value="Submit" name="ComicRating" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
                   </form>
                 {% endif %}
                 / 5
