@@ -74,13 +74,13 @@
                   {{ user_rating.rating }}
                 {% else %}
                   <form method="post">
-                      {% csrf_token %}
                       <div class="mr-3">
+                          {% csrf_token %}
                           {{ comicratingform | bootstrap }}
+                          <input type="hidden" value="{{ post.id }}" name="id">
+    		                  <input type="submit" value="Submit" name="ComicRating" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
                       </div>
-		      <input type="hidden" value="{{ post.id }}" name="id">
-		      <input type="submit" value="Submit" name="ComicRating" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
-                  </form>
+		              </form>
                 {% endif %}
                 / 5
               </div>

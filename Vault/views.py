@@ -45,9 +45,11 @@ def comicpage(request, id):
             comicratingform = ComicRatingForm(request.POST)
             if comicratingform.is_valid():
                 # print(request.POST['id']);
+                print(request.POST)
                 post = Rating.objects.get(id=request.POST['id'])
                 # post = Rating.objects.get(id)
-                post.rating = comicratingform.cleaned_data['value']
+                print(comicratingform.cleaned_data)
+                post.rating = comicratingform.cleaned_data['select']
                 post.user_profile_id = request.user.userprofile
                 # post.comic_id = Comic.objects.filter(id=id).first()
                 post.save()
