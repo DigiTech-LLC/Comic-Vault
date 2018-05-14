@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import TimelinePost, TimelineComment, UserProfile, Comic, ComicComment, Rating
+from .models import TimelinePost, TimelineComment, UserProfile, Comic, ComicComment, Rating, Follow
 
 
 class SignUpForm(UserCreationForm):
@@ -134,3 +134,10 @@ class ComicRatingForm(forms.Form):
         fields = ('rating',)
 
 print(ComicRatingForm().as_p())
+
+
+class FollowForm(forms.ModelForm):
+
+    class Meta:
+        model = Follow
+        fields = ('id',)
