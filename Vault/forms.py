@@ -123,8 +123,8 @@ class ComicCommentForm(forms.ModelForm):
 
 class ComicRatingForm(forms.Form):
     # (value, name in box)
-    CHOICES = ((-1, "-"), (1, '1',), (2, '2',), (3, '3',), (4, '4',), (5, '5',),)
-    select = forms.CharField(widget=forms.Select(choices=CHOICES))
+    CHOICES = ((-1, "-"), (5, '5 (Excellent)',), (4, '4 (Good)',), (3, '3 (Average)',), (2, '2 (Bad)',), (1, '1 (Poor)',), )
+    select = forms.CharField(widget=forms.Select(choices=CHOICES), label='')
 
     class Meta:
         model = Rating

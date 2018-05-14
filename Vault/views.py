@@ -45,7 +45,7 @@ def comicpage(request, id):
             comicratingform = ComicRatingForm(request.POST)
             if comicratingform.is_valid():
                 print(comicratingform.cleaned_data['select'])
-                if comicratingform.cleaned_data['select'] != -1:
+                if comicratingform.cleaned_data['select'] != '-1':
                     Rating.objects.filter(user_profile_id_id = request.user.userprofile.id, comic_id_id = id).delete()
                     Rating(user_profile_id_id = request.user.userprofile.id, comic_id_id = id)
                     post = Rating(user_profile_id_id = request.user.userprofile.id, comic_id_id = id)
