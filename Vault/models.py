@@ -109,11 +109,11 @@ class NewsfeedItem(models.Model):
         return str(self.id)
 
 
-class NewsfeedComment(models.Model):
+class NewsComment(models.Model):
     timestamp = models.DateTimeField()
     user_profile_id = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     content = models.CharField(max_length=500)
-    newsfeed_item_id = models.ForeignKey(NewsfeedItem, on_delete=models.CASCADE)
+    generalnews_id = models.ForeignKey(GeneralNews, on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s %s" % (self.user_profile_id.first_name + " " + self.user_profile_id.last_name, self.timestamp)
