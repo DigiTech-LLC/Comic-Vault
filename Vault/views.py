@@ -8,7 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow, NewsfeedItem, \
     GeneralNews, NewsfeedComment
 from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, \
-    ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, ComicRatingForm, ComicCommentForm
+    ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, UserSearchForm, ComicRatingForm, ComicCommentForm
 import datetime
 
 from django.db.models import Avg
@@ -169,6 +169,31 @@ def search(request):
 		'comics': comics
 	}
 	return render(request, 'Vault/search.html', context)
+
+@login_required
+def usersearch(request):
+	user_list = UserProfile.objects.none()
+	if request.method == 'GET':
+		form = UserSearchForm(request.GET)
+		if form.is_valid():
+			if form.cleaned_data['first_name'] or form.cleaned_data['last_name']:
+				user_list = UserProfile.objects.all()
+				if form.cleaned_data['first_name']:
+					user_list = user_list.filter(first_name__istartswith=form.cleaned_data['first_name'])
+				if form.cleaned_data['last_name']:
+					user_list = user_list.filter(last_name__istartswith=form.cleaned_data['last_name'])
+	else:
+		form = UserSearchForm
+	user_list = user_list.order_by('first_name')
+	paginator = Paginator(user_list, 10)
+	page = request.GET.get('page')
+	users = paginator.get_page(page)
+	context = {
+		'user_list': user_list,
+		'form': form,
+		'users': users
+	}
+	return render(request, 'Vault/usersearch.html', context)
 
 @login_required
 def profile(request, id):

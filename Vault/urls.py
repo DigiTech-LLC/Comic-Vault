@@ -18,7 +18,10 @@ urlpatterns = [
 
     # [url]/search/
     path('search/', views.search, name='search'),
-
+	
+	# [url]/usersearch/
+	path('usersearch/', views.usersearch, name='usersearch'),
+	
     # [url]/login/
     path('login/', auth_views.login, {'template_name': 'Vault/login.html'}, name='login'),
 

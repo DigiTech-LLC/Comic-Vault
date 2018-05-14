@@ -67,6 +67,17 @@ class SearchForm(forms.ModelForm):
         model = Comic
         fields = {'series', 'volume', 'issue', 'publisher', 'writer', 'illustrator', 'colorist'}
 
+class UserSearchForm(forms.ModelForm):
+	first_name = forms.CharField(
+		widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}),
+        required=False)
+	last_name = forms.CharField(
+		widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
+        required=False)
+	
+	class Meta:
+		model = UserProfile
+		fields = {'first_name', 'last_name'}
 
 class BioForm(forms.ModelForm):
     bio = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter your bio...', 'rows': '4'}), label='')
