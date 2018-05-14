@@ -123,7 +123,7 @@ class ComicCommentForm(forms.ModelForm):
 
 class ComicRatingForm(forms.Form):
     # (value, name in box)
-    CHOICES = ((1, '1',), (2, '2',), (3, '3',), (4, '4',), (5, '5',),)
+    CHOICES = ((-1, "-"), (1, '1',), (2, '2',), (3, '3',), (4, '4',), (5, '5',),)
     select = forms.CharField(widget=forms.Select(choices=CHOICES))
 
     class Meta:
