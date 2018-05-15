@@ -8,6 +8,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -15,7 +19,14 @@
     <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
         <li class="nav-item active"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
-        <li class="nav-item"><a href="{% url 'search' %}" class="nav-link">Search</a></li>
+        <li class="dropdown">
+            <a class="nav-link dropdown-toggle bg-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">Search</a>
+            <div class="dropdown-menu bg-dark navbar-dark navbar-expand-lg">
+                <a class="dropdown-item nav-item text-light navbar navbar-expand-lg navbar-dark bg-dark" href="{% url 'search' %}">Comic Search</a>
+                <a class="dropdown-item nav-item text-light navbar navbar-expand-lg navbar-dark bg-dark" href="#">User Search</a>
+            </div>
+        </li>
     </ul>
     <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
@@ -34,7 +45,8 @@
 {% load bootstrap %}
 <div class="container w-80">
     <div class="form-group media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
-        <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}" alt="Profile Picture" height="64px" width="64px">
+        <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}" alt="Profile Picture" height="64px"
+             width="64px">
         <!--<div class="column container-fluid">
             <textarea type="text" rows="4" class="form-control mt-3 mr-3 my-3" id="post_input" placeholder="Share something on ComicVault"></textarea>
             <button type="submit" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;">Post</button>
@@ -44,7 +56,8 @@
             <div class="mr-3">
                 {{ postform | bootstrap }}
             </div>
-            <input type="submit" value="Submit" name="Post" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
+            <input type="submit" value="Submit" name="Post" class="btn btn-primary mb-3"
+                   style="background-color: #2E2E2E; border: none;"/>
         </form>
     </div>
     {% if timeline_post_list %}
@@ -53,33 +66,43 @@
                 {% if post.user_profile_id == user.userprofile or post.user_profile_id in following_list %}
                     <li class="media my-3" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
                         <ul class="list-unstyled">
-                            <li><img class="mr-3 ml-3 mt-3" src="{{ post.user_profile_id.profile_picture }}" alt="Profile Picture"
+                            <li><img class="mr-3 ml-3 mt-3" src="{{ post.user_profile_id.profile_picture }}"
+                                     alt="Profile Picture"
                                      height="64px" width="64px"></li>
-                            <li style="text-align: center"><form method="post">
-                                <button name="Like" style="border: none; background-color: #EEE">
-                                    {% csrf_token %}
-                                    {{ voteform }}
-                                    <input type="hidden" value="{{ post.id }}" name="id">
-                                    &#8593;
-                                </button></form></li>
-                            <li style="text-align: center"><form method="post">
-                                <button name="Dislike" style="border: none; background-color: #EEE">
-                                    {% csrf_token %}
-                                    {{ voteform }}
-                                    <input type="hidden" value="{{ post.id }}" name="id">
-                                    &#8595;
-                                </button></form></li>
+                            <li style="text-align: center">
+                                <form method="post">
+                                    <button name="Like" style="border: none; background-color: #EEE">
+                                        {% csrf_token %}
+                                        {{ voteform }}
+                                        <input type="hidden" value="{{ post.id }}" name="id">
+                                        &#8593;
+                                    </button>
+                                </form>
+                            </li>
+                            <li style="text-align: center">
+                                <form method="post">
+                                    <button name="Dislike" style="border: none; background-color: #EEE">
+                                        {% csrf_token %}
+                                        {{ voteform }}
+                                        <input type="hidden" value="{{ post.id }}" name="id">
+                                        &#8595;
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
                         <div class="media-body">
-                            <h5 class="mt-3"><a href={% url 'profile' post.user_profile_id.id %}>{{ post.user_profile_id.first_name }} {{ post.user_profile_id.last_name }}</a></h5>
-                            <p>{{ post.content }}</p>
+                            <h5 class="mt-3"><a
+                                    href={% url 'profile' post.user_profile_id.id %}>{{ post.user_profile_id.first_name }} {{ post.user_profile_id.last_name }}</a>
+                            </h5>
+                            <p>{{ post.content | urlize }}</p>
                             <p style="color:#6d6d6c;">Likes: {{ post.likes }} Dislikes: {{ post.dislikes }}</p>
                             <p style="color:#6d6d6c;"> {{ post.timestamp }} </p>
                             <ul class="list-unstyled">
                                 {% if timeline_comment_list %}
                                     {% for comment in timeline_comment_list %}
                                         {% if comment.timeline_post_id == post %}
-                                            <li class="media my-3 mr-3" style="border-left: 3px solid #2E2E2E; background-color: #dcdcdc">
+                                            <li class="media my-3 mr-3"
+                                                style="border-left: 3px solid #2E2E2E; background-color: #dcdcdc">
                                                 <a class="pr-3 ml-3 mt-3 my-3" href="#">
                                                     <img src="{{ comment.user_profile_id.profile_picture }}"
                                                          alt="Profile Picture" height="64px" width="64px">
@@ -88,15 +111,17 @@
                                                     <h5 class="mt-3"><a
                                                             href={% url 'profile' comment.user_profile_id.id %}>{{ comment.user_profile_id.first_name }} {{ comment.user_profile_id.last_name }}</a>
                                                     </h5>
-                                                    <p>{{ comment.content }}</p>
+                                                    <p>{{ comment.content | urlize }}</p>
                                                     <p style="color:#6d6d6c;"> {{ comment.timestamp }} </p>
                                                 </div>
                                             </li>
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
-                                <div class="form-group my-3 mr-3 media" style="border-left: 3px solid #2E2E2E; background-color: #dcdcdc">
-                                    <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}" alt="Profile Picture" height="64px" width="64px">
+                                <div class="form-group my-3 mr-3 media"
+                                     style="border-left: 3px solid #2E2E2E; background-color: #dcdcdc">
+                                    <img class="ml-3 mt-3" src="{{ user.userprofile.profile_picture }}"
+                                         alt="Profile Picture" height="64px" width="64px">
                                     <!--<div class="column container-fluid">
                                         <textarea type="text" rows="2" class="form-control mt-3 mr-3 my-3" id="comment_input" placeholder="Comment on this post"></textarea>
                                         <button type="submit" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;">Post</button>
@@ -107,7 +132,8 @@
                                             {{ commentform | bootstrap }}
                                         </div>
                                         <input type="hidden" value="{{ post.id }}" name="timeline_post_id">
-                                        <input type="submit" value="Submit" name="Comment" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
+                                        <input type="submit" value="Submit" name="Comment" class="btn btn-primary mb-3"
+                                               style="background-color: #2E2E2E; border: none;"/>
                                     </form>
                                 </div>
                             </ul>

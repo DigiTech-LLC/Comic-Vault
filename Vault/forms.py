@@ -133,16 +133,13 @@ class ComicCommentForm(forms.ModelForm):
 
 
 class ComicRatingForm(forms.Form):
-    CHOICES = (('value', '1'), ('value', '2'),)
-    # select = forms.CharField(widget=forms.Select(choices=CHOICES))
-    select = forms.ChoiceField(choices=CHOICES)
+    # (value, name in box)
+    CHOICES = ((-1, "-"), (5, '5 (Excellent)',), (4, '4 (Good)',), (3, '3 (Average)',), (2, '2 (Bad)',), (1, '1 (Poor)',), )
+    select = forms.CharField(widget=forms.Select(choices=CHOICES), label='')
 
     class Meta:
         model = Rating
-        fields = ('rating', 'id',)
-        widgets = {'id': forms.HiddenInput, }
-
-print(ComicRatingForm().as_p())
+        fields = ('rating',)
 
 
 class FollowForm(forms.ModelForm):
