@@ -41,7 +41,7 @@
 			{% load bootstrap %}
 		<div class="container-fluid">
 			<div class="col-sm-12 text-center" style="margin-top:40px; background-color: #e6e6e6; padding:15px;">
-					<h1>{{ news_item.general_news_id.title }}</h1>
+					<a href="{{ news_item.general_news_id.url }}"><h1>{{ news_item.general_news_id.title }}</h1></a>
 			</div>
 			<div class="col-sm-12 text-center" style="font-size:25px; margin-top: 40px; background-color: #f2f2f2; padding: 20px;">
 					<p>{{ news_item.general_news_id.content }}</p>
