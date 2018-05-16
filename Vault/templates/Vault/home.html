@@ -100,9 +100,9 @@
         </h1>
         {% for generalnews in carousel_news %}
             <div id="home_carousel">
-                <h3>
-                    {{ generalnews.title }}
-                </h3>
+              <a href={% url 'newsItem' generalnews.id %} style="font-size:25px;">
+                  {{ generalnews.title }}
+              </a>
 
                 <p>
                     {{ generalnews.content }}

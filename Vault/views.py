@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow, NewsfeedItem, GeneralNews, NewsComment
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, UserSearchForm, ComicRatingForm, ComicCommentForm, FollowForm
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, UserSearchForm, ComicRatingForm, ComicCommentForm, FollowForm, NewsItemCommentForm
 
 import datetime
 
@@ -311,3 +311,29 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'Vault/signup.html', {'form': form})
+
+
+@login_required
+def newsItem(request, id):
+    if request.method == 'POST':
+        itemCommentForm = NewsItemCommentForm(request.POST)
+        if itemCommentForm.is_valid():
+            post = itemCommentForm.save(commit=False)
+            post.content = itemCommentForm.cleaned_data.get('content')
+            post.timestamp = datetime.datetime.now()
+            post.user_profile_id = request.user.userprofile
+            post.generalnews_id = GeneralNews.objects.filter(id=id).first()
+            post.save()
+            itemCommentForm = NewsItemCommentForm
+    else:
+        itemCommentForm = NewsItemCommentForm
+
+    news_item = NewsfeedItem.objects.get(general_news_id_id=id)
+    item_comment_list = NewsComment.objects.all().filter(generalnews_id_id=id).order_by("-timestamp")
+
+    context = {
+        'news_item': news_item,
+        'item_comment_list': item_comment_list,
+        'itemCommentForm': itemCommentForm,
+    }
+    return render(request, 'Vault/newsItem.html', context)
