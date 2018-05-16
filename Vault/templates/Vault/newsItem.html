@@ -63,7 +63,7 @@
 											<h5 class="mt-3"><a
 														href={% url 'profile' item_comment.user_profile_id.id %}>{{ item_comment.user_profile_id.first_name }} {{ item_comment.user_profile_id.last_name }}</a>
 											</h5>
-											<p>{{ item_comment.content }}</p>
+											<p>{{ item_comment.content | urlize }}</p>
 											<p style="color:#6d6d6c;"> {{ item_comment.timestamp }} </p>
 									  </div>
 								</li>
