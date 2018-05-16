@@ -18,10 +18,10 @@ urlpatterns = [
 
     # [url]/search/
     path('search/', views.search, name='search'),
-	
+
 	# [url]/usersearch/
 	path('usersearch/', views.usersearch, name='usersearch'),
-	
+
     # [url]/login/
     path('login/', auth_views.login, {'template_name': 'Vault/login.html'}, name='login'),
 
@@ -29,6 +29,9 @@ urlpatterns = [
     path('logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
 
     # [url]/profile/user_profile_id
-    path('signup/', views.signup, name='signup')
+    path('signup/', views.signup, name='signup'),
+
+    # [url]/newsitem/generalnews_id
+    path('newsItem/<int:id>/', views.newsItem, name='newsItem')
 
 ]

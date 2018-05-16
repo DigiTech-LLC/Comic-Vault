@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import TimelinePost, TimelineComment, UserProfile, Comic, ComicComment, Rating, Follow
+from .models import TimelinePost, TimelineComment, UserProfile, Comic, ComicComment, Rating, Follow, NewsComment
 
 
 class SignUpForm(UserCreationForm):
@@ -74,7 +74,7 @@ class UserSearchForm(forms.ModelForm):
 	last_name = forms.CharField(
 		widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
         required=False)
-	
+
 	class Meta:
 		model = UserProfile
 		fields = {'first_name', 'last_name'}
@@ -147,3 +147,12 @@ class FollowForm(forms.ModelForm):
     class Meta:
         model = Follow
         fields = ('id',)
+
+
+
+class NewsItemCommentForm(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Add comment here', 'rows': '4'}), label='')
+
+    class Meta:
+        model = NewsComment
+        fields = ('content',)
