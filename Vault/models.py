@@ -95,6 +95,7 @@ class TimelineComment(models.Model):
 class GeneralNews(models.Model):
     title = models.CharField(max_length=64)
     content = models.CharField(max_length=500)
+    url = models.URLField()
 
     def __str__(self):
         return self.title
