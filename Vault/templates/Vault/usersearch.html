@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
-		<title>Comic Vault - Search</title>
+		<title>Comic Vault - User Search</title>
 	</head>
 	<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -27,8 +27,8 @@
             <a class="nav-link dropdown-toggle bg-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false">Search</a>
             <div class="dropdown-menu bg-dark navbar-dark navbar-expand-lg">
-                <a class="dropdown-item active nav-item text-light navbar navbar-expand-lg navbar-dark bg-dark" href="{% url 'search' %}">Comic Search</a>
-                <a class="dropdown-item nav-item text-light navbar navbar-expand-lg navbar-dark bg-dark" href="{% url 'usersearch' %}">User Search</a>
+                <a class="dropdown-item nav-item text-light navbar navbar-expand-lg navbar-dark bg-dark" href="{% url 'search' %}">Comic Search</a>
+                <a class="dropdown-item active nav-item text-light navbar navbar-expand-lg navbar-dark bg-dark" href="{% url 'usersearch' %}">User Search</a>
             </div>
         </li>
     </ul>
@@ -47,12 +47,12 @@
 
     </ul>
 </nav>
-
+		
 		<br />
 		
 		<div class = "container">
 			<div class = "row">
-				<h1>Find a Comic</h1>
+				<h1>Find a User</h1>
 			</div>
 
 			<br />
@@ -65,39 +65,16 @@
 				{% endfor %}
 				
 				<div class = "row form-group">
-					<div class = "col-xs-6 col-md-3 form-group">
-						{{form.series.errors}}
-						{{form.series}}
+					<div class="col-xs-6 col-md-3 form-group">
+						{{form.first_name.errors}}
+						{{form.first_name}}
 					</div>
-					<div class = "col-xs-6 col-md-3 form-group">
-						{{form.volume.errors}}
-						{{form.volume}}
-					</div>
-					<div class = "col-xs-6 col-md-3 form-group">
-						{{form.issue.errors}}
-						{{form.issue}}
+					<div class="col-xs-6 col-md-3 form-group">
+						{{form.last_name.errors}}
+						{{form.last_name}}
 					</div>
 				</div>
 				
-				<div class = "row">
-					<div class = "col-xs-6 col-md-3 form-group">
-						{{form.publisher.errors}}
-						{{form.publisher}}
-					</div>
-					<div class = "col-xs-6 col-md-3 form-group">
-						{{form.writer.errors}}
-						{{form.writer}}
-					</div>
-					<div class = "col-xs-6 col-md-3 form-group">
-						{{form.illustrator.errors}}
-						{{form.illustrator}}
-					</div>
-					<div class = "col-xs-6 col-md-3 form-group">
-						{{form.colorist.errors}}
-						{{form.colorist}}
-					</div>
-				</div>
-
 				<br />
 
 				<div class = "row">
@@ -113,14 +90,14 @@
 		</div>
 
 		<div class = "container">
-		{% if comics %}
+		{% if users %}
 		
-			{% if comics.has_other_pages %}
+			{% if users.has_other_pages %}
 				<nav>
 					<ul class="pagination justify-content-end">
-							{% if comics.has_previous %}
+							{% if users.has_previous %}
 								<li class="page-item">
-									<a class="page-link" href="?page={{ comics.previous_page_number }}">&laquo;</a>
+									<a class="page-link" href="?page={{ users.previous_page_number }}">&laquo;</a>
 								</li>
 							{% else %}
 								<li class="page-item disabled">
@@ -128,8 +105,8 @@
 								</li>
 							{% endif %}
 							
-							{% for i in comics.paginator.page_range %}
-								{% if comics.number == i%}
+							{% for i in users.paginator.page_range %}
+								{% if users.number == i%}
 									<li class="page-item active">
 										<span class="page-link">{{ i }}</span>
 									</li>
@@ -139,9 +116,9 @@
 									</li>
 								{% endif %}
 							{% endfor %}
-							{% if comics.has_next %}
+							{% if users.has_next %}
 								<li class="page-item">
-									<a class="page-link" href="?page={{ comics.next_page_number }}">&raquo;</a>
+									<a class="page-link" href="?page={{ users.next_page_number }}">&raquo;</a>
 								</li>
 							{% else %}
 								<li class="page-item disabled">
@@ -153,38 +130,14 @@
 			{% endif %}
 			
 			<ul class = "list-unstyled">
-			{% for comic in comics %}
+			{% for user in users %}
 				<li class = "media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
-					<img class = "m-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
+					<img class = "m-3" src={{user.profile_picture}} alt="Profile Pic" height="64px" width="64px">
 					<div class="media-body">
 						<h5 class = "mt-3 mb-1">
-							<a href={% url 'comicpage' comic.id%}>{{comic.series}}</a>
+							<a href={% url 'profile' user.id%}>{{user.first_name}} {{user.last_name}}</a>
 						</h5>
-						<dl class = "row">
-							<dt class = "col-xs 6 col-sm-3 col-md-1">Volume</dt>
-							<dd class = "col-xs 6 col-sm-1 col-md-1">{{comic.volume}}</dd>
-
-							<dt class = "col-xs 6 col-sm-3 col-md-1">Issue</dt>
-							<dd class = "col-xs 6 col-sm-1 col-md-1">{{comic.issue}}</dd>
-						</dl>
-						<dl class = "row">
-							<dt class = "col-xs 6 col-sm-3 col-md-2">Publisher</dt>
-							<dd class = "col-xs 6 col-sm-3 col-md-2">{{comic.publisher}}</dd>
-						</dl>
-						<dl class = "row">
-							<dt class = "col-xs 6 col-sm-3 col-md-2">Writer</dt>
-							<dd class = "col-xs 6 col-sm-3 col-md-2">{{comic.writer}}</dd>
-
-							<dt class = "col-xs 6 col-sm-3 col-md-2">Illustrator</dt>
-							<dd class = "col-xs 6 col-sm-3 col-md-2">{{comic.illustrator}}</dd>
-
-							<dt class = "col-xs 6 col-sm-3 col-md-2">Colorist</dt>
-							<dd class = "col-xs 6 col-sm-3 col-md-2">{{comic.colorist}}</dd>
-						</dl>
-						<dl class = "row">
-							<dt class = "col-md-2">Plot Synopsis</dt>
-							<dd class = "col-md-10">{{comic.spoiler_free_synopsis}}</dd>
-						</dl>
+						<p>{{user.bio|truncatechars:100}}</p>
 					</div>
 				</li>
 			{% endfor %}

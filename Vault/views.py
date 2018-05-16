@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import login, authenticate
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import TimelinePost, TimelineComment, Comic, ComicComment, UserProfile, Rating, Follow, NewsfeedItem, GeneralNews, NewsComment
-from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, ComicRatingForm, ComicCommentForm, FollowForm
+from .forms import SignUpForm, TimelinePostForm, TimelineCommentForm, TimelineVoteForm, BioForm, FavCharForm, ComicTypeForm, ComicPersonaForm, ProfilePictureForm, SearchForm, UserSearchForm, ComicRatingForm, ComicCommentForm, FollowForm
 
 import datetime
 
@@ -139,32 +140,61 @@ def timeline(request):
 
 @login_required
 def search(request):
-    comic_list = Comic.objects.all()
-    if request.method == 'GET':
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            if form.cleaned_data['series']:
-                comic_list = comic_list.filter(series__icontains=form.cleaned_data['series'])
-            if form.cleaned_data['volume']:
-                comic_list = comic_list.filter(volume=form.cleaned_data['volume'])
-            if form.cleaned_data['issue']:
-                comic_list = comic_list.filter(issue=form.cleaned_data['issue'])
-            if form.cleaned_data['publisher']:
-                comic_list = comic_list.filter(publisher__icontains=form.cleaned_data['publisher'])
-            if form.cleaned_data['writer']:
-                comic_list = comic_list.filter(writer__icontains=form.cleaned_data['writer'])
-            if form.cleaned_data['illustrator']:
-                comic_list = comic_list.filter(illustrator__icontains=form.cleaned_data['illustrator'])
-            if form.cleaned_data['colorist']:
-                comic_list = comic_list.filter(colorist__icontains=form.cleaned_data['colorist'])
-    else:
-        form = SearchForm()
-    context = {
-        'comic_list': comic_list,
-        'form': form
-    }
-    return render(request, 'Vault/search.html', context)
+	comic_list = Comic.objects.all()
+	if request.method == 'GET':
+		form = SearchForm(request.GET)
+		if form.is_valid():
+			if form.cleaned_data['series']:
+				comic_list = comic_list.filter(series__icontains=form.cleaned_data['series'])
+			if form.cleaned_data['volume']:
+				comic_list = comic_list.filter(volume = form.cleaned_data['volume'])
+			if form.cleaned_data['issue']:
+				comic_list = comic_list.filter(issue = form.cleaned_data['issue'])
+			if form.cleaned_data['publisher']:
+				comic_list = comic_list.filter(publisher__icontains=form.cleaned_data['publisher'])
+			if form.cleaned_data['writer']:
+				comic_list = comic_list.filter(writer__icontains=form.cleaned_data['writer'])
+			if form.cleaned_data['illustrator']:
+				comic_list = comic_list.filter(illustrator__icontains=form.cleaned_data['illustrator'])
+			if form.cleaned_data['colorist']:
+				comic_list = comic_list.filter(colorist__icontains=form.cleaned_data['colorist'])
+	else:
+		form = SearchForm()
+	comic_list = comic_list.order_by('series')
+	paginator = Paginator(comic_list, 10)
+	page = request.GET.get('page')
+	comics = paginator.get_page(page)
+	context = {
+		'comic_list': comic_list,
+		'form': form,
+		'comics': comics
+	}
+	return render(request, 'Vault/search.html', context)
 
+@login_required
+def usersearch(request):
+	user_list = UserProfile.objects.none()
+	if request.method == 'GET':
+		form = UserSearchForm(request.GET)
+		if form.is_valid():
+			if form.cleaned_data['first_name'] or form.cleaned_data['last_name']:
+				user_list = UserProfile.objects.all()
+				if form.cleaned_data['first_name']:
+					user_list = user_list.filter(first_name__istartswith=form.cleaned_data['first_name'])
+				if form.cleaned_data['last_name']:
+					user_list = user_list.filter(last_name__istartswith=form.cleaned_data['last_name'])
+	else:
+		form = UserSearchForm
+	user_list = user_list.order_by('first_name')
+	paginator = Paginator(user_list, 10)
+	page = request.GET.get('page')
+	users = paginator.get_page(page)
+	context = {
+		'user_list': user_list,
+		'form': form,
+		'users': users
+	}
+	return render(request, 'Vault/usersearch.html', context)
 
 @login_required
 def profile(request, id):
