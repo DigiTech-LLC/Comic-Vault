@@ -23,7 +23,8 @@
     <style>
 
 		body{
-				background-color: #0A0B2B;
+			background-color: #0a0b2b;
+			background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
 		}
 
 		.row{
@@ -32,10 +33,10 @@
 
     img {
     		width: 100%;
-				border: 6px solid black;
+				border: 6px solid white;
 				margin: 10px;
 				padding: 15px;
-				background-color: #9B9B9B;
+				background-color: black;
 		}
 
 		h1{
@@ -46,8 +47,9 @@
 
 		h1, h6{
 			padding-top: 40px;
-			font-weight: bold;
 			color: #000000;
+			font-weight: 100;
+			font-family: Impact, Charcoal, sans-serif;
 		}
 
 		h6{
@@ -57,15 +59,24 @@
 		p{
 			font-size: 20px;
 			color: #000000;
+			font-weight: 100;
+			font-family: Impact, Charcoal, sans-serif;
 		}
 
 		.info{
 			margin-top: 10px;
+			border: 8px solid white;
+			margin-left: 2px;
+			margin-bottom: 20px;
+			padding-left: 30px;
+			padding-right: 30px;
+			padding-top: 30px;
 		}
 
 		.badge{
 			 background: #FFFAF0;
 			 color: #000000;
+			 font-size: 14px;
 		}
 
 		.btn {
@@ -256,7 +267,7 @@
 							<div class="list-group">
 								{% if followers %}
 									{% for follower in followers %}
- 										<a href={% url 'profile' follower.id_1_id %} class="list-group-item">{{ follower.id_1.first_name }} {{ follower.id_1.last_name }}</a>
+ 										<a href={% url 'profile' follower.id_1_id %} class="list-group-item" style="color:#0a0b2b;">{{ follower.id_1.first_name }} {{ follower.id_1.last_name }}</a>
 									{% endfor %}
 								{% endif %}
 							</div>
@@ -266,7 +277,7 @@
 							<div class="list-group">
 								{% if following %}
 									{% for follow in following %}
-										<a href={% url 'profile' follow.id_2_id %} class="list-group-item">{{ follow.id_2.first_name }} {{ follow.id_2.last_name }}</a>
+										<a href={% url 'profile' follow.id_2_id %} class="list-group-item" style="color:#0a0b2b;">{{ follow.id_2.first_name }} {{ follow.id_2.last_name }}</a>
 									{% endfor %}
 								{% endif %}
 							</div>
@@ -278,7 +289,7 @@
 				{% if user_profile.id != logged_in_user.id %}
 						{% if checkFollow == 1 %}
 							<form method="post">
-								<button name="Unfollow" class="btn btn-danger" style="background: #E10404;">
+								<button name="Unfollow" class="btn btn-success" style="background-color: #0B4502;">
 										{% csrf_token %}
 										{{ followform }}
 									<input type="hidden">Following</input>
@@ -287,7 +298,7 @@
 						{% endif %}
 					{% if checkFollow == 0 %}
 						<form method="post">
-							<button name="Follow" class="btn btn-danger" style="background: #E10404;">
+							<button name="Follow" class="btn btn-success" style="background-color: #0B4502;">
 									{% csrf_token %}
 									{{ followform }}
 									<input type="hidden">Follow</input>
