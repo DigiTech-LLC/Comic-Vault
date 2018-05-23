@@ -16,7 +16,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
 		<title>Comic Vault - Search</title>
+		
+		<style>
+			h1 {
+				font-family: Impact, Charcoal, sans-serif;
+			}
+			body {
+				background-color: #cd0000
+			}
+			
+		</style>
 	</head>
+	
 	<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Comic Vault</a>
@@ -45,17 +56,21 @@
                     class="glyphicon glyphicon-log-in"></span> Login</a></li>
         {% endif %}
 
-    </ul>
-</nav>
+	</ul>
+	</nav>
 
 		<br />
 		
-		<div class = "container">
+		<div class = "container" style="background-color: white; border-radius: 10px; padding: 25px 50px 25px">
 			<div class = "row">
 				<h1>Find a Comic</h1>
 			</div>
-
+			
 			<br />
+			
+			<div class = "row">
+				<p>Enter some terms below to narrow search results!</p>
+			</div>
 
 			<form action="" method="get">
 				{% for error in form.non_field_errors %}
@@ -107,12 +122,11 @@
 				</div>
 			</form> 
 			
-			<br />
-			<hr>
-
 		</div>
+		
+		<br />
 
-		<div class = "container">
+		<div class = "container" style="background-color: white; border-radius: 10px; padding: 25px 50px 25px">
 		{% if comics %}
 		
 			{% if comics.has_other_pages %}
@@ -157,9 +171,9 @@
 				<li class = "media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
 					<img class = "m-3" src={{comic.cover_art}} alt="Cover Art" height="270" width="180">
 					<div class="media-body">
-						<h5 class = "mt-3 mb-1">
+						<h4 class = "mt-3 mb-1">
 							<a href={% url 'comicpage' comic.id%}>{{comic.series}}</a>
-						</h5>
+						</h4>
 						<dl class = "row">
 							<dt class = "col-xs 6 col-sm-3 col-md-1">Volume</dt>
 							<dd class = "col-xs 6 col-sm-1 col-md-1">{{comic.volume}}</dd>
@@ -198,5 +212,7 @@
 			</div>
 		{% endif %}
 		</div>
+		
+		<br />
 	</body>
 </html>
