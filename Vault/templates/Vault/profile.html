@@ -22,21 +22,34 @@
 
     <style>
 
+		body{
+			background-color: #0a0b2b;
+			background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
+		}
+
 		.row{
 			height: 100%;
 		}
 
     img {
     		width: 100%;
-				border: 3px solid black;
+				border: 6px solid white;
 				margin: 10px;
 				padding: 15px;
+				background-color: black;
+		}
+
+		h1{
+			background: #EEE;
+			box-shadow: 10px 10px 5px #010101;
+			padding-bottom: 40px;
 		}
 
 		h1, h6{
 			padding-top: 40px;
-			font-weight: bold;
-			color: 	#191970;
+			color: #000000;
+			font-weight: 100;
+			font-family: Impact, Charcoal, sans-serif;
 		}
 
 		h6{
@@ -44,25 +57,55 @@
 		}
 
 		p{
-			color: 	#191970;
 			font-size: 20px;
+			color: #000000;
+			font-weight: 100;
+			font-family: Impact, Charcoal, sans-serif;
 		}
 
 		.info{
-			border-left: 3px solid black;
-			background-color: #EEE;
 			margin-top: 10px;
+			border: 8px solid white;
+			margin-left: 2px;
+			margin-bottom: 20px;
+			padding-left: 30px;
+			padding-right: 30px;
+			padding-top: 30px;
 		}
 
 		.badge{
 			 background: #FFFAF0;
 			 color: #000000;
+			 font-size: 14px;
 		}
 
-		.btn-info {
-    	  background: #483D8B;
-    	  border-color: #483D8B;
+		.btn {
+    	  background: #323238;
+    	  border-color: #323238;
+				color: #FFFFFF;
 		}
+
+		.btn:hover{
+				background-color: #8A8A8C;
+		}
+
+		.favChar, .comicType, .bio{
+				background: #EEE;
+				margin-top: 30px;
+				padding-bottom: 10px;
+				box-shadow: 10px 10px 5px #010101;
+		}
+
+		.favChar, .comicType{
+				margin-bottom: 30px;
+		}
+
+		.persona{
+				background: #EEE;
+				margin-top: 30px;
+				box-shadow: 10px 10px 5px #010101;
+		}
+
 
   	#following, #followers{
         text-decoration: none;
@@ -107,12 +150,12 @@
 			<div class="col-sm-4 sidepanel">
 					<img class="img-responsive" src="{{ user_profile.profile_picture }}" class="img-rounded" alt="Profile Picture">
 				{% if user_profile.profile_picture != "" and user_profile.id == logged_in_user.id %}
-				<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#EditPic">Edit Profile Picture</button>
+				<button type="button" class="btn" data-toggle="collapse" data-target="#EditPic">Edit Profile Picture</button>
 					<div id="EditPic" class="collapse">
 						<form method="post">
 								{% csrf_token %}
 										{{ pictureform | bootstrap }}
-								<input type="submit" value="Update" name="ProfilePic" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+								<input type="submit" value="Update" name="ProfilePic" class="btn" onclick="reloadFun()"/>
 						</form>
 					</div>
 				{% endif %}
@@ -120,24 +163,24 @@
 
 			<div class="col-sm-6 text-center info">
   			<h1>{{ user_profile.first_name }} {{ user_profile.last_name }}</h1>
-				<div class="persona" style="font-style: italic; color: #191970;">
+				<div class="persona" style="font-style: italic;">
 					{% if user_profile.comic_persona == "" and user_profile.id == logged_in_user.id %}
 						<form method="post">
 	            	{% csrf_token %}
 	                	{{ comicpersonaform | bootstrap }}
-	            	<input type="submit" value="Submit" name="ComicPersona" class="btn btn-primary mb-3"/>
+	            	<input type="submit" value="Submit" name="ComicPersona" class="btn"/>
 	        	</form>
 					{% endif %}
 					{% if user_profile.comic_persona != "" %}
 						<p>{{ user_profile.comic_persona }}</p>
 					{% endif %}
 					{% if user_profile.comic_persona != "" and user_profile.id == logged_in_user.id %}
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#EditPersona">Edit Persona</button>
+					<button type="button" class="btn" data-toggle="collapse" data-target="#EditPersona">Edit Persona</button>
 						<div id="EditPersona" class="collapse">
 							<form method="post">
 	            		{% csrf_token %}
 	                		{{ comicpersonaform | bootstrap }}
-	            		<input type="submit" value="Update" name="ComicPersona" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+	            		<input type="submit" value="Update" name="ComicPersona" class="btn" onclick="reloadFun()"/>
 	        		</form>
 						</div>
 					{% endif %}
@@ -148,67 +191,67 @@
 						<form method="post">
 	            	{% csrf_token %}
 	                	{{ bioform | bootstrap }}
-	            	<input type="submit" value="Submit" name="Bio" class="btn btn-primary mb-3"/>
+	            	<input type="submit" value="Submit" name="Bio" class="btn"/>
 	        	</form>
 					{% endif %}
 					{% if user_profile.bio != "" %}
 						<p>{{ user_profile.bio }}</p>
 					{% endif %}
 					{% if user_profile.bio != "" and user_profile.id == logged_in_user.id %}
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#EditBio">Edit Bio</button>
+					<button type="button" class="btn" data-toggle="collapse" data-target="#EditBio">Edit Bio</button>
 						<div id="EditBio" class="collapse">
 							<form method="post">
 	            		{% csrf_token %}
 	                		{{ bioform | bootstrap }}
-	            		<input type="submit" value="Update" name="Bio" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+	            		<input type="submit" value="Update" name="Bio" class="btn" onclick="reloadFun()"/>
 	        		</form>
 						</div>
 					{% endif %}
 				</div>
 				<div class="preferences">
 					<div class="row">
-						<div class="col-sm-6">
+						<div class="col-sm-6 favChar">
 			 				<h6>Favorite Character:</h6>
 							{% if user_profile.favorite_character == "" and user_profile.id == logged_in_user.id %}
 								<form method="post">
 			            	{% csrf_token %}
 			                	{{ favcharform | bootstrap }}
-			            	<input type="submit" value="Submit" name="FavChar" class="btn btn-primary mb-3"/>
+			            	<input type="submit" value="Submit" name="FavChar" class="btn"/>
 			        	</form>
 							{% endif %}
 							{% if user_profile.favorite_character != "" %}
 			 					<p>{{ user_profile.favorite_character }}</p>
 							{% endif %}
 							{% if user_profile.favorite_character != "" and user_profile.id == logged_in_user.id %}
-							<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#EditChar">Edit Character</button>
+							<button type="button" class="btn" data-toggle="collapse" data-target="#EditChar">Edit Character</button>
 								<div id="EditChar" class="collapse">
 									<form method="post">
 			            		{% csrf_token %}
 			                		{{ favcharform | bootstrap }}
-			            		<input type="submit" value="Update" name="FavChar" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+			            		<input type="submit" value="Update" name="FavChar" class="btn" onclick="reloadFun()"/>
 			        		</form>
 								</div>
 							{% endif %}
 			 			</div>
-			 			<div class="col-sm-6" style="border-left: 3px solid black;">
+			 			<div class="col-sm-6 comicType" style="border-left: 6px solid black;">
 			 				<h6>Comic Genre Preference:</h6>
 							{% if user_profile.comic_type == "" and user_profile.id == logged_in_user.id %}
 								<form method="post">
 			            	{% csrf_token %}
 			                	{{ comictypeform | bootstrap }}
-			            	<input type="submit" value="Submit" name="ComicType" class="btn btn-primary mb-3"/>
+			            	<input type="submit" value="Submit" name="ComicType" class="btn"/>
 			        	</form>
 							{% endif %}
 							{% if user_profile.comic_type != "" %}
 			 					<p>{{ user_profile.comic_type }}</p>
 							{% endif %}
 							{% if user_profile.comic_type != "" and user_profile.id == logged_in_user.id %}
-							<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#EditType">Edit Comic Type</button>
+							<button type="button" class="btn" data-toggle="collapse" data-target="#EditType">Edit Comic Type</button>
 								<div id="EditType" class="collapse">
 									<form method="post">
 			            		{% csrf_token %}
 			                		{{ comictypeform | bootstrap }}
-			            		<input type="submit" value="Update" name="ComicType" class="btn btn-primary mb-3" onclick="reloadFun()"/>
+			            		<input type="submit" value="Update" name="ComicType" class="btn" onclick="reloadFun()"/>
 			        		</form>
 								</div>
 							{% endif %}
@@ -219,22 +262,22 @@
 
 			<div>
 				<div class="btn-group-vertical" style="padding: 10px;">
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#following">Followers <span class="badge">{{ follower_count }}</span></button>
+					<button type="button" class="btn" data-toggle="collapse" data-target="#following">Followers <span class="badge">{{ follower_count }}</span></button>
 					<div id="following" class="collapse">
 							<div class="list-group">
 								{% if followers %}
 									{% for follower in followers %}
- 										<a href={% url 'profile' follower.id_1_id %} class="list-group-item">{{ follower.id_1.first_name }} {{ follower.id_1.last_name }}</a>
+ 										<a href={% url 'profile' follower.id_1_id %} class="list-group-item" style="color:#0a0b2b;">{{ follower.id_1.first_name }} {{ follower.id_1.last_name }}</a>
 									{% endfor %}
 								{% endif %}
 							</div>
 					</div>
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#followers">Following <span class="badge">{{ following_count }}</span></button>
+					<button type="button" class="btn" data-toggle="collapse" data-target="#followers">Following <span class="badge">{{ following_count }}</span></button>
 					<div id="followers" class="collapse">
 							<div class="list-group">
 								{% if following %}
 									{% for follow in following %}
-										<a href={% url 'profile' follow.id_2_id %} class="list-group-item">{{ follow.id_2.first_name }} {{ follow.id_2.last_name }}</a>
+										<a href={% url 'profile' follow.id_2_id %} class="list-group-item" style="color:#0a0b2b;">{{ follow.id_2.first_name }} {{ follow.id_2.last_name }}</a>
 									{% endfor %}
 								{% endif %}
 							</div>
@@ -246,7 +289,7 @@
 				{% if user_profile.id != logged_in_user.id %}
 						{% if checkFollow == 1 %}
 							<form method="post">
-								<button name="Unfollow" class="btn btn-success">
+								<button name="Unfollow" class="btn btn-success" style="background-color: #0B4502;">
 										{% csrf_token %}
 										{{ followform }}
 									<input type="hidden">Following</input>
@@ -255,7 +298,7 @@
 						{% endif %}
 					{% if checkFollow == 0 %}
 						<form method="post">
-							<button name="Follow" class="btn btn-success">
+							<button name="Follow" class="btn btn-success" style="background-color: #0B4502;">
 									{% csrf_token %}
 									{{ followform }}
 									<input type="hidden">Follow</input>
