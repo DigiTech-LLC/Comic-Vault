@@ -16,7 +16,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
 		<title>Comic Vault - User Search</title>
+		
+		<style>
+			h1 {
+				font-family: Impact, Charcoal, sans-serif;
+			}
+			body {
+				background-color: #cd0000
+			}
+			
+		</style>
 	</head>
+	
 	<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Comic Vault</a>
@@ -46,11 +57,11 @@
         {% endif %}
 
     </ul>
-</nav>
+	</nav>
 		
 		<br />
 		
-		<div class = "container">
+		<div class = "container" style="background-color: white; border-radius: 10px; padding: 25px 50px 25px">
 			<div class = "row">
 				<h1>Find a User</h1>
 			</div>
@@ -75,21 +86,17 @@
 					</div>
 				</div>
 				
-				<br />
-
 				<div class = "row">
 					<div class = "col">
 						<button type = "submit" class = "btn btn-dark">Go!</button>
 					</div>
 				</div>
-			</form> 
-			
-			<br />
-			<hr>
-
+			</form>
 		</div>
-
-		<div class = "container">
+		
+		<br />
+		
+		<div class = "container" style="background-color: white; border-radius: 10px; padding: 25px 50px 25px">
 		{% if users %}
 		
 			{% if users.has_other_pages %}
