@@ -1,0 +1,13 @@
+h1 {
+	font-family: Impact, Charcoal, sans-serif;
+}
+body {
+	background-color: #ff0900;
+	background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
+}
+
+.rounded-box {
+	background-color: white;
+	border-radius: 10px;
+	padding: 25px 50px 25px
+}
