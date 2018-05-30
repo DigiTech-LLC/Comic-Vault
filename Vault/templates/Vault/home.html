@@ -48,7 +48,41 @@
             ScrollInterval = setInterval('divScroll()', ScrollRate);
         }
     </script>
+ 
+    <style>
+        body {
+    
+            background-image: url(http://www.jaseycrowl.com/css/bgred.jpg)
+        }
 
+        
+    
+        .panel {
+            background-color: #fff;
+            border: solid 2px #000;
+            box-shadow: 0 6px 6px -6px #000;
+            display: inline-block;
+            flex: 1 1;
+            height: 220px;
+            margin: 1vmin;
+            overflow: hidden;
+            position: relative;
+        }
+    
+        .top-left {
+            left: -6px;
+            top: -2px;
+            transform: skew(-15deg);
+        }
+    
+        .text {
+            background-color: #fff;
+            border: solid 2px #000;
+            margin: 0;
+            padding: 3px 10px;
+        }
+
+    </style>
 
 </head>
 
@@ -81,9 +115,12 @@
     </ul>
 </nav>
 
-<body onLoad="initScroll()">
 
-<div id="NewsDiv" class="container w-80" style="overflow:auto;background-color: #EEE;position: absolute;
+<body onLoad="initScroll()">
+<link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
+
+<div id="NewsDiv" class="container w-80" style="background-image: url(http://www.technobuffalo.com/wp-content/uploads/2015/07/marvel-universe-02.jpg);position: absolute;
+    font-family: 'Bangers';font-size: 22px;
     margin: auto;
     top: 56px;
     right: 0;
@@ -91,31 +128,34 @@
     left: 0;
     border-radius: 3px;
     border-left: solid #2E2E2E;
-    border-right: solid #2E2E2E;"
+    border-right: solid #2E2E2E;
+    overflow-x: hidden;
+    overflow-y: scroll;"
      onMouseOver="divPause()" onMouseOut="divResume()">
 
     {% if carousel_news %}
         <h1 align=center style="color:#003366;">
-            News-Feed
+            COMIC VAULT FEED
         </h1>
         {% for generalnews in carousel_news %}
-            <div id="home_carousel">
-              <a href={% url 'newsItem' generalnews.id %} style="font-size:25px;">
-                  {{ generalnews.title }}
-              </a>
+            <div class="panel">
+                    <p class="text top-left"><a href={% url 'newsItem' generalnews.id %} style="font-size:25px;">
+                        {{ generalnews.title }}
+                        </a>
+                    </p>
 
                 <p>
                     {{ generalnews.content }}
                     <br>
-                    --------------------------------------------------------------------------------------------------------------------------------------------------------
+
                 </p>
             </div>
 
         {% endfor %} {% endif %}
 
         {% if carousel_comic %} {% for comic in carousel_comic %}
-        <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }} 
-            alt="Cover Art" height="270" width="180"></a>
+                        <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }} 
+                            alt="Cover Art" height="270" width="180"></a>
         {% endfor %} {% endif %}
 </div>
 </body>
