@@ -13,6 +13,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
+				<link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
+
 		<script>
 			function reloadFun() {
     		location.reload();
@@ -23,7 +25,7 @@
     <style>
 
 		body{
-			background-color: #0a0b2b;
+			background-color: #cd0000;
 			background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
 		}
 
@@ -49,7 +51,7 @@
 			padding-top: 40px;
 			color: #000000;
 			font-weight: 100;
-			font-family: Impact, Charcoal, sans-serif;
+			font-family: 'Bangers', Charcoal, sans-serif;
 		}
 
 		h6{
@@ -60,7 +62,7 @@
 			font-size: 20px;
 			color: #000000;
 			font-weight: 100;
-			font-family: Impact, Charcoal, sans-serif;
+			font-family: 'Bangers', Charcoal, sans-serif;
 		}
 
 		.info{
@@ -83,6 +85,7 @@
     	  background: #323238;
     	  border-color: #323238;
 				color: #FFFFFF;
+				font-family: 'Bangers', Charcoal, sans-serif;
 		}
 
 		.btn:hover{
@@ -262,7 +265,7 @@
 
 			<div>
 				<div class="btn-group-vertical" style="padding: 10px;">
-					<button type="button" class="btn" data-toggle="collapse" data-target="#following">Followers <span class="badge">{{ follower_count }}</span></button>
+					<button type="button" class="btn btn-lg" data-toggle="collapse" data-target="#following">Followers <span class="badge">{{ follower_count }}</span></button>
 					<div id="following" class="collapse">
 							<div class="list-group">
 								{% if followers %}
@@ -272,7 +275,7 @@
 								{% endif %}
 							</div>
 					</div>
-					<button type="button" class="btn" data-toggle="collapse" data-target="#followers">Following <span class="badge">{{ following_count }}</span></button>
+					<button type="button" class="btn btn-lg" data-toggle="collapse" data-target="#followers">Following <span class="badge">{{ following_count }}</span></button>
 					<div id="followers" class="collapse">
 							<div class="list-group">
 								{% if following %}
@@ -289,7 +292,7 @@
 				{% if user_profile.id != logged_in_user.id %}
 						{% if checkFollow == 1 %}
 							<form method="post">
-								<button name="Unfollow" class="btn btn-success" style="background-color: #0B4502;">
+								<button name="Unfollow" class="btn btn-success btn-lg" style="background-color: #0B4502;">
 										{% csrf_token %}
 										{{ followform }}
 									<input type="hidden">Following</input>
@@ -298,7 +301,7 @@
 						{% endif %}
 					{% if checkFollow == 0 %}
 						<form method="post">
-							<button name="Follow" class="btn btn-success" style="background-color: #0B4502;">
+							<button name="Follow" class="btn btn-success btn-lg" style="background-color: #0B4502;">
 									{% csrf_token %}
 									{{ followform }}
 									<input type="hidden">Follow</input>
