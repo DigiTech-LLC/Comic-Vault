@@ -10,12 +10,13 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
+		<link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
 
 </head>
 
 <style>
 			body{
-				background-image: url("https://img00.deviantart.net/283a/i/2014/006/4/d/comic_book_collage_by_comicsnjunk-d716r2k.png");
+				background-image: url("https://gfx.antyradio.pl/var/antyradio/storage/images/film/duperele/10-dowodow-na-to-ze-dc-jest-lepsze-od-marvela-20367/1379549-1-pol-PL/10-dowodow-na-to-ze-DC-jest-lepsze-od-Marvela_article.jpg");
 				background-repeat: no-repeat;
 				background-size: cover;
 			}
@@ -26,11 +27,15 @@
 
 			h1{
 				font-weight: 100;
-				font-family: Impact, Charcoal, sans-serif;
+				font-family: 'Bangers', Charcoal, sans-serif;
 			}
 
-			p, .comments{
+			p{
 				font-family: "Times New Roman", Times, serif;
+			}
+
+			.comments{
+				font-family: 'Bangers', Charcoal, sans-serif;
 			}
 
 </style>
@@ -63,21 +68,21 @@
     </nav>
 			{% load bootstrap %}
 		<div class="container-fluid">
-			<div class="col-sm-12 text-center" style="margin-top:40px; background-color: #971E0B; padding:15px; opacity: 0.9;">
+			<div class="col-sm-12 text-center" style="margin-top:40px; background-color: #cd0000; padding:15px; opacity: 0.9;">
 					<a href="{{ news_item.general_news_id.url }}" style="color: grey;" target="_blank"><h1>{{ news_item.general_news_id.title }}</h1></a>
 			</div>
-			<div class="col-sm-12 text-center content" style="font-size:25px; margin-top: 40px; background-color: #97430B; padding: 20px; opacity: 0.9;">
+			<div class="col-sm-12 text-center content" style="font-size:25px; margin-top: 40px; background-color: #0183F6; padding: 20px; opacity: 0.9;">
 					<p>{{ news_item.general_news_id.content }}</p>
 			</div>
 
 			<div class="col-sm-10 comments" style="margin-left: 40px;">
       		<div class="col-sm-12 border-bottom" style="margin-top: 60px;">
-          		<h4 style="color: white; font-size: 28px;">Comments</h4>
+          		<h4 style="color: white; font-size: 28px; background-color: #cd0000; padding: 5px; opacity: 0.9;">Comments</h4>
       		</div>
 
         	{% if item_comment_list %}
               {% for item_comment in item_comment_list %}
-								<li class="media my-3 mr-3" style="border-left: 5px solid #000000; background-color: #dcdcdc">
+								<li class="media my-3 mr-3" style="border-left: 5px solid #0183F6; background-color: #dcdcdc">
 										<a class="pr-3 ml-3 mt-3 my-3" href="#">
 												<img src="{{ item_comment.user_profile_id.profile_picture }}"
 														alt="Profile Picture" height="64px" width="64px">
@@ -92,7 +97,7 @@
 								</li>
               {% endfor %}
           {% else %}
-              <div style="color: white; font-size: 20px;">No comments</div>
+              <div style="color: white; font-size: 20px; background-color: #0183F6; padding: 5px; opacity: 0.9;">No comments</div>
           {% endif %}
 
 			</div>
@@ -103,7 +108,7 @@
               <div class="mr-3">
                   {{ itemCommentForm | bootstrap }}
               </div>
-                <input type="submit" value="Submit" name="ItemComment" class="btn btn-primary mb-3 btn-lg" style="background-color: #28272A; border: none;"/>
+                <input type="submit" value="Submit" name="ItemComment" class="btn btn-primary mb-3 btn-lg" style="background-color: red; border: none; font-family: 'Bangers', Charcoal, sans-serif;"/>
           </form>
       </div>
 
