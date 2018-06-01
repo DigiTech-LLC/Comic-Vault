@@ -23,16 +23,13 @@
 			}
 
 			h1, p{
-				color: black;
-			}
-
-			h1, p{
 				font-weight: 100;
 				font-family: 'Bangers', Charcoal, sans-serif;
 			}
 
 			p{
 				font-size:25px;
+				color: black;
 			}
 
 			h1{
@@ -81,7 +78,7 @@
 			{% load bootstrap %}
 		<div class="container" style="padding-top: 40px; border-left: solid #2E2E2E; border-right: solid #2E2E2E; background-image: url(https://gfx.antyradio.pl/var/antyradio/storage/images/film/duperele/10-dowodow-na-to-ze-dc-jest-lepsze-od-marvela-20367/1379549-1-pol-PL/10-dowodow-na-to-ze-DC-jest-lepsze-od-Marvela_article.jpg); 	background-repeat: no-repeat; background-size: cover;">
 			<div class="col-sm-12 panel">
-					<a href="{{ news_item.general_news_id.url }}" style="color: grey;" target="_blank"><h1 style="border-bottom: solid black; font-style:italic;">{{ news_item.general_news_id.title }}</h1></a>
+					<a href="{{ news_item.general_news_id.url }}" target="_blank"><h1 style="border-bottom: solid black; font-style:italic;">{{ news_item.general_news_id.title }}</h1></a>
 					<p>{{ news_item.general_news_id.content }}</p>
 			</div>
 
