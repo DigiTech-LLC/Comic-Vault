@@ -110,7 +110,6 @@
 				box-shadow: 10px 10px 5px #010101;
 		}
 
-
   	#following, #followers{
         text-decoration: none;
         overflow-y: scroll;
@@ -171,11 +170,11 @@
 
 			<div class="col-sm-6 info">
 				<div class="name">
-					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000;">Name:</p>
+					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Name:</p>
   				<h1 style="padding-left: 30px;">{{ user_profile.first_name }} {{ user_profile.last_name }}</h1>
 				</div>
 				<div class="persona" style="font-style: italic;">
-					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000;">Persona:</p>
+					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Persona:</p>
 					{% if user_profile.comic_persona == "" and user_profile.id == logged_in_user.id %}
 						<form method="post" style="margin: 10px;">
 	            	{% csrf_token %}
@@ -198,7 +197,7 @@
 					{% endif %}
 				</div>
 				<div class="bio">
-					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000;">Bio:</p>
+					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Bio:</p>
 					{% if user_profile.bio == "" and user_profile.id == logged_in_user.id %}
 						<form method="post" style="margin: 10px;">
 	            	{% csrf_token %}
@@ -210,7 +209,7 @@
 						<p style="padding-left: 25px;">{{ user_profile.bio }}</p>
 					{% endif %}
 					{% if user_profile.bio != "" and user_profile.id == logged_in_user.id %}
-					<button type="button" class="btn" data-toggle="collapse" data-target="#EditBio" style="margin-left: 25px;">Edit Bio</button>
+					<button type="button" class="btn" data-toggle="collapse" data-target="#EditBio" style="margin-left: 25px; font-style: italic;">Edit Bio</button>
 						<div id="EditBio" class="collapse">
 							<form method="post" style="margin: 10px;">
 	            		{% csrf_token %}
@@ -223,7 +222,7 @@
 				<div class="col-sm-12">
 				<div class="row">
 						<div class="col-sm-6 favChar">
-			 				<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000;">Favorite Character:</p>
+			 				<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Favorite Character:</p>
 							{% if user_profile.favorite_character == "" and user_profile.id == logged_in_user.id %}
 								<form method="post" style="margin: 10px;">
 			            	{% csrf_token %}
@@ -246,7 +245,7 @@
 							{% endif %}
 			 			</div>
 			 			<div class="col-sm-6 comicType" style="border-left: 2px solid #000;">
-			 				<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000;">Comic Genre Preference:</p>
+			 				<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Comic Genre Preference:</p>
 							{% if user_profile.comic_type == "" and user_profile.id == logged_in_user.id %}
 								<form method="post" style="margin: 10px;">
 			            	{% csrf_token %}
