@@ -36,6 +36,7 @@
     img {
     		width: 100%;
 				border: 6px solid white;
+				border-radius: 12px;
 				margin: 10px;
 				padding: 15px;
 				background-color: black;
@@ -67,11 +68,11 @@
 		.info{
 			margin-top: 10px;
 			border: 8px solid white;
+			border-radius: 12px;
 			margin-left: 2px;
 			margin-bottom: 20px;
 			padding-left: 30px;
 			padding-right: 30px;
-			padding-top: 30px;
 		}
 
 		.badge{
@@ -114,6 +115,8 @@
         text-decoration: none;
         overflow-y: scroll;
 				max-height: 100px;
+				font-size: 16px;
+				font-weight: bold;
     }
 
 
@@ -174,7 +177,7 @@
 				<div class="persona" style="font-style: italic;">
 					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000;">Persona:</p>
 					{% if user_profile.comic_persona == "" and user_profile.id == logged_in_user.id %}
-						<form method="post">
+						<form method="post" style="margin: 10px;">
 	            	{% csrf_token %}
 	                	{{ comicpersonaform | bootstrap }}
 	            	<input type="submit" value="Submit" name="ComicPersona" class="btn" style="margin-left: 25px;"/>
@@ -186,7 +189,7 @@
 					{% if user_profile.comic_persona != "" and user_profile.id == logged_in_user.id %}
 					<button type="button" class="btn" data-toggle="collapse" data-target="#EditPersona" style="margin-left: 25px;">Edit Persona</button>
 						<div id="EditPersona" class="collapse">
-							<form method="post">
+							<form method="post" style="margin: 10px;">
 	            		{% csrf_token %}
 	                		{{ comicpersonaform | bootstrap }}
 	            		<input type="submit" value="Update" name="ComicPersona" class="btn" onclick="reloadFun()" style="margin-left: 25px;"/>
@@ -197,7 +200,7 @@
 				<div class="bio">
 					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000;">Bio:</p>
 					{% if user_profile.bio == "" and user_profile.id == logged_in_user.id %}
-						<form method="post">
+						<form method="post" style="margin: 10px;">
 	            	{% csrf_token %}
 	                	{{ bioform | bootstrap }}
 	            	<input type="submit" value="Submit" name="Bio" class="btn" style="margin-left: 25px;"/>
@@ -209,7 +212,7 @@
 					{% if user_profile.bio != "" and user_profile.id == logged_in_user.id %}
 					<button type="button" class="btn" data-toggle="collapse" data-target="#EditBio" style="margin-left: 25px;">Edit Bio</button>
 						<div id="EditBio" class="collapse">
-							<form method="post">
+							<form method="post" style="margin: 10px;">
 	            		{% csrf_token %}
 	                		{{ bioform | bootstrap }}
 	            		<input type="submit" value="Update" name="Bio" class="btn" onclick="reloadFun()" style="margin-left: 25px;"/>
@@ -222,7 +225,7 @@
 						<div class="col-sm-6 favChar">
 			 				<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000;">Favorite Character:</p>
 							{% if user_profile.favorite_character == "" and user_profile.id == logged_in_user.id %}
-								<form method="post">
+								<form method="post" style="margin: 10px;">
 			            	{% csrf_token %}
 			                	{{ favcharform | bootstrap }}
 			            	<input type="submit" value="Submit" name="FavChar" class="btn" style="margin-left: 25px;"/>
@@ -234,7 +237,7 @@
 							{% if user_profile.favorite_character != "" and user_profile.id == logged_in_user.id %}
 							<button type="button" class="btn" data-toggle="collapse" data-target="#EditChar" style="margin-left: 25px;">Edit Character</button>
 								<div id="EditChar" class="collapse">
-									<form method="post">
+									<form method="post" style="margin: 10px;">
 			            		{% csrf_token %}
 			                		{{ favcharform | bootstrap }}
 			            		<input type="submit" value="Update" name="FavChar" class="btn" onclick="reloadFun()" style="margin-left: 25px;"/>
@@ -245,7 +248,7 @@
 			 			<div class="col-sm-6 comicType" style="border-left: 2px solid #000;">
 			 				<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000;">Comic Genre Preference:</p>
 							{% if user_profile.comic_type == "" and user_profile.id == logged_in_user.id %}
-								<form method="post">
+								<form method="post" style="margin: 10px;">
 			            	{% csrf_token %}
 			                	{{ comictypeform | bootstrap }}
 			            	<input type="submit" value="Submit" name="ComicType" class="btn" style="margin-left: 25px;"/>
@@ -257,7 +260,7 @@
 							{% if user_profile.comic_type != "" and user_profile.id == logged_in_user.id %}
 							<button type="button" class="btn" data-toggle="collapse" data-target="#EditType" style="margin-left: 25px;">Edit Comic Type</button>
 								<div id="EditType" class="collapse">
-									<form method="post">
+									<form method="post" style="margin: 10px;">
 			            		{% csrf_token %}
 			                		{{ comictypeform | bootstrap }}
 			            		<input type="submit" value="Update" name="ComicType" class="btn" onclick="reloadFun()" style="margin-left: 25px;"/>
@@ -270,8 +273,10 @@
 			</div>
 
 			<div>
-				<div class="btn-group-vertical" style="padding: 10px;">
-					<button type="button" class="btn" data-toggle="collapse" data-target="#following">Followers <span class="badge">{{ follower_count }}</span></button>
+				<div style="position: absolute;">
+				<div class="col-sm-1">
+				<div class="btn-group-vertical" style="padding-top: 10px; padding-left: 10px;">
+					<button type="button" class="btn" data-toggle="collapse" data-target="#following" style="padding-left: 20px; padding-right:20px;">Followers <span class="badge">{{ follower_count }}</span></button>
 					<div id="following" class="collapse">
 							<div class="list-group">
 								{% if followers %}
@@ -281,7 +286,7 @@
 								{% endif %}
 							</div>
 					</div>
-					<button type="button" class="btn" data-toggle="collapse" data-target="#followers">Following <span class="badge">{{ following_count }}</span></button>
+					<button type="button" class="btn" data-toggle="collapse" data-target="#followers" style="padding-left: 20px; padding-right:20px;">Following <span class="badge">{{ following_count }}</span></button>
 					<div id="followers" class="collapse">
 							<div class="list-group">
 								{% if following %}
@@ -292,8 +297,9 @@
 							</div>
 						</div>
 					</div>
+				</div>
 
-				<div class="follow_button" style="margin: 10px">
+				<div class="follow_button" style="margin: 25px;">
 
 				{% if user_profile.id != logged_in_user.id %}
 						{% if checkFollow == 1 %}
@@ -316,6 +322,7 @@
 					{% endif %}
 				 {% endif %}
 				</div>
+			</div>
 			</div>
 		</div>
 	</div>
