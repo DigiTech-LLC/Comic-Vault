@@ -48,15 +48,15 @@
             ScrollInterval = setInterval('divScroll()', ScrollRate);
         }
     </script>
- 
+
     <style>
         body {
-    
-            background-image: url(http://www.jaseycrowl.com/css/bgred.jpg)
+          background-color: #cd0000;
+  				background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
         }
 
-        
-    
+
+
         .panel {
             background-color: #fff;
             border: solid 2px #000;
@@ -68,13 +68,13 @@
             overflow: hidden;
             position: relative;
         }
-    
+
         .top-left {
             left: -6px;
             top: -2px;
             transform: skew(-15deg);
         }
-    
+
         .text {
             background-color: #fff;
             border: solid 2px #000;
@@ -154,7 +154,7 @@
         {% endfor %} {% endif %}
 
         {% if carousel_comic %} {% for comic in carousel_comic %}
-                        <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }} 
+                        <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }}
                             alt="Cover Art" height="270" width="180"></a>
         {% endfor %} {% endif %}
 </div>
