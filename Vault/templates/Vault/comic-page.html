@@ -47,11 +47,11 @@
                     class="glyphicon glyphicon-log-in"></span> Login</a></li>
         {% endif %}
     </ul>
-</nav>
+  </nav>
 
-    <!--TODO move title to top always -->
 
-    <div class="container content bg-white">
+  <div class="container bg-white" style="border-left: 3px solid #2E2E2E; background-color: #EEE; margin-top: 25px">
+    <div class="container content">
       {% if comic_entry %}
 
         <!-- title -->
@@ -89,7 +89,6 @@
                 / 5
               </div>
 
-              <!-- TODO dropdown vv -->
               <div>
                 Your rating:
                 {% if user_rating %}
@@ -159,9 +158,12 @@
         </div>
         </br>
       </div>
+    </div>
+
+    <div class="container" style="border-left: 3px solid #2E2E2E; background-color: #EEE; margin-top: 25px">
 
 
-      <div class="container bg-white">
+      <div class="container comments pt-3">
         <!--comments -->
         <div class="row">
           <div class="col-sm-12 border-bottom">
@@ -189,7 +191,7 @@
         <div class="row">
           <div class="comment">
 
-            <form method="post" class="col-sm-12">
+            <form method="post" class="col-sm-12" >
                 {% csrf_token %}
                 <div class="mr-3">
                     {{ comiccommentform | bootstrap }}
@@ -204,6 +206,7 @@
         <p>No comic exists for ID :(</p>
     {% endif %}
 
+    </div>
 
   </body>
 </html>

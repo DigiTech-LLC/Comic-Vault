@@ -6,3 +6,13 @@ div .comic-title {
   font-family: Impact, Charcoal, sans-serif;
   font-size: 50px;
 }
+
+body {
+	background-color: #ff0900;
+	background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
+}
+
+.comments {
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
