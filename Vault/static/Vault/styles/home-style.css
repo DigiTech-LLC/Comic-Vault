@@ -1,0 +1,68 @@
+body {
+	background-color: #ff0900;
+	background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+#NewsDiv {
+    background-image: url(http://www.technobuffalo.com/wp-content/uploads/2015/07/marvel-universe-02.jpg);
+    font-family: 'Bangers';font-size: 22px;
+    margin: auto;
+    top: 56px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 3px;
+    border-left: solid #2E2E2E;
+    border-right: solid #2E2E2E;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: absolute;
+}
+
+.panel {
+    background-color: #fff;
+    border: solid 2px #000;
+    box-shadow: 0 6px 6px -6px #000;
+    display: inline-block;
+    flex: 1 1;
+    height: 220px;
+    margin: 1vmin;
+    overflow: hidden;
+    position: relative;
+}
+
+.top-left {
+    left: -6px;
+    top: -2px;
+    transform: skew(-15deg);
+}
+
+.text {
+    background-color: #fff;
+    border: solid 2px #000;
+    margin: 0;
+    padding: 3px 10px;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+    }
+    
+::-webkit-scrollbar-track-piece  {
+    background-color: rgb(179, 19, 19);
+    }
+  
+::-webkit-scrollbar-thumb:vertical {
+    height: 30px;
+    background-color: #003366;
+    }
