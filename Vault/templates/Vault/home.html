@@ -47,12 +47,12 @@
         }
 
         </script>
-        
+
 
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Comic Vault</a>
+    <a class="navbar-brand" style= "color:white;">Comic Vault</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
         <li class="nav-item"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
@@ -89,7 +89,7 @@
 
     {% if carousel_news %}
         <h1 align=center style="color:#003366; font-weight: bold;">
-            COMIC VAULT 
+            COMIC VAULT
             <hr/>
         </h1>
 
@@ -120,7 +120,7 @@
         </h2>
 
         {% if carousel_comic %} {% for comic in carousel_comic|slice:"0:10" %}
-                        <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }} 
+                        <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }}
                             alt="Cover Art" height="270" width="180"></a>
         {% endfor %} {% endif %}
 </div>

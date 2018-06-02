@@ -15,17 +15,17 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-	
+
 	<link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/search-style.css' %}">
-	
+
 	<title>Comic Vault - Search</title>
-		
-	
+
+
 	</head>
-	
+
 	<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Comic Vault</a>
+    <a class="navbar-brand" style= "color:white;">Comic Vault</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
         <li class="nav-item"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
@@ -55,14 +55,14 @@
 	</nav>
 
 		<br />
-		
+
 		<div class = "container rounded-box">
 			<div class = "row">
 				<h1>Find a Comic</h1>
 			</div>
-			
+
 			<br />
-			
+
 			<div class = "row">
 				<p>Enter some terms below to narrow search results!</p>
 			</div>
@@ -73,7 +73,7 @@
 					{{error}}
 				</div>
 				{% endfor %}
-				
+
 				<div class = "row form-group">
 					<div class = "col-xs-6 col-md-3 form-group">
 						{{form.series.errors}}
@@ -88,7 +88,7 @@
 						{{form.issue}}
 					</div>
 				</div>
-				
+
 				<div class = "row">
 					<div class = "col-xs-6 col-md-3 form-group">
 						{{form.publisher.errors}}
@@ -115,15 +115,15 @@
 						<button type = "submit" class = "btn btn-dark">Go!</button>
 					</div>
 				</div>
-			</form> 
-			
+			</form>
+
 		</div>
-		
+
 		<br />
 
 		<div class = "container rounded-box">
 		{% if comics %}
-		
+
 			{% if comics.has_other_pages %}
 				<nav>
 					<ul class="pagination justify-content-end">
@@ -136,7 +136,7 @@
 									<span class="page-link">&laquo;</span>
 								</li>
 							{% endif %}
-							
+
 							{% for i in comics.paginator.page_range %}
 								{% if comics.number == i%}
 									<li class="page-item active">
@@ -160,7 +160,7 @@
 					</ul>
 				</nav>
 			{% endif %}
-			
+
 			<ul class = "list-unstyled">
 			{% for comic in comics %}
 				<li class = "media my-4" style="border-left: 3px solid #2E2E2E; background-color: #EEE">
@@ -198,7 +198,7 @@
 				</li>
 			{% endfor %}
 			</ul>
-			
+
 		{% else %}
 			<div class = "row">
 				<div class = "col">
@@ -207,7 +207,7 @@
 			</div>
 		{% endif %}
 		</div>
-		
+
 		<br />
 	</body>
 </html>
