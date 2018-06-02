@@ -47,6 +47,7 @@
         }
 
         </script>
+        
 
 </head>
 
@@ -80,15 +81,22 @@
 </nav>
 
 <body onLoad="initScroll()">
+
 <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
 
 <div id="NewsDiv" class="container w-80"
      onMouseOver="divPause()">
 
     {% if carousel_news %}
-        <h1 align=center style="color:#003366;">
-            COMIC VAULT FEED
+        <h1 align=center style="color:#003366; font-weight: bold;">
+            COMIC VAULT 
+            <hr/>
         </h1>
+
+        <h2 align=center style="color:#003366;">
+            NEWS
+            <hr/>
+        </h2>
         {% for generalnews in carousel_news %}
             <div class="panel">
                     <p class="text top-left"><a href={% url 'newsItem' generalnews.id %} style="font-size:25px;">
@@ -104,6 +112,12 @@
             </div>
 
         {% endfor %} {% endif %}
+
+        <h2 align=center style="color:#003366;">
+            <hr/>
+            COMIC BOOKS
+            <hr/>
+        </h2>
 
         {% if carousel_comic %} {% for comic in carousel_comic|slice:"0:10" %}
                         <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }} 
