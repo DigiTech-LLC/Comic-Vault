@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/comic-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/search-style.css' %}">
 
   </head>
 
@@ -50,12 +51,12 @@
   </nav>
 
 
-  <div class="container bg-white" style="border-left: 3px solid #2E2E2E; background-color: #EEE; margin-top: 25px">
+  <div class="container bg-white rounded-box" style="border-left: 3px solid #2E2E2E; background-color: #EEE; margin-top: 25px">
     <div class="container content">
       {% if comic_entry %}
 
         <!-- title -->
-        <div class="row pt-3">
+        <div class="row"> <!--pt-3!-->
 
           <div class="col-sm-12 text-center text-md-left">
             <!--span class="display-4">{{ comic_entry.series }}</span-->
@@ -94,7 +95,7 @@
                 {% if user_rating %}
                   {{ user_rating.rating }} / 5
                   <form method="post">
-                      <div class="mr-3">
+                      <div class="mr-3 text-center">
                           {% csrf_token %}
                           {{ comicratingform | bootstrap }}
     		                  <input type="submit" value="Submit" name="ComicRating" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
@@ -103,7 +104,7 @@
                 {% else %}
                   - / 5
                   <form method="post">
-                      <div class="mr-3">
+                      <div class="mr-3 text-center">
                           {% csrf_token %}
                           {{ comicratingform | bootstrap }}
     		                  <input type="submit" value="Submit" name="ComicRating" class="btn btn-primary mb-3" style="background-color: #2E2E2E; border: none;"/>
@@ -160,7 +161,7 @@
       </div>
     </div>
 
-    <div class="container comments" style="border-left: 3px solid #2E2E2E;  margin-top: 25px">
+    <div class="container comments rounded-box" style="border-left: 3px solid #2E2E2E;  margin-top: 25px">
 
 
       <div class="container pt-3">
@@ -171,14 +172,17 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12" style="border-left: 3px solid #2E2E2E; background-color: #EEE;">
+          <div class="col-sm-12">
             <ul>
               {% if comic_comment_list %}
                 {% for comic_comment in comic_comment_list %}
                   </br>
-                  <div class="mr-3"><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
-                     {{ comic_comment.user_profile_id}} at {{ comic_comment.timestamp }}</div>
-                  <div>{{ comic_comment.content }}</div>
+                  <div class="rounded-box" style="border-left: 3px solid #2E2E2E; background-color: #EEE;">
+
+                    <div class="mr-3"><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
+                       {{ comic_comment.user_profile_id}} at {{ comic_comment.timestamp }}</div>
+                    <div>{{ comic_comment.content }}</div>
+                  </div>
                 {% endfor %}
               {% else %}
                   <div>No comments exists for comic</div>
