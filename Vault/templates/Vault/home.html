@@ -1,5 +1,6 @@
+{% load static %}
+{% load bootstrap %}
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <title>Comic Vault</title>
     <meta charset="utf-8">
@@ -11,6 +12,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/home-style.css' %}">
 
     <script language="javascript">
         ScrollRate = 100;
@@ -43,46 +46,7 @@
             clearInterval(ScrollInterval);
         }
 
-        function divResume() {
-            PreviousScrollTop = DivEl.scrollTop;
-            ScrollInterval = setInterval('divScroll()', ScrollRate);
-        }
-    </script>
-
-    <style>
-        body {
-          background-color: #cd0000;
-  				background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
-        }
-
-
-
-        .panel {
-            background-color: #fff;
-            border: solid 2px #000;
-            box-shadow: 0 6px 6px -6px #000;
-            display: inline-block;
-            flex: 1 1;
-            height: 220px;
-            margin: 1vmin;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .top-left {
-            left: -6px;
-            top: -2px;
-            transform: skew(-15deg);
-        }
-
-        .text {
-            background-color: #fff;
-            border: solid 2px #000;
-            margin: 0;
-            padding: 3px 10px;
-        }
-
-    </style>
+        </script>
 
 </head>
 
@@ -115,23 +79,11 @@
     </ul>
 </nav>
 
-
 <body onLoad="initScroll()">
 <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
 
-<div id="NewsDiv" class="container w-80" style="background-image: url(http://www.technobuffalo.com/wp-content/uploads/2015/07/marvel-universe-02.jpg);position: absolute;
-    font-family: 'Bangers';font-size: 22px;
-    margin: auto;
-    top: 56px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 3px;
-    border-left: solid #2E2E2E;
-    border-right: solid #2E2E2E;
-    overflow-x: hidden;
-    overflow-y: scroll;"
-     onMouseOver="divPause()" onMouseOut="divResume()">
+<div id="NewsDiv" class="container w-80"
+     onMouseOver="divPause()">
 
     {% if carousel_news %}
         <h1 align=center style="color:#003366;">
@@ -153,8 +105,8 @@
 
         {% endfor %} {% endif %}
 
-        {% if carousel_comic %} {% for comic in carousel_comic %}
-                        <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }}
+        {% if carousel_comic %} {% for comic in carousel_comic|slice:"0:10" %}
+                        <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }} 
                             alt="Cover Art" height="270" width="180"></a>
         {% endfor %} {% endif %}
 </div>
