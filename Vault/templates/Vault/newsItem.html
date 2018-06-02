@@ -40,19 +40,13 @@
 				font-family: 'Bangers', Charcoal, sans-serif;
 			}
 
-			.panel {
-					background-color: #fff;
-					border: solid 2px #000;
-					box-shadow: 0 6px 6px -6px #000;
-					position: relative;
-			}
 
 </style>
 
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Comic Vault</a>
+        <a class="navbar-brand" style= "color:white;">Comic Vault</a>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
@@ -76,15 +70,17 @@
         </ul>
     </nav>
 			{% load bootstrap %}
-		<div class="container" style="padding-top: 40px; border-left: solid #2E2E2E; border-right: solid #2E2E2E; background-image: url(https://gfx.antyradio.pl/var/antyradio/storage/images/film/duperele/10-dowodow-na-to-ze-dc-jest-lepsze-od-marvela-20367/1379549-1-pol-PL/10-dowodow-na-to-ze-DC-jest-lepsze-od-Marvela_article.jpg); 	background-repeat: no-repeat; background-size: cover;">
-			<div class="col-sm-12 panel">
-					<a href="{{ news_item.general_news_id.url }}" target="_blank"><h1 style="border-bottom: solid black; font-style:italic;">{{ news_item.general_news_id.title }}</h1></a>
+	<div class="container comments rounded-box" style="margin-top: 25px">
+					<a href="{{ news_item.general_news_id.url }}" target="_blank"><h1 style="font-style:italic;">{{ news_item.general_news_id.title }}</h1></a>
+	</div>
+	<div class="container comments rounded-box" style="margin-top: 25px">
 					<p>{{ news_item.general_news_id.content }}</p>
-			</div>
+	</div>
 
-			<div class="col-sm-10 comments" style="margin-left: 40px;">
-      		<div class="col-sm-12 border-bottom" style="margin-top: 60px;">
-          		<h4 style="color: black; font-size: 28px; background-color: white; padding: 5px; border: solid black; font-style: italic;">Comments</h4>
+<div class="container comments rounded-box" style="border-left: 3px solid #2E2E2E;  margin-top: 25px; margin-bottom:25px;">
+			<div class="container pt-3 comments">
+      		<div class="col-sm-12 border-bottom">
+          		<h4 style="color: black; font-size: 28px; font-style: italic;">Comments :</h4>
       		</div>
 
         	{% if item_comment_list %}
@@ -104,13 +100,13 @@
 								</li>
               {% endfor %}
           {% else %}
-              <div style="color: black; font-size: 28px; background-color: white; padding: 5px; border: solid black; font-style:italic;">No comments</div>
+              <div style="color: black; font-size: 20px; font-style:italic;">No comments</div>
           {% endif %}
 
 			</div>
 
       <div class="comment">
-          <form method="post" class="col-sm-10" style="margin-left: 40px;">
+          <form method="post" class="col-sm-10">
               {% csrf_token %}
               <div class="mr-3">
                   {{ itemCommentForm | bootstrap }}
@@ -118,7 +114,7 @@
                 <input type="submit" value="Submit" name="ItemComment" class="btn btn-primary mb-3 btn-lg" style="background-color: #2E2E2E; border: none; font-family: 'Bangers', Charcoal, sans-serif;"/>
           </form>
       </div>
-
+</div>
 		</div>
 </body>
 </html>

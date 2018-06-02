@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
 				<link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
+				<link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/search-style.css' %}">
 
 		<script>
 			function reloadFun() {
@@ -35,10 +37,11 @@
 
     img {
     		width: 100%;
-				border: 6px solid white;
-				border-radius: 12px;
 				margin: 10px;
 				padding: 15px;
+				border: 6px solid white;
+				border-radius: 12px;
+				background: white;
 		}
 
 		h1{
@@ -58,7 +61,7 @@
 		}
 
 		p{
-			font-size: 22px;
+			font-size: 26px;
 			color: #000000;
 			font-weight: 100;
 			font-family: 'Bangers', Charcoal, sans-serif;
@@ -66,12 +69,10 @@
 
 		.info{
 			margin-top: 10px;
-			border: 8px solid white;
-			border-radius: 12px;
 			margin-left: 2px;
 			margin-bottom: 20px;
-			padding-left: 30px;
-			padding-right: 30px;
+			padding-left: 40px;
+			padding-right: 40px;
 		}
 
 		.badge{
@@ -96,7 +97,6 @@
 				background:#FFFFFF;
 				margin-top: 30px;
 				padding-bottom: 10px;
-				box-shadow: 10px 10px 5px #010101;
 		}
 
 		.favChar, .comicType{
@@ -106,7 +106,6 @@
 		.persona{
 				background: #FFFFFF;
 				margin-top: 30px;
-				box-shadow: 10px 10px 5px #010101;
 		}
 
   	#following, #followers{
@@ -123,7 +122,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Comic Vault</a>
+    <a class="navbar-brand" style= "color:white;">Comic Vault</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
         <li class="nav-item"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
@@ -154,11 +153,11 @@
 	<div class="container-fluid">
 		<div class="row all">
 			<div class="col-sm-4 sidepanel">
-					<img class="img-responsive" src="{{ user_profile.profile_picture }}" class="img-rounded" alt="Profile Picture">
+					<img class="img-responsive" style="margin-top: 25px; height:425px; width:425px;" src="{{ user_profile.profile_picture }}" class="img-rounded" alt="Profile Picture">
 				{% if user_profile.profile_picture != "" and user_profile.id == logged_in_user.id %}
-				<button type="button" class="btn" data-toggle="collapse" data-target="#EditPic">Edit Profile Picture</button>
+				<button type="button" class="btn" data-toggle="collapse" data-target="#EditPic" style="margin-left: 10px;">Edit Profile Picture</button>
 					<div id="EditPic" class="collapse">
-						<form method="post">
+						<form method="post" style="margin-left: 10px;">
 								{% csrf_token %}
 										{{ pictureform | bootstrap }}
 								<input type="submit" value="Update" name="ProfilePic" class="btn" onclick="reloadFun()"/>
@@ -168,35 +167,34 @@
 			</div>
 
 			<div class="col-sm-6 info">
-				<div class="name">
-					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Name:</p>
-  				<h1 style="padding-left: 30px;">{{ user_profile.first_name }} {{ user_profile.last_name }}</h1>
+				<div class="name rounded-box" style="margin-top: 25px;">
+  				<h1>Name :    {{ user_profile.first_name }} {{ user_profile.last_name }}</h1>
 				</div>
-				<div class="persona" style="font-style: italic;">
-					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Persona:</p>
+				<div class="persona rounded-box" style="font-style: italic; margin-top: 25px;">
 					{% if user_profile.comic_persona == "" and user_profile.id == logged_in_user.id %}
+					 <p class="text-center">Persona :  </p>
 						<form method="post" style="margin: 10px;">
 	            	{% csrf_token %}
 	                	{{ comicpersonaform | bootstrap }}
-	            	<input type="submit" value="Submit" name="ComicPersona" class="btn" style="margin-left: 25px;"/>
+	            	<input type="submit" value="Submit" name="ComicPersona" class="btn" style="margin-left: 200px;"/>
 	        	</form>
 					{% endif %}
 					{% if user_profile.comic_persona != "" %}
-						<p style="padding-left: 25px;">{{ user_profile.comic_persona }}</p>
+						<p class="text-center">Persona :  {{ user_profile.comic_persona }}</p>
 					{% endif %}
 					{% if user_profile.comic_persona != "" and user_profile.id == logged_in_user.id %}
-					<button type="button" class="btn" data-toggle="collapse" data-target="#EditPersona" style="margin-left: 25px;">Edit Persona</button>
+					<button type="button" class="btn" data-toggle="collapse" data-target="#EditPersona" style="margin-left: 200px;">Edit Persona</button>
 						<div id="EditPersona" class="collapse">
 							<form method="post" style="margin: 10px;">
 	            		{% csrf_token %}
 	                		{{ comicpersonaform | bootstrap }}
-	            		<input type="submit" value="Update" name="ComicPersona" class="btn" onclick="reloadFun()" style="margin-left: 25px;"/>
+	            		<input type="submit" value="Update" name="ComicPersona" class="btn" onclick="reloadFun()" style="margin-left: 200px;"/>
 	        		</form>
 						</div>
 					{% endif %}
 				</div>
-				<div class="bio">
-					<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Bio:</p>
+				<div class="bio rounded-box" style="margin-top: 25px;">
+					<p>Bio:</p>
 					{% if user_profile.bio == "" and user_profile.id == logged_in_user.id %}
 						<form method="post" style="margin: 10px;">
 	            	{% csrf_token %}
@@ -218,10 +216,10 @@
 						</div>
 					{% endif %}
 				</div>
-				<div class="col-sm-12">
+				<div class="col-sm-12 rounded-box" style="margin-top: 25px;">
 				<div class="row">
 						<div class="col-sm-6 favChar">
-			 				<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Favorite Character:</p>
+			 				<p><u>Favorite Character:</u></p>
 							{% if user_profile.favorite_character == "" and user_profile.id == logged_in_user.id %}
 								<form method="post" style="margin: 10px;">
 			            	{% csrf_token %}
@@ -243,8 +241,8 @@
 								</div>
 							{% endif %}
 			 			</div>
-			 			<div class="col-sm-6 comicType" style="border-left: 2px solid #000;">
-			 				<p align="left" style="padding-left:20px; padding-top:5px; border-bottom: 2px solid #000; font-style: italic;">Comic Genre Preference:</p>
+			 			<div class="col-sm-6 comicType" style="border-left: 3px solid #000;">
+			 				<p><u>Comic Genre Preference:</u></p>
 							{% if user_profile.comic_type == "" and user_profile.id == logged_in_user.id %}
 								<form method="post" style="margin: 10px;">
 			            	{% csrf_token %}
@@ -273,8 +271,8 @@
 			<div>
 				<div style="position: absolute;">
 				<div class="col-sm-1">
-				<div class="btn-group-vertical" style="padding-top: 10px; padding-left: 10px;">
-					<button type="button" class="btn" data-toggle="collapse" data-target="#following" style="padding-left: 20px; padding-right:20px;">Followers <span class="badge">{{ follower_count }}</span></button>
+				<div class="btn-group-vertical" style="padding-top: 35px; padding-left: 10px;">
+					<button type="button" class="btn" data-toggle="collapse" data-target="#following" style="padding-left: 25px; padding-right:25px;">Followers <span class="badge">{{ follower_count }}</span></button>
 					<div id="following" class="collapse">
 							<div class="list-group">
 								{% if followers %}
@@ -284,7 +282,7 @@
 								{% endif %}
 							</div>
 					</div>
-					<button type="button" class="btn" data-toggle="collapse" data-target="#followers" style="padding-left: 20px; padding-right:20px;">Following <span class="badge">{{ following_count }}</span></button>
+					<button type="button" class="btn" data-toggle="collapse" data-target="#followers" style="padding-left: 25px; padding-right:25px;">Following <span class="badge">{{ following_count }}</span></button>
 					<div id="followers" class="collapse">
 							<div class="list-group">
 								{% if following %}
