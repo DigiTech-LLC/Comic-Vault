@@ -13,6 +13,7 @@
 
 		<link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
 		<link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/search-style.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'Vault/styles/home-style.css' %}">
 
 </head>
 
@@ -71,9 +72,7 @@
     </nav>
 			{% load bootstrap %}
 	<div class="container comments rounded-box" style="margin-top: 25px">
-					<a href="{{ news_item.general_news_id.url }}" target="_blank"><h1 style="font-style:italic;">{{ news_item.general_news_id.title }}</h1></a>
-	</div>
-	<div class="container comments rounded-box" style="margin-top: 25px">
+					<a href="{{ news_item.general_news_id.url }}" target="_blank"><h1 class="text top-left">{{ news_item.general_news_id.title }}</h1></a>
 					<p>{{ news_item.general_news_id.content }}</p>
 	</div>
 
