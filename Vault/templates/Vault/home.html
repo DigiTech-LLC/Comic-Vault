@@ -98,7 +98,7 @@
             <hr/>
         </h2>
         {% for generalnews in carousel_news %}
-            <div class="panel">
+            <div class="container rounded-box">
                     <p class="text top-left"><a href={% url 'newsItem' generalnews.id %} style="font-size:25px;">
                         {{ generalnews.title }}
                         </a>
