@@ -28,16 +28,11 @@ hr {
     position: absolute;
 }
 
-.panel {
-    background-color: #fff;
-    border: solid 2px #000;
-    box-shadow: 0 6px 6px -6px #000;
-    display: inline-block;
-    flex: 1 1;
-    height: 220px;
-    margin: 1vmin;
-    overflow: hidden;
-    position: relative;
+.rounded-box {
+	background-color: white;
+	border-radius: 10px;
+    padding: 25px 50px 25px;
+    margin-top: 25px;
 }
 
 .top-left {
