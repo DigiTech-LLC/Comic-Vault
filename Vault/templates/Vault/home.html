@@ -105,7 +105,7 @@
                     </p>
 
                 <p>
-                    {{ generalnews.content }}
+                    {{ generalnews.content | truncatewords:75 }} <a href={% url 'newsItem' generalnews.id %}>Read More</a>
                     <br>
 
                 </p>
