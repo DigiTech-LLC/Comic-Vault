@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Bangers');
+
 h1 {
-	font-family: Impact, Charcoal, sans-serif;
+	font-family: 'Bangers', Charcoal, sans-serif;
 }
 body {
 	background-color: #ff0900;
