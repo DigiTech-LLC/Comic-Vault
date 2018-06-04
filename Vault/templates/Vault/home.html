@@ -88,17 +88,19 @@
      onMouseOver="divPause()">
 
     {% if carousel_news %}
-        <h1 align=center style="color:#003366; font-weight: bold;">
+        <h1 class="mt-3" align=center>
             COMIC VAULT
-            <hr/>
         </h1>
 
-        <h2 align=center style="color:#003366;">
-            NEWS
+        <h2 align=left>
             <hr/>
+            <div class="ml-4">
+              NEWS
+            </div>
+
         </h2>
         {% for generalnews in carousel_news %}
-            <div class="container rounded-box">
+            <div class="container rounded-box" style="border-left: 3px solid #2E2E2E;">
                     <p class="text top-left"><a href={% url 'newsItem' generalnews.id %} style="font-size:25px;">
                         {{ generalnews.title }}
                         </a>
@@ -113,16 +115,21 @@
 
         {% endfor %} {% endif %}
 
-        <h2 align=center style="color:#003366;">
+        <h2 align=left>
             <hr/>
-            COMIC BOOKS
-            <hr/>
+            <div class="ml-4">
+              COMIC BOOKS
+            </div>
         </h2>
 
-        {% if carousel_comic %} {% for comic in carousel_comic|slice:"0:10" %}
-                        <a href={% url 'comicpage' comic.id%}><img class="ml-3 mr-3" src={{ comic.cover_art }}
-                            alt="Cover Art" height="270" width="180"></a>
-        {% endfor %} {% endif %}
+        <div class="container rounded-box mb-3" style="border-left: 3px solid #2E2E2E;">
+          <div class="mt-2 mb-2">
+            {% if carousel_comic %} {% for comic in carousel_comic|slice:"0:10" %}
+                            <a href={% url 'comicpage' comic.id%}><img class="ml-2 mr-1" src={{ comic.cover_art }}
+                                alt="Cover Art" height="270" width="180"></a>
+            {% endfor %} {% endif %}
+          </div>
+        </div>
 </div>
 </body>
 

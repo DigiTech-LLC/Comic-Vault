@@ -23,7 +23,7 @@
 				background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
 			}
 
-			h1{
+			h6{
 				font-weight: 100;
 				font-family: 'Bangers', Charcoal, sans-serif;
 				font-size:40px;
@@ -64,14 +64,14 @@
     </nav>
 			{% load bootstrap %}
 	<div class="container comments rounded-box" style="margin-top: 25px">
-					<a href="{{ news_item.general_news_id.url }}" target="_blank"><h1 class="text top-left">{{ news_item.general_news_id.title }}</h1></a>
+					<a href="{{ news_item.general_news_id.url }}" target="_blank"><h6 class="text top-left">{{ news_item.general_news_id.title }}</h6></a>
 					<p style="font-family: 'Bangers', Charcoal, sans-serif; padding-top: 10px;">{{ news_item.general_news_id.content }}</p>
 	</div>
 
 <div class="container comments rounded-box" style="border-left: 3px solid #2E2E2E;  margin-top: 25px; margin-bottom:25px;">
 			<div class="container pt-3 comments">
       		<div class="col-sm-12 border-bottom">
-          		<h4 style="color: black; font-size: 28px; font-family: 'Bangers', Charcoal, sans-serif;">Comments :</h4>
+          		<h4 style="color: black; font-size: 28px; font-family: 'Bangers', Charcoal, sans-serif;">Comments</h4>
       		</div>
 
         	{% if item_comment_list %}
