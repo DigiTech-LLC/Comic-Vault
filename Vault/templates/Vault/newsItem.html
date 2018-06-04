@@ -23,24 +23,16 @@
 				background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre-big.png");
 			}
 
-			h1, p{
+			h1{
 				font-weight: 100;
 				font-family: 'Bangers', Charcoal, sans-serif;
+				font-size:40px;
 			}
 
 			p{
 				font-size:25px;
 				color: black;
 			}
-
-			h1{
-				font-size:40px;
-			}
-
-			.comments{
-				font-family: 'Bangers', Charcoal, sans-serif;
-			}
-
 
 </style>
 
@@ -73,13 +65,13 @@
 			{% load bootstrap %}
 	<div class="container comments rounded-box" style="margin-top: 25px">
 					<a href="{{ news_item.general_news_id.url }}" target="_blank"><h1 class="text top-left">{{ news_item.general_news_id.title }}</h1></a>
-					<p>{{ news_item.general_news_id.content }}</p>
+					<p style="font-family: 'Bangers', Charcoal, sans-serif; padding-top: 10px;">{{ news_item.general_news_id.content }}</p>
 	</div>
 
 <div class="container comments rounded-box" style="border-left: 3px solid #2E2E2E;  margin-top: 25px; margin-bottom:25px;">
 			<div class="container pt-3 comments">
       		<div class="col-sm-12 border-bottom">
-          		<h4 style="color: black; font-size: 28px; font-style: italic;">Comments :</h4>
+          		<h4 style="color: black; font-size: 28px; font-style: italic; font-family: 'Bangers', Charcoal, sans-serif;">Comments :</h4>
       		</div>
 
         	{% if item_comment_list %}
@@ -99,7 +91,7 @@
 								</li>
               {% endfor %}
           {% else %}
-              <div style="color: black; font-size: 20px; font-style:italic;">No comments</div>
+              <div style="color: black; font-size: 20px; font-style:italic; font-family: 'Bangers', Charcoal, sans-serif;">No comments</div>
           {% endif %}
 
 			</div>
