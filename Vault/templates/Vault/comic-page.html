@@ -22,7 +22,7 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" style= "color:white;">Comic Vault</a>
+    <a class="navbar-brand" style= "color:white; font-family: 'Bangers', Charcoal, sans-serif;">Comic Vault</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
         <li class="nav-item"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
@@ -60,7 +60,7 @@
 
           <div class="col-sm-12 text-center text-md-left">
             <!--span class="display-4">{{ comic_entry.series }}</span-->
-            <span class="comic-title">{{ comic_entry.series }}</span>
+            <span class="comic-title" style="font-family: 'Bangers', Charcoal, sans-serif;">{{ comic_entry.series }}</span>
           </div>
         </div>
 
@@ -168,7 +168,7 @@
         <!--comments -->
         <div class="row">
           <div class="col-sm-12 border-bottom">
-            <strong>Comments</strong>
+            <strong style="font-family: 'Bangers', Charcoal, sans-serif; font-size: 28px;">Comments</strong>
           </div>
         </div>
         <div class="row">
@@ -176,16 +176,22 @@
             <ul>
               {% if comic_comment_list %}
                 {% for comic_comment in comic_comment_list %}
-                  </br>
-                  <div class="rounded-box" style="border-left: 3px solid #2E2E2E; background-color: #EEE;">
-
-                    <div class="mr-3"><img src="{{ comic_comment.user_profile_id.profile_picture }}" alt="user pic here" style="width:64px;height:64px;">
-                       {{ comic_comment.user_profile_id}} at {{ comic_comment.timestamp }}</div>
-                    <div>{{ comic_comment.content }}</div>
-                  </div>
+                <li class="media my-3 mr-3 rounded-box" style="border-left: 3px solid #2E2E2E; background-color: #dcdcdc">
+                    <a class="pr-3 ml-3 mt-3 my-3" href="#">
+                        <img src="{{ comic_comment.user_profile_id.profile_picture }}"
+                            alt="Profile Picture" height="64px" width="64px">
+                    </a>
+                    <div class="media-body">
+                      <h5 class="mt-3"><a
+                            href={% url 'profile' comic_comment.user_profile_id.id %} style="color: #1C1B1D; font-size: 22px; font-weight: bold;">{{ comic_comment.user_profile_id.first_name }} {{ comic_comment.user_profile_id.last_name }}</a>
+                      </h5>
+                      <p style="color: black;font-size: 20px;">{{ comic_comment.content | urlize }}</p>
+                      <p style="color:#6d6d6c; font-size: 18px;"> {{ comic_comment.timestamp }} </p>
+                    </div>
+                </li>
                 {% endfor %}
               {% else %}
-                  <div>No comments exists for comic</div>
+                  <div style="font-family: 'Bangers', Charcoal, sans-serif; font-size: 20px;">No comments exists for comic</div>
               {% endif %}
             </ul>
           </div>
@@ -193,9 +199,9 @@
 
 
         <div class="row">
-          <div class="comment">
+          <div class="comment col-sm-12">
 
-            <form method="post" class="col-sm-12" >
+            <form method="post" class="col-sm-10" >
                 {% csrf_token %}
                 <div class="mr-3">
                     {{ comiccommentform | bootstrap }}
@@ -207,7 +213,7 @@
         </div>
       </div>
     {% else %}
-        <p>No comic exists for ID :(</p>
+        <p style="font-family: 'Bangers', Charcoal, sans-serif; font-size: 20px;">No comic exists for ID :(</p>
     {% endif %}
 
     </div>
