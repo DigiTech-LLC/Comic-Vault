@@ -17,7 +17,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" style= "color:white;">Comic Vault</a>
+    <a class="navbar-brand" style= "color:white; font-family: 'Bangers', Charcoal, sans-serif;">Comic Vault</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
         <li class="nav-item"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
@@ -48,7 +48,7 @@
 {% block content %}
     <div class="container w-80 form-group media rounded-box" style="border-left: 3px solid #2E2E2E; background-color: #EEE; margin-top: 25px">
         <form method="post">
-            <h2 class="my-4">Sign up</h2>
+            <h2 class="my-4" style="font-family: 'Bangers', Charcoal, sans-serif;">Sign up</h2>
             {% csrf_token %}
             {% for field in form %}
                     {{ field | bootstrap }}

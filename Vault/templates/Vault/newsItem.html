@@ -39,7 +39,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" style= "color:white;">Comic Vault</a>
+        <a class="navbar-brand" style= "color:white; font-family: 'Bangers', Charcoal, sans-serif;">Comic Vault</a>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="{% url 'timeline' %}" class="nav-link">My Timeline</a></li>
@@ -71,7 +71,7 @@
 <div class="container comments rounded-box" style="border-left: 3px solid #2E2E2E;  margin-top: 25px; margin-bottom:25px;">
 			<div class="container pt-3 comments">
       		<div class="col-sm-12 border-bottom">
-          		<h4 style="color: black; font-size: 28px; font-style: italic; font-family: 'Bangers', Charcoal, sans-serif;">Comments :</h4>
+          		<h4 style="color: black; font-size: 28px; font-family: 'Bangers', Charcoal, sans-serif;">Comments :</h4>
       		</div>
 
         	{% if item_comment_list %}
@@ -91,7 +91,7 @@
 								</li>
               {% endfor %}
           {% else %}
-              <div style="color: black; font-size: 20px; font-style:italic; font-family: 'Bangers', Charcoal, sans-serif;">No comments</div>
+              <div style="color: black; font-size: 20px; font-family: 'Bangers', Charcoal, sans-serif; padding-left: 60px;">No comments</div>
           {% endif %}
 
 			</div>
@@ -102,7 +102,7 @@
               <div class="mr-3">
                   {{ itemCommentForm | bootstrap }}
               </div>
-                <input type="submit" value="Submit" name="ItemComment" class="btn btn-primary mb-3 btn-lg" style="background-color: #2E2E2E; border: none; font-family: 'Bangers', Charcoal, sans-serif;"/>
+                <input type="submit" value="Submit" name="ItemComment" class="btn btn-primary mb-3 btn-lg" style="background-color: #2E2E2E; border: none;"/>
           </form>
       </div>
 </div>
