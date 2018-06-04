@@ -100,7 +100,7 @@
 
         </h2>
         {% for generalnews in carousel_news %}
-            <div class="container rounded-box" style="border-left: 3px solid #2E2E2E;">
+            <div class="container rounded-box shadow" style="border-left: 3px solid #2E2E2E;">
                     <p class="text top-left"><a href={% url 'newsItem' generalnews.id %} style="font-size:25px;">
                         {{ generalnews.title }}
                         </a>
@@ -122,7 +122,7 @@
             </div>
         </h2>
 
-        <div class="container rounded-box mb-3" style="border-left: 3px solid #2E2E2E;">
+        <div class="container rounded-box shadow mb-3" style="border-left: 3px solid #2E2E2E;">
           <div class="mt-2 mb-2">
             {% if carousel_comic %} {% for comic in carousel_comic|slice:"0:10" %}
                             <a href={% url 'comicpage' comic.id%}><img class="ml-2 mr-1" src={{ comic.cover_art }}
